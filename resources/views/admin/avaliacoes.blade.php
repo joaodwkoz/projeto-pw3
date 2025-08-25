@@ -43,7 +43,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{route('dashboard.avaliacoes')}}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
@@ -106,15 +106,15 @@
                     </div>
 
                     <div class="category" style="width: 144px;">
-                        <span>Assunto</span>
+                        <span>Filme</span>
                     </div>
 
                     <div class="category" style="width: 320px;">
-                        <span>Mensagem</span>
+                        <span>Descrição</span>
                     </div>
 
                     <div class="category" style="width: 210px;">
-                        <span>Status</span>
+                        <span>Avaliação</span>
                     </div>
                 </div>
 

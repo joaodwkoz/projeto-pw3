@@ -39,6 +39,12 @@ Route::get('/cadastro', function () {
 
 Route::get('/dashboard/index', function () {
     return view('admin.index');
-});
+})->name('dashboard.index');
 
-Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index');
+Route::get('/dashboard/usuarios', 'App\Http\Controllers\UsuarioController@index')->name('dashboard.usuarios');
+
+Route::get('/dashboard/avaliacoes', function () {
+    return view('admin.avaliacoes');
+})->name('dashboard.avaliacoes');
+
+Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index')->name('dashboard.contatos');

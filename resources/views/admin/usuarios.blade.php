@@ -93,56 +93,36 @@
         </aside>
         
         <main id="app">
-            <span class="title">Lista de contatos</span>
+            <span class="title">Lista de usuários</span>
 
             <div id="list">
                 <div class="header">
-                    <div class="category" style="width: 220px;">
+                    <div class="category" style="width: 260px;">
                         <span>Nome</span>
                     </div>
 
-                    <div class="category" style="width: 240px;">
+                    <div class="category" style="width: 380px;">
                         <span>Email</span>
                     </div>
 
-                    <div class="category" style="width: 144px;">
-                        <span>Assunto</span>
-                    </div>
-
-                    <div class="category" style="width: 320px;">
-                        <span>Mensagem</span>
-                    </div>
-
-                    <div class="category" style="width: 210px;">
-                        <span>Status</span>
+                    <div class="category" style="width: 420px;">
+                        <span>Senha</span>
                     </div>
                 </div>
 
                 <div class="data">
-                    @foreach($contatos as $contato)
+                    @foreach($usuarios as $usuario)
                         <div class="row">
-                            <div class="info" style="width: 220px;">
-                                <span>{{$contato->nome}}</span>
+                            <div class="info" style="width: 260px;">
+                                <span>{{$usuario->nome}}</span>
                             </div>
 
-                            <div class="info" style="width: 240px;">
-                                <span>{{$contato->email}}</span>
+                            <div class="info" style="width: 380px;">
+                                <span>{{$usuario->email}}</span>
                             </div>
 
-                            <div class="info assunto {{ $contato->assuntoClass() }}" style="width: 144px;">
-                                <div class="box">
-                                    <span>{{$contato->assuntoTexto()}}</span>
-                                </div>
-                            </div>
-
-                            <div class="info" style="width: 320px;">
-                                <span>{{$contato->mensagem}}</span>
-                            </div>
-                            
-                            <div class="info status solved" style="width: 210px;">
-                                <div class="box">
-                                    <span>Resolvido</span>
-                                </div>
+                            <div class="info" style="width: 420px;">
+                                <span>{{str_repeat('*', strlen($usuario->senha))}}</span>
                             </div>
                         </div>
                     @endforeach
