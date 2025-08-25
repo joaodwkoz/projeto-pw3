@@ -1,0 +1,121 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            background-color: #130E22;
+            color: #333;
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #130E22;
+            color: white;
+            padding: 20px;
+            position: fixed;
+        }
+        
+        .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #f39c12;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar li:hover {
+            background-color: #34495e;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            width: calc(100% - 250px);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #3498db;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        
+        .profile-info h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #ffff;
+            font-family: "p";
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            color: #ffff;
+            font-family: "Poppins",sans-serif;
+            font-weight: 500;
+        }
+        
+        .movie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .movie-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .movie-poster {
+            height: 250px;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+        
+        .movie-info {
+            padding: 15px;
+        }
+        
