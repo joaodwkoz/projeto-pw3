@@ -122,21 +122,21 @@
                     @foreach($contatos as $contato)
                         <div class="row">
                             <div class="info" style="width: 220px;">
-                                <span>$contato->nome</span>
+                                <span>{{$contato->nome}}</span>
                             </div>
 
                             <div class="info" style="width: 240px;">
-                                <span>$contato->email</span>
+                                <span>{{$contato->email}}</span>
                             </div>
 
                             <div class="info assunto {{ $contato->assuntoClass() }}" style="width: 144px;">
                                 <div class="box">
-                                    <span>$contato->assunto</span>
+                                    <span>{{$contato->assuntoTexto()}}</span>
                                 </div>
                             </div>
 
                             <div class="info" style="width: 320px;">
-                                <span>$contato->mensagem</span>
+                                <span>{{$contato->mensagem}}</span>
                             </div>
                             
                             <div class="info status solved" style="width: 210px;">

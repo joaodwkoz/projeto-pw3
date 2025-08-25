@@ -27,7 +27,7 @@ class ContatoController extends Controller{
             $contato->assunto = $request->assunto;
             $contato->mensagem = $request->mensagem;
             $contato->created_at = date('Y-m-d H:i:s');
-            $contato->update_at = date('Y-m-d H:i:s');
+            $contato->updated_at = date('Y-m-d H:i:s');
             
             $contato->save();
         }
