@@ -119,109 +119,33 @@
                 </div>
 
                 <div class="data">
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
+                    @foreach($contatos as $contato)
+                        <div class="row">
+                            <div class="info" style="width: 220px;">
+                                <span>$contato->nome</span>
+                            </div>
 
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
+                            <div class="info" style="width: 240px;">
+                                <span>$contato->email</span>
+                            </div>
 
-                        <div class="info assunto issue" style="width: 144px;">
-                            <div class="box">
-                                <span>Problema</span>
+                            <div class="info assunto {{ $contato->assuntoClass() }}" style="width: 144px;">
+                                <div class="box">
+                                    <span>$contato->assunto</span>
+                                </div>
+                            </div>
+
+                            <div class="info" style="width: 320px;">
+                                <span>$contato->mensagem</span>
+                            </div>
+                            
+                            <div class="info status solved" style="width: 210px;">
+                                <div class="box">
+                                    <span>Resolvido</span>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status solved" style="width: 210px;">
-                            <div class="box">
-                                <span>Resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto question" style="width: 144px;">
-                            <div class="box">
-                                <span>Dúvida</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status unsolved" style="width: 210px;">
-                            <div class="box">
-                                <span>Não resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto report" style="width: 144px;">
-                            <div class="box">
-                                <span>Denúncia</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status solved" style="width: 210px;">
-                            <div class="box">
-                                <span>Resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto suggestion" style="width: 144px;">
-                            <div class="box">
-                                <span>Sugestão</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status unsolved" style="width: 210px;">
-                            <div class="box">
-                                <span>Não resolvido</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </main>
