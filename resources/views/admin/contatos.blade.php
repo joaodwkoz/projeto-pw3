@@ -15,7 +15,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-home.png" alt="">
+                            <img src="{{ url('imgs/side-home.png')}}" alt="">
                         </div>
 
                         <span class="text">Home</span>
@@ -25,7 +25,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-movies.png" alt="">
+                            <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
 
                         <span class="text">Filmes</span>
@@ -35,7 +35,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-users.png" alt="">
+                            <img src="{{ url('imgs/side-users.png')}}" alt="">
                         </div>
 
                         <span class="text">Usuários</span>
@@ -45,7 +45,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-reviews.png" alt="">
+                            <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
 
                         <span class="text">Avaliações</span>
@@ -55,7 +55,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-lists.png" alt="">
+                            <img src="{{ url('imgs/side-lists.png')}}" alt="">
                         </div>
 
                         <span class="text">Listas</span>
@@ -65,7 +65,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-contacts.png" alt="">
+                            <img src="{{ url('imgs/side-contacts.png')}}" alt="">
                         </div>
 
                         <span class="text">Contatos</span>
@@ -84,7 +84,7 @@
 
                 <div class="log-out">
                     <div class="icon">
-                        <img src="imgs/side-logout.png" alt="">
+                        <img src="{{ url('imgs/side-logout.png')}}" alt="">
                     </div>
 
                     <span class="text">Sair</span>

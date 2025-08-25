@@ -43,7 +43,7 @@ class Contato extends Model
             return 'Sugestão';
         }
 
-        return 'Questão';
+        return 'Dúvida';
     }
 }
 ?>
