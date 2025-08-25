@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url('css/dashboard.css') }}">
+</head>
+<body>
+    <div id="dashboard">
+        <aside id="sidebar">
+            <div class="logo"></div>
+
+            <ul>
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-home.png" alt="">
+                        </div>
+
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-movies.png" alt="">
+                        </div>
+
+                        <span class="text">Filmes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-users.png" alt="">
+                        </div>
+
+                        <span class="text">Usuários</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-reviews.png" alt="">
+                        </div>
+
+                        <span class="text">Avaliações</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-lists.png" alt="">
+                        </div>
+
+                        <span class="text">Listas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <div class="icon">
+                            <img src="imgs/side-contacts.png" alt="">
+                        </div>
+
+                        <span class="text">Contatos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="profile-content">
+                <div class="profile">
+                    <div class="profile-icon"></div>
+
+                    <span class="profile-name">
+                        João Pedro
+                    </span>
+                </div>
+
+                <div class="log-out">
+                    <div class="icon">
+                        <img src="imgs/side-logout.png" alt="">
+                    </div>
+
+                    <span class="text">Sair</span>
+                </div>
+            </div>
+        </aside>
+        
+        <main id="app">
+            <span class="title">Lista de contatos</span>
+
+            <div id="list">
+                <div class="header">
+                    <div class="category" style="width: 220px;">
+                        <span>Nome</span>
+                    </div>
+
+                    <div class="category" style="width: 240px;">
+                        <span>Email</span>
+                    </div>
+
+                    <div class="category" style="width: 144px;">
+                        <span>Assunto</span>
+                    </div>
+
+                    <div class="category" style="width: 320px;">
+                        <span>Mensagem</span>
+                    </div>
+
+                    <div class="category" style="width: 210px;">
+                        <span>Status</span>
+                    </div>
+                </div>
+
+                <div class="data">
+                    <div class="row">
+                        <div class="info" style="width: 220px;">
+                            <span>João Pedro</span>
+                        </div>
+
+                        <div class="info" style="width: 240px;">
+                            <span>fjoaopedro1302@gmail.com</span>
+                        </div>
+
+                        <div class="info assunto issue" style="width: 144px;">
+                            <div class="box">
+                                <span>Problema</span>
+                            </div>
+                        </div>
+
+                        <div class="info" style="width: 320px;">
+                            <span>Acho que o site podia ser mais bonito.</span>
+                        </div>
+                        
+                        <div class="info status solved" style="width: 210px;">
+                            <div class="box">
+                                <span>Resolvido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="info" style="width: 220px;">
+                            <span>João Pedro</span>
+                        </div>
+
+                        <div class="info" style="width: 240px;">
+                            <span>fjoaopedro1302@gmail.com</span>
+                        </div>
+
+                        <div class="info assunto question" style="width: 144px;">
+                            <div class="box">
+                                <span>Dúvida</span>
+                            </div>
+                        </div>
+
+                        <div class="info" style="width: 320px;">
+                            <span>Acho que o site podia ser mais bonito.</span>
+                        </div>
+                        
+                        <div class="info status unsolved" style="width: 210px;">
+                            <div class="box">
+                                <span>Não resolvido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="info" style="width: 220px;">
+                            <span>João Pedro</span>
+                        </div>
+
+                        <div class="info" style="width: 240px;">
+                            <span>fjoaopedro1302@gmail.com</span>
+                        </div>
+
+                        <div class="info assunto report" style="width: 144px;">
+                            <div class="box">
+                                <span>Denúncia</span>
+                            </div>
+                        </div>
+
+                        <div class="info" style="width: 320px;">
+                            <span>Acho que o site podia ser mais bonito.</span>
+                        </div>
+                        
+                        <div class="info status solved" style="width: 210px;">
+                            <div class="box">
+                                <span>Resolvido</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="info" style="width: 220px;">
+                            <span>João Pedro</span>
+                        </div>
+
+                        <div class="info" style="width: 240px;">
+                            <span>fjoaopedro1302@gmail.com</span>
+                        </div>
+
+                        <div class="info assunto suggestion" style="width: 144px;">
+                            <div class="box">
+                                <span>Sugestão</span>
+                            </div>
+                        </div>
+
+                        <div class="info" style="width: 320px;">
+                            <span>Acho que o site podia ser mais bonito.</span>
+                        </div>
+                        
+                        <div class="info status unsolved" style="width: 210px;">
+                            <div class="box">
+                                <span>Não resolvido</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
