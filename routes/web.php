@@ -33,6 +33,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/cadastro', function () {
+    return view('cadastro');
+})->name('cadastro');
+
 Route::get('/dashboard/index', function () {
     return view('admin.index');
 });
