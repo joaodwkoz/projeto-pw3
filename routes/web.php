@@ -29,6 +29,10 @@ Route::get('/perfil', function () {
     return view('perfil');
 });
 
+Route::get('/login', function () {
+    return view('login');
+});
+
 Route::get('/dashboard/index', function () {
     return view('admin.index');
 })->name('dashboard.index');
