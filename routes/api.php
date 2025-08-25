@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/dashboard/contatos', 'App\Http\Controllers\ContatoController@storeApi');
 
-
+Route::post('/dashboard/usuarios', 'App\Http\Controllers\UsuarioController@storeApi');

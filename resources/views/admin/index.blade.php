@@ -13,7 +13,7 @@
 
             <ul>
                 <li>
-                    <a href="">
+                    <a href="{{route('dashboard.index')}}">
                         <div class="icon">
                             <img src="imgs/side-home.png" alt="">
                         </div>
@@ -63,7 +63,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{route('dashboard.contatos')}}">
                         <div class="icon">
                             <img src="imgs/side-contacts.png" alt="">
                         </div>
