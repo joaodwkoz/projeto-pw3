@@ -32,3 +32,7 @@ Route::get('/perfil', function () {
 Route::get('/dashboard/index', function () {
     return view('admin.index');
 });
+
+Route::get('/dashboard/contatos', function () {
+    return view('admin.contatos');
+});
