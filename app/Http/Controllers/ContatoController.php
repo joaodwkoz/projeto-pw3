@@ -15,19 +15,19 @@ class ContatoController extends Controller{
              */
         public function index()
         {
-            $contato = Contato::all();
-            return view('sla')->with('contato', $contato);
+            $contatos = Contato::all();
+            return view('admin.contatos')->with('contatos', $contatos);
         }
 
         public function storeApi(Request $request){
             $contato = new Contato();
 
-            $contato -> nome = $request -> nome;
-            $contato -> email = $request -> email;
-            $contato -> assunto = $request -> assunto;
-            $contato -> mensagem = $request -> mensagem;
-            $contato -> created_at = date('Y-m-d H:i:s');
-            $contato -> update_at = date('Y-m-d H:i:s');
+            $contato->nome = $request->nome;
+            $contato->email = $request->email;
+            $contato->assunto = $request->assunto;
+            $contato->mensagem = $request->mensagem;
+            $contato->created_at = date('Y-m-d H:i:s');
+            $contato->updated_at = date('Y-m-d H:i:s');
             
             $contato->save();
         }

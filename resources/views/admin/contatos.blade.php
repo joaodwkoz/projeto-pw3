@@ -15,7 +15,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-home.png" alt="">
+                            <img src="{{ url('imgs/side-home.png')}}" alt="">
                         </div>
 
                         <span class="text">Home</span>
@@ -25,7 +25,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-movies.png" alt="">
+                            <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
 
                         <span class="text">Filmes</span>
@@ -35,7 +35,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-users.png" alt="">
+                            <img src="{{ url('imgs/side-users.png')}}" alt="">
                         </div>
 
                         <span class="text">Usuários</span>
@@ -45,7 +45,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-reviews.png" alt="">
+                            <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
 
                         <span class="text">Avaliações</span>
@@ -55,7 +55,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-lists.png" alt="">
+                            <img src="{{ url('imgs/side-lists.png')}}" alt="">
                         </div>
 
                         <span class="text">Listas</span>
@@ -65,7 +65,7 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="imgs/side-contacts.png" alt="">
+                            <img src="{{ url('imgs/side-contacts.png')}}" alt="">
                         </div>
 
                         <span class="text">Contatos</span>
@@ -84,7 +84,7 @@
 
                 <div class="log-out">
                     <div class="icon">
-                        <img src="imgs/side-logout.png" alt="">
+                        <img src="{{ url('imgs/side-logout.png')}}" alt="">
                     </div>
 
                     <span class="text">Sair</span>
@@ -119,109 +119,33 @@
                 </div>
 
                 <div class="data">
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
+                    @foreach($contatos as $contato)
+                        <div class="row">
+                            <div class="info" style="width: 220px;">
+                                <span>{{$contato->nome}}</span>
+                            </div>
 
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
+                            <div class="info" style="width: 240px;">
+                                <span>{{$contato->email}}</span>
+                            </div>
 
-                        <div class="info assunto issue" style="width: 144px;">
-                            <div class="box">
-                                <span>Problema</span>
+                            <div class="info assunto {{ $contato->assuntoClass() }}" style="width: 144px;">
+                                <div class="box">
+                                    <span>{{$contato->assuntoTexto()}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info" style="width: 320px;">
+                                <span>{{$contato->mensagem}}</span>
+                            </div>
+                            
+                            <div class="info status solved" style="width: 210px;">
+                                <div class="box">
+                                    <span>Resolvido</span>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status solved" style="width: 210px;">
-                            <div class="box">
-                                <span>Resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto question" style="width: 144px;">
-                            <div class="box">
-                                <span>Dúvida</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status unsolved" style="width: 210px;">
-                            <div class="box">
-                                <span>Não resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto report" style="width: 144px;">
-                            <div class="box">
-                                <span>Denúncia</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status solved" style="width: 210px;">
-                            <div class="box">
-                                <span>Resolvido</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="info" style="width: 220px;">
-                            <span>João Pedro</span>
-                        </div>
-
-                        <div class="info" style="width: 240px;">
-                            <span>fjoaopedro1302@gmail.com</span>
-                        </div>
-
-                        <div class="info assunto suggestion" style="width: 144px;">
-                            <div class="box">
-                                <span>Sugestão</span>
-                            </div>
-                        </div>
-
-                        <div class="info" style="width: 320px;">
-                            <span>Acho que o site podia ser mais bonito.</span>
-                        </div>
-                        
-                        <div class="info status unsolved" style="width: 210px;">
-                            <div class="box">
-                                <span>Não resolvido</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </main>

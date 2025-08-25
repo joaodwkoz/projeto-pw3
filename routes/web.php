@@ -36,3 +36,5 @@ Route::get('/login', function () {
 Route::get('/dashboard/index', function () {
     return view('admin.index');
 });
+
+Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index');
