@@ -351,6 +351,31 @@ body, html {
     border: 0.104167vw solid #fff;
 }
 
+#app #list .data .row .info.acoes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9vw;
+    opacity: 0.5;
+}
+
+#app #list .data .row .info.acoes button {
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+#app #list .data .row .info.acoes button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .suggestion .box {
     border-color: #79BAE0 !important;
 }

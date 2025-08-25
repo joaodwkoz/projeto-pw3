@@ -105,8 +105,12 @@
                         <span>Email</span>
                     </div>
 
-                    <div class="category" style="width: 420px;">
+                    <div class="category" style="width: 360px;">
                         <span>Senha</span>
+                    </div>
+
+                    <div class="category" style="width: 120px;">
+                        <span>Ações</span>
                     </div>
                 </div>
 
@@ -121,8 +125,18 @@
                                 <span>{{$usuario->email}}</span>
                             </div>
 
-                            <div class="info" style="width: 420px;">
-                                <span>{{str_repeat('*', strlen($usuario->senha))}}</span>
+                            <div class="info" style="width: 360px;">
+                                <span>{{str_repeat('•', strlen($usuario->senha))}}</span>
+                            </div>
+
+                            <div class="info acoes" style="width: 120px;">
+                                <button>
+                                    <img src="{{url('imgs/admin-ver.png')}}" alt="">
+                                </button>
+
+                                <button>
+                                    <img src="{{url('imgs/admin-deletar.png')}}" alt="">
+                                </button>
                             </div>
                         </div>
                     @endforeach
