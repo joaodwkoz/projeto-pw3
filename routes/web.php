@@ -28,3 +28,7 @@ Route::get('/sla', function () {
 Route::get('/perfil', function () {
     return view('perfil');
 });
+
+Route::get('/dashboard/index', function () {
+    return view('admin.index');
+});
