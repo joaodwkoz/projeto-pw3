@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('css/dashboard-components.css') }}">
 </head>
 <body>
     <div id="dashboard">
@@ -143,6 +144,40 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <div id="alert-modal-fade">
+        <div class="alert-modal">
+            <div class="close">
+                <button id="close-modal-btn">
+                    <img src="{{ url('imgs/close.png') }}" alt="">
+                </button>
+            </div>
+
+            <div class="alert-content">
+                <span>Deseja remover este usuário?</span>
+
+                <div class="alert-input">
+                    <div class="alert-input-text">
+                        <span class="normal">Digite o nome de usuário - </span>
+
+                        <span class="bold">"João Pedro"</span>
+                    </div>
+
+                    <input type="text" placeholder="João Pedro">
+                </div>
+
+                <div class="btns">
+                    <button id="cancel-btn">
+                        <span>Cancelar</span>
+                    </button>
+
+                    <button id="continue-btn">
+                        <span>Continuar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
