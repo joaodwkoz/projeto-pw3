@@ -110,6 +110,10 @@
     line-height: 100%;
 }
 
+.alert-content .alert-input input:focus {
+    outline: none;
+}
+
 .alert-content .alert-input input::placeholder {
     color: #413E3E;
 }
