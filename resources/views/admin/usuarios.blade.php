@@ -117,7 +117,7 @@
 
                 <div class="data">
                     @foreach($usuarios as $usuario)
-                        <div class="row">
+                        <div class="row" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->nome }}">
                             <div class="info" style="width: 260px;">
                                 <span>{{$usuario->nome}}</span>
                             </div>
@@ -131,11 +131,11 @@
                             </div>
 
                             <div class="info acoes" style="width: 120px;">
-                                <button>
+                                <button class="read-btn">
                                     <img src="{{url('imgs/admin-ver.png')}}" alt="">
                                 </button>
 
-                                <button>
+                                <button class="delete-btn">
                                     <img src="{{url('imgs/admin-deletar.png')}}" alt="">
                                 </button>
                             </div>
@@ -146,7 +146,7 @@
         </main>
     </div>
 
-    <div id="alert-modal-fade">
+    <div id="alert-modal-fade" class="hidden">
         <div class="alert-modal">
             <div class="close">
                 <button id="close-modal-btn">
@@ -154,7 +154,7 @@
                 </button>
             </div>
 
-            <div class="alert-content">
+            <form class="alert-content">
                 <span>Deseja remover este usuário?</span>
 
                 <div class="alert-input">
@@ -172,12 +172,14 @@
                         <span>Cancelar</span>
                     </button>
 
-                    <button id="continue-btn">
+                    <button id="continue-btn" type="submit">
                         <span>Continuar</span>
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+
+    <script src="{{ url('js/modal.js') }}"></script>
 </body>
 </html>

@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Usuario;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -27,10 +24,9 @@ class UsuarioController extends Controller
         $usuario->nome = $request->nome;
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
-        $usuario->created_at = date('Y-m-d H:i:s');
-        $usuario->updated_at = date('Y-m-d H:i:s');
-
         $usuario->save();
+
+        return response()->json($usuario, 201);
     }
 
     public function show(Usuario $usuario)
@@ -49,9 +45,10 @@ class UsuarioController extends Controller
         //
     }
 
-    public function destroy(Usuario $usuario)
+    public function destroyAPI(Usuario $usuario)
     {
-        //
+        $usuario->delete();
+        return response()->json(['success' => true]);
     }
 }
 ?>

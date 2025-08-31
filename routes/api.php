@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* Routes API Contatos */
+
 Route::post('/dashboard/contatos', 'App\Http\Controllers\ContatoController@storeApi');
 
+/* Routes API Usuarios */
+
 Route::post('/dashboard/usuarios', 'App\Http\Controllers\UsuarioController@storeApi');
+Route::delete('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'destroyAPI']);
