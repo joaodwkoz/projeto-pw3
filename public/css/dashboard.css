@@ -351,6 +351,20 @@ button {
     justify-content: center;
 }
 
+#app #list .data .row .info span {
+    font-family: 'Poppins';
+    font-size: 0.75vw;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+#app #list .data .row .info .img {
+    height: 56%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
 #app #list .data .row .info .box {
     padding: 0.416667vw 0.625vw;
     border-radius: 3.33vw;
@@ -362,7 +376,49 @@ button {
     align-items: center;
     justify-content: center;
     gap: 0.9vw;
-    opacity: 0.5;
+}
+
+#app #list .data .row .info.tipo span {
+    width: 66%;
+    height: 50%;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app #list .data .row .info.tipo.user span {
+    background-color: #D7E9FF;
+    color: #4A7DB8;
+}
+
+#app #list .data .row .info.tipo.admin span {
+    background-color: #DECAFF;
+    color: #7B66A2;
+}
+
+#app #list .data .row .info.status span {
+    width: 80%;
+    height: 50%;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app #list .data .row .info.status.blocked span {
+    background-color: #FFE49C;
+    color: #D7AC38;
+}
+
+#app #list .data .row .info.status.active span {
+    background-color: #DDFFD7;
+    color: #61A254;
+}
+
+#app #list .data .row .info.status.deleted span {
+    background-color: #FFCECE;
+    color: #9F4343;
 }
 
 #app #list .data .row .info.acoes button {
@@ -380,6 +436,12 @@ button {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+#app #list .data .row .info.acoes button:hover img {
+    opacity: 1;
 }
 
 .suggestion .box {
@@ -428,11 +490,4 @@ button {
 
 .issue .box span {
     color: #F55D5D !important;
-}
-
-#app #list .data .row .info span {
-    font-family: 'Poppins';
-    font-size: 0.83333vw;
-    letter-spacing: -0.02em;
-    color: #fff;
 }

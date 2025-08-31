@@ -98,19 +98,27 @@
 
             <div id="list">
                 <div class="header">
-                    <div class="category" style="width: 260px;">
+                    <div class="category" style="width: 160px;">
+                        <span>Foto/avatar</span>
+                    </div>
+
+                    <div class="category" style="width: 200px;">
                         <span>Nome</span>
                     </div>
 
-                    <div class="category" style="width: 380px;">
+                    <div class="category" style="width: 260px;">
                         <span>Email</span>
                     </div>
 
-                    <div class="category" style="width: 360px;">
-                        <span>Senha</span>
+                    <div class="category" style="width: 140px;">
+                        <span>Tipo</span>
                     </div>
 
-                    <div class="category" style="width: 120px;">
+                    <div class="category" style="width: 140px;">
+                        <span>Status</span>
+                    </div>
+
+                    <div class="category" style="width: 160px;">
                         <span>Ações</span>
                     </div>
                 </div>
@@ -118,21 +126,35 @@
                 <div class="data">
                     @foreach($usuarios as $usuario)
                         <div class="row" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->nome }}">
-                            <div class="info" style="width: 260px;">
-                                <span>{{$usuario->nome}}</span>
+                            <div class="info" style="width: 160px;">
+                                <div class="img"></div>
                             </div>
 
-                            <div class="info" style="width: 380px;">
+                            <div class="info" style="width: 200px;">
+                                <span>@ {{$usuario->nome}}</span>
+                            </div>
+
+                            <div class="info" style="width: 260px;">
                                 <span>{{$usuario->email}}</span>
                             </div>
 
-                            <div class="info" style="width: 360px;">
-                                <span>{{str_repeat('•', strlen($usuario->senha))}}</span>
+                            <div class="info tipo {{ !$usuario->ehAdmin ? 'user' : 'admin' }}" style="width: 160px;">
+                                <span>
+                                    @if($usuario->ehAdmin == 0)
+                                        Usuário
+                                    @else 
+                                        Admin
+                                    @endif
+                                </span>
                             </div>
 
-                            <div class="info acoes" style="width: 120px;">
-                                <button class="read-btn">
-                                    <img src="{{url('imgs/admin-ver.png')}}" alt="">
+                            <div class="info status {{ $usuario->statusClass() }}" style="width: 140px;">
+                                <span>{{$usuario->status}}</span>
+                            </div>
+
+                            <div class="info acoes" style="width: 160px;">
+                                <button class="edit-btn">
+                                    <img src="{{url('imgs/admin-editar.png')}}" alt="">
                                 </button>
 
                                 <button class="delete-btn">

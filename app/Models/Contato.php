@@ -10,7 +10,7 @@ class Contato extends Model
 
     use HasFactory;
 
-    protected $table = 'contato';
+    protected $table = 'contatos';
 
     public $fillable = ['id','nome','email','assunto','mensagem','created_at','updated_at'];
 

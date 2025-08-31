@@ -10,5 +10,15 @@ class Usuario extends Model
 
     protected $table = 'usuarios';
 
-    public $fillable = ['id','nome','email','senha', 'created_at','updated_at'];
+    public $fillable = ['id','nome','email','senha', 'ehAdmin', 'status', 'created_at','updated_at'];
+
+    public function statusClass(){
+        if($this->status == 'Ativo'){
+            return 'active';
+        } else if($this->status == 'Bloqueado'){
+            return 'blocked';
+        }
+
+        return 'deleted';
+    }
 }

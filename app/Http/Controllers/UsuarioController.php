@@ -18,12 +18,14 @@ class UsuarioController extends Controller
         //
     }
 
-    public function storeApi(Request $request)
+    public function storeAPI(Request $request)
     {
         $usuario = new Usuario();
         $usuario->nome = $request->nome;
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
+        $usuario->ehAdmin = $request->ehAdmin;
+        $usuario->status = $request->status;
         $usuario->save();
 
         return response()->json($usuario, 201);
@@ -40,9 +42,11 @@ class UsuarioController extends Controller
         //
     }
 
-    public function update(Request $request, Usuario $usuario)
+    public function updateAPI(Request $request, Usuario $usuario)
     {
-        //
+        $usuario->update($request->except('senha'));
+        $usuario->senha = Hash::make($request->senha);
+        return response()->json($usuario, 200);
     }
 
     public function destroyAPI(Usuario $usuario)
