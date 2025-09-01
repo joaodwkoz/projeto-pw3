@@ -32,6 +32,9 @@ Route::get('/perfil', function () {
 Route::get('/login', function () {
     return view('login');
 });
+Route::get('/filme', function () {
+    return view('filme');
+});
 
 Route::get('/cadastro', function () {
     return view('cadastro');
