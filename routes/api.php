@@ -26,5 +26,5 @@ Route::post('/dashboard/contatos', 'App\Http\Controllers\ContatoController@store
 /* Routes API Usuarios */
 
 Route::post('/dashboard/usuarios', [UsuarioController::class, 'storeAPI']);
-Route::delete('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'destroyAPI']);
 Route::put('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'updateAPI']);
+Route::delete('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'destroyAPI']);

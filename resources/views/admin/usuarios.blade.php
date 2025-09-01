@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url('css/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('css/dashboard-components.css') }}">
+    <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios/delete-modal.css') }}">
+    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios/update-modal.css') }}">
 </head>
 <body>
     <div id="dashboard">
@@ -168,19 +169,19 @@
         </main>
     </div>
 
-    <div id="alert-modal-fade" class="hidden">
-        <div class="alert-modal">
+    <div id="delete-modal-fade" class="hidden">
+        <div class="delete-modal">
             <div class="close">
                 <button id="close-modal-btn">
                     <img src="{{ url('imgs/close.png') }}" alt="">
                 </button>
             </div>
 
-            <form class="alert-content">
+            <form class="delete-content">
                 <span>Deseja remover este usuário?</span>
 
-                <div class="alert-input">
-                    <div class="alert-input-text">
+                <div class="delete-input">
+                    <div class="delete-input-text">
                         <span class="normal">Digite o nome de usuário - </span>
 
                         <span class="bold">"João Pedro"</span>
@@ -190,13 +191,77 @@
                 </div>
 
                 <div class="btns">
-                    <button id="cancel-btn">
+                    <button id="cancel-btn" type="button">
                         <span>Cancelar</span>
                     </button>
 
                     <button id="continue-btn" type="submit">
                         <span>Continuar</span>
                     </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="update-modal-fade">
+        <div class="update-modal">
+            <div class="header">
+                <div class="title">
+                    <div class="icon">
+                        <img src="" alt="">
+                    </div>
+
+                    <span>Detalhes do usuário</span>
+                </div>
+
+                <div class="close">
+                    <img src="" alt="">
+                </div>
+            </div>
+
+            <form action="">
+                <div class="update-img">
+                    <span>Foto de perfil</span>
+
+                    <div class="profile-img">
+                        <img src="" alt="">
+                    </div>
+
+                    <button id="update-img-btn">
+                        Alterar
+                    </button>
+                </div>
+
+                <div class="update-input">
+                    <span>Nome</span>
+
+                    <input type="text" style="width: 719px;">
+                </div>
+
+                <div class="update-input">
+                    <span>Email</span>
+
+                    <input type="text" style="width: 719px;">
+                </div>
+
+                <div class="update-select">
+                    <span>Tipo</span>
+
+                    <div class="select">
+                        <span>Usuário</span>
+
+                        <button id="open-options-btn">
+                            <img src="{{ url('imgs/icon-seta-baixo.png') }}" alt="">
+                        </button>
+                    </div>
+
+                    <div class="options">
+                        <div class="option"></div>
+                    </div>
+                </div>
+
+                <div class="btns">
+
                 </div>
             </form>
         </div>

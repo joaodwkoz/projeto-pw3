@@ -52,7 +52,7 @@ class UsuarioController extends Controller
     public function destroyAPI(Usuario $usuario)
     {
         $usuario->delete();
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true], 200);
     }
 }
 ?>

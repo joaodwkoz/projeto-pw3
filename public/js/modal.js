@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.querySelector('#alert-modal-fade');
+    const modal = document.querySelector('#delete-modal-fade');
     const input = modal.querySelector('input');
 
     const form = document.querySelector('form');
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             limparModal();
 
             input.placeholder = userName;
-            modal.querySelector('.alert-input-text .bold').textContent = userName;
+            modal.querySelector('.delete-input-text .bold').textContent = userName;
 
             modal.classList.remove('hidden');
         });
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(text != modal.dataset.userName){
             input.style.border = "3px solid #F55D5D";
             input.style.color = "#F55D5D";
+            return;
         } else {
             const response = await fetch(`/api/dashboard/usuarios/${parseInt(modal.dataset.userId)}`, {
                 method: 'DELETE',
@@ -63,6 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
         input.style.border = "3px solid #828282";
         input.style.color = "#fff";
 
-        modal.querySelector('.alert-input-text .bold').textContent = "";
+        modal.querySelector('.delete-input-text .bold').textContent = "";
+        modal.dataset.userId = "";
+        modal.dataset.userName = "";
     }
 })
