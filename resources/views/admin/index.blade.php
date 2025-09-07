@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
 </head>
 <body>
     <div id="dashboard">
