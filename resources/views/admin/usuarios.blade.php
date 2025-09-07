@@ -203,23 +203,23 @@
         </div>
     </div>
 
-    <div id="update-modal-fade">
+    <div id="update-modal-fade" class="hidden">
         <div class="update-modal">
             <div class="header">
                 <div class="title">
                     <div class="icon">
-                        <img src="" alt="">
+                        <img src="{{ url('imgs/admin-user.png') }}" alt="">
                     </div>
 
                     <span>Detalhes do usuário</span>
                 </div>
 
                 <div class="close">
-                    <img src="" alt="">
+                    <img src="{{ url('imgs/admin-close.png') }}" alt="">
                 </div>
             </div>
 
-            <form action="">
+            <form action="" id="update-form">
                 <div class="update-img">
                     <span>Foto de perfil</span>
 
@@ -227,7 +227,7 @@
                         <img src="" alt="">
                     </div>
 
-                    <button id="update-img-btn">
+                    <button id="update-img-btn" type="button">
                         Alterar
                     </button>
                 </div>
@@ -235,13 +235,13 @@
                 <div class="update-input">
                     <span>Nome</span>
 
-                    <input type="text" style="width: 719px;">
+                    <input type="text" style="width: 719px;" id="nome-input" name="nome">
                 </div>
 
                 <div class="update-input">
                     <span>Email</span>
 
-                    <input type="text" style="width: 719px;">
+                    <input type="text" style="width: 719px;" id="email-input" name="email">
                 </div>
 
                 <div class="update-select">
@@ -250,23 +250,36 @@
                     <div class="select">
                         <span>Usuário</span>
 
-                        <button id="open-options-btn">
+                        <button id="open-options-btn" type="button">
                             <img src="{{ url('imgs/icon-seta-baixo.png') }}" alt="">
                         </button>
-                    </div>
 
-                    <div class="options">
-                        <div class="option"></div>
+                        <ul class="options hidden">
+                            <li class="active" data-value="usuario">
+                                Usuário
+                            </li>
+
+                            <li data-value="admin">
+                                Admin
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="btns">
+                    <button id="cancel-edit-btn" type="button">
+                        Cancelar
+                    </button>
 
+                    <button id="save-edit-btn" type="submit">
+                        Salvar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
     <script src="{{ url('js/modal.js') }}"></script>
+    <script src="{{ url('js/update.js') }}"></script>
 </body>
 </html>

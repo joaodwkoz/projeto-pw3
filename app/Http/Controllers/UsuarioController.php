@@ -44,8 +44,13 @@ class UsuarioController extends Controller
 
     public function updateAPI(Request $request, Usuario $usuario)
     {
-        $usuario->update($request->except('senha'));
-        $usuario->senha = Hash::make($request->senha);
+        $usuario->nome = $request->input('nome');
+        $usuario->email = $request->input('email');
+        $usuario->ehAdmin = $request->input('ehAdmin');
+        $usuario->status = $request->input('status');
+
+        $usuario->save();
+        
         return response()->json($usuario, 200);
     }
 
