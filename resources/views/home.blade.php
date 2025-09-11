@@ -18,7 +18,6 @@
                     <li>
                         <a href="" class="option">
                             <div class="icon"></div>
-
                             <span>Home</span>
                         </a>
                     </li>
@@ -26,7 +25,6 @@
                     <li>
                         <a href="" class="option">
                             <div class="icon"></div>
-
                             <span>Em cartaz</span>
                         </a>
                     </li>
@@ -34,7 +32,6 @@
                     <li>
                         <a href="" class="option">
                             <div class="icon"></div>
-
                             <span>Favoritos</span>
                         </a>
                     </li>
@@ -42,7 +39,6 @@
                     <li>
                         <a href="" class="option">
                             <div class="icon"></div>
-
                             <span>Suporte</span>
                         </a>
                     </li>
@@ -50,11 +46,22 @@
                     <li>
                         <a href="" class="option">
                             <div class="icon"></div>
-
                             <span>Configurações</span>
                         </a>
                     </li>
                 </ul>
+            </div>
+            
+            <!-- Adicionando o botão de Logout aqui -->
+            <div class="logout-btn">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="option">
+                    <div class="icon"></div>
+                    <span>Sair</span>
+                </a>
+                
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </div>
         </aside>
         
@@ -73,7 +80,6 @@
                 </div>
             </header>
             
-
             <div id="main-carousel">
 
             </div>
