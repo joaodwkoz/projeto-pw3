@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Filme;
 use App\Http\Controllers\Controller;
+use App\Models\Genero;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilmeController extends Controller
 {
@@ -13,7 +15,21 @@ class FilmeController extends Controller
      */
     public function index()
     {
-        return Filme::all();
+        $filmePopular = Filme::with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->first();
+
+        $generos = Genero::orderBy('nome')->get();
+
+        return view('filmes')->with([
+            'filmePopular' => $filmePopular,
+            'generos' => $generos,
+        ]);
+    }
+
+    public function fetchPorGenero(Genero $genero)
+    {
+        $filmes = $genero->filmes()->with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(5)->get();
+
+        return response()->json($filmes);
     }
 
     /**
@@ -29,16 +45,17 @@ class FilmeController extends Controller
      */
     public function storeAPI(Request $request)
     {
-        $filme = Filme::create([
-            'nome' => $request->nome,
-            'diretor' => $request->diretor,
-            'ano_lancamento' => $request->ano_lancamento,
-            'classificacao_id' => $request->classificacao_id,
-            'sinopse' => $request->sinopse,
-            'trailer' => $request->trailer,
-            'capa' => $request->capa,
-            'banner' => $request->banner,
-        ]);
+        $dados = $request->except(['capa', 'banner', 'generos']);
+
+        if($request->hasFile('capa')){
+            $dados['capa'] = $request->file('capa')->store('filmes/capas', 'public');
+        }
+
+        if($request->hasFile('banner')){
+            $dados['banner'] = $request->file('banner')->store('filmes/banners', 'public');
+        }
+
+        $filme = Filme::create($dados);
 
         if($request->has('generos')){
             $filme->generos()->sync($request->generos);
@@ -68,18 +85,21 @@ class FilmeController extends Controller
      */
     public function updateAPI(Request $request, Filme $filme)
     {
-        $filme->update([
-            'nome' => $request->nome,
-            'diretor' => $request->diretor,
-            'ano_lancamento' => $request->ano_lancamento,
-            'classificacao_id' => $request->classificacao_id,
-            'sinopse' => $request->sinopse,
-            'trailer' => $request->trailer,
-            'capa' => $request->capa,
-            'banner' => $request->banner,
-        ]);
+       $dados = $request->except(['capa', 'banner', 'generos', '_method']);
 
-        if($request->has('generos')){
+        if($request->hasFile('capa')){
+            Storage::disk('public')->delete($filme->capa);
+            $dados['capa'] = $request->file('capa')->store('filmes/capas', 'public');
+        }
+
+        if($request->hasFile('banner')){
+            Storage::disk('public')->delete($filme->banner);
+            $dados['banner'] = $request->file('banner')->store('filmes/banners', 'public');
+        }
+
+        $filme->update($dados);
+
+        if ($request->has('generos')) {
             $filme->generos()->sync($request->generos);
         }
 

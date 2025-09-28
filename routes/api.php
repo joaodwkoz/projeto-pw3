@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\FilmeController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\ListaController;
+use App\Http\Controllers\ContatoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,36 +23,37 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('dashboard/contatos')->group(function () {
-    Route::post('/', 'App\\Http\\Controllers\\ContatoController@storeApi');
+Route::prefix('contatos')->group(function () {
+    Route::post('/', [ContatoController::class, 'showAPI']);
 });
 
-Route::prefix('dashboard/usuarios')->group(function () {
+Route::prefix('usuarios')->group(function () {
     Route::post('/', [UsuarioController::class, 'storeAPI']);
     Route::get('/{usuario}', [UsuarioController::class, 'showAPI']);
     Route::put('/{usuario}', [UsuarioController::class, 'updateAPI']);
     Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
 });
 
-Route::prefix('dashboard/filmes')->group(function () {
-    Route::post('/', [App\Http\Controllers\FilmeController::class, 'storeAPI']);
-    Route::get('/{filme}', [App\Http\Controllers\FilmeController::class, 'showAPI']);
-    Route::put('/{filme}', [App\Http\Controllers\FilmeController::class, 'updateAPI']);
-    Route::delete('/{filme}', [App\Http\Controllers\FilmeController::class, 'destroyAPI']);
+Route::prefix('filmes')->group(function () {
+    Route::post('/', [FilmeController::class, 'storeAPI']);
+    Route::get('/{filme}', [FilmeController::class, 'showAPI']);
+    Route::put('/{filme}', [FilmeController::class, 'updateAPI']);
+    Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
+    Route::get('/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
 });
 
 Route::prefix('avaliacoes')->group(function () {
-    Route::post('/', [App\Http\Controllers\AvaliacaoController::class, 'storeAPI']);
-    Route::get('/{avaliacao}', [App\Http\Controllers\AvaliacaoController::class, 'showAPI']);
-    Route::put('/{avaliacao}', [App\Http\Controllers\AvaliacaoController::class, 'updateAPI']);
-    Route::delete('/{avaliacao}', [App\Http\Controllers\AvaliacaoController::class, 'destroyAPI']);
+    Route::post('/', [AvaliacaoController::class, 'storeAPI']);
+    Route::get('/{avaliacao}', [AvaliacaoController::class, 'showAPI']);
+    Route::put('/{avaliacao}', [AvaliacaoController::class, 'updateAPI']);
+    Route::delete('/{avaliacao}', [AvaliacaoController::class, 'destroyAPI']);
 });
 
 Route::prefix('listas')->group(function () {
-    Route::post('/', [App\Http\Controllers\ListaController::class, 'storeAPI']);
-    Route::get('/{lista}', [App\Http\Controllers\ListaController::class, 'showAPI']);
-    Route::put('/{lista}', [App\Http\Controllers\ListaController::class, 'updateAPI']);
-    Route::delete('/{lista}', [App\Http\Controllers\ListaController::class, 'destroyAPI']);
-    Route::post('/{lista}/filme', [App\Http\Controllers\ListaController::class, 'adicionarFilme']);
-    Route::delete('/{lista}/filme', [App\Http\Controllers\ListaController::class, 'removerFilme']);
+    Route::post('/', [ListaController::class, 'storeAPI']);
+    Route::get('/{lista}', [ListaController::class, 'showAPI']);
+    Route::put('/{lista}', [ListaController::class, 'updateAPI']);
+    Route::delete('/{lista}', [ListaController::class, 'destroyAPI']);
+    Route::post('/{lista}/filme', [ListaController::class, 'adicionarFilme']);
+    Route::delete('/{lista}/filme', [ListaController::class, 'removerFilme']);
 });
