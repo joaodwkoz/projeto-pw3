@@ -13,7 +13,7 @@ class Usuario extends Model
 
     protected $table = 'usuarios';
 
-    protected $fillable = ['id','nome','email','senha', 'ehAdmin', 'status', 'created_at','updated_at'];
+    protected $fillable = ['id', 'nome', 'email', 'senha', 'ehAdmin', 'status', 'created_at','updated_at'];
 
     public function statusClass(){
         if($this->status == 'Ativo'){

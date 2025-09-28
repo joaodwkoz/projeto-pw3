@@ -12,7 +12,7 @@ class Contato extends Model
 
     protected $table = 'contatos';
 
-    public $fillable = ['id','nome','email','assunto','mensagem','created_at','updated_at'];
+    protected $fillable = ['id','nome','email','assunto','mensagem','created_at','updated_at'];
 
     public function assuntoClass(){
         if($this->assunto == "problema"){
@@ -46,4 +46,3 @@ class Contato extends Model
         return 'Dúvida';
     }
 }
-?>

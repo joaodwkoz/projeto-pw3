@@ -19,12 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/* Routes API Contatos */
+Route::prefix('dashboard/contatos')->group(function () {
+    Route::post('/', 'App\\Http\\Controllers\\ContatoController@storeApi');
+});
 
-Route::post('/dashboard/contatos', 'App\Http\Controllers\ContatoController@storeApi');
+Route::prefix('dashboard/usuarios')->group(function () {
+    Route::post('/', [UsuarioController::class, 'storeAPI']);
+    Route::put('/{usuario}', [UsuarioController::class, 'updateAPI']);
+    Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
+});
 
-/* Routes API Usuarios */
-
-Route::post('/dashboard/usuarios', [UsuarioController::class, 'storeAPI']);
-Route::put('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'updateAPI']);
-Route::delete('/dashboard/usuarios/{usuario}', [UsuarioController::class, 'destroyAPI']);
+Route::prefix('dashboard/filmes')->group(function () {
+    Route::post('/', [App\Http\Controllers\FilmeController::class, 'storeAPI']);
+});
