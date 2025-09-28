@@ -31,9 +31,13 @@ class UsuarioController extends Controller
         return response()->json($usuario, 201);
     }
 
-    public function show(Usuario $usuario)
+    
+    /**
+     * Display the specified resource.
+     */
+    public function showAPI(Usuario $usuario)
     {
-        //
+        return response()->json($usuario->load(['listas', 'avaliacoes']), 200);
     }
 
 

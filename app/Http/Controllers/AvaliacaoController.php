@@ -42,9 +42,9 @@ class AvaliacaoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Avaliacao $avaliacao)
+    public function showAPI(Avaliacao $avaliacao)
     {
-        //
+        return response()->json($avaliacao, 200);
     }
 
     /**
@@ -58,16 +58,22 @@ class AvaliacaoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Avaliacao $avaliacao)
+    public function updateAPI(Request $request, Avaliacao $avaliacao)
     {
-        //
+        $avaliacao->update([
+            'nota' => $request->nota,
+            'comentario' => $request->comentario,
+        ]);
+
+        return response()->json($avaliacao, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Avaliacao $avaliacao)
+    public function destroyAPI(Avaliacao $avaliacao)
     {
-        //
+        $avaliacao->delete();
+        return response()->json(['sucesso' => true], 200);
     }
 }

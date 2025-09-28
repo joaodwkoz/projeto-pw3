@@ -29,7 +29,6 @@ class FilmeController extends Controller
      */
     public function storeAPI(Request $request)
     {
-
         $filme = Filme::create([
             'nome' => $request->nome,
             'diretor' => $request->diretor,
@@ -41,7 +40,7 @@ class FilmeController extends Controller
             'banner' => $request->banner,
         ]);
 
-        if ($request->has('generos')) {
+        if($request->has('generos')){
             $filme->generos()->sync($request->generos);
         }
 
@@ -51,9 +50,9 @@ class FilmeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Filme $filme)
+    public function showAPI(Filme $filme)
     {
-        //
+        return response()->json($filme->load('generos', 'classificacao', 'avaliacoes'), 200);
     }
 
     /**
@@ -67,16 +66,32 @@ class FilmeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Filme $filme)
+    public function updateAPI(Request $request, Filme $filme)
     {
-        //
+        $filme->update([
+            'nome' => $request->nome,
+            'diretor' => $request->diretor,
+            'ano_lancamento' => $request->ano_lancamento,
+            'classificacao_id' => $request->classificacao_id,
+            'sinopse' => $request->sinopse,
+            'trailer' => $request->trailer,
+            'capa' => $request->capa,
+            'banner' => $request->banner,
+        ]);
+
+        if($request->has('generos')){
+            $filme->generos()->sync($request->generos);
+        }
+
+        return response()->json($filme, 201);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Filme $filme)
+    public function destroyAPI(Filme $filme)
     {
-        //
+        $filme->delete();
+        return response()->json(['sucesso' => true], 200);
     }
 }

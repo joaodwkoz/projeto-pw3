@@ -14,12 +14,18 @@ class ListaController extends Controller
         return response()->json(['sucesso' => true], 201);
     }
 
+    public function removerFilme(Request $request, Lista $lista)
+    {
+        $lista->filmes()->detach($request->filme_id);
+        return response()->json(['sucesso' => true], 200);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Lista::all()->load('filmes');
     }
 
     /**
@@ -47,9 +53,9 @@ class ListaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lista $lista)
+    public function showAPI(Lista $lista)
     {
-        //
+        return response()->json($lista->load('filmes'), 200);
     }
 
     /**
@@ -63,16 +69,22 @@ class ListaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Lista $lista)
+    public function updateAPI(Request $request, Lista $lista)
     {
-        //
+        $lista->update([
+            'nome' => $request->nome,
+            'descricao' => $request->descricao,
+        ]);
+
+        return response()->json($lista, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lista $lista)
+    public function destroyAPI(Lista $lista)
     {
-        //
+        $lista->delete();
+        return response()->json(['sucesso' => true], 200);
     }
 }
