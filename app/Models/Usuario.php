@@ -25,11 +25,18 @@ class Usuario extends Model
         return 'deleted';
     }
 
-    public function watchedMovies() {
-        return $this->belongsToMany(Filme::class, 'filme_usuario')->withTimestamps();
+    public function filmesAssistidos()
+    {
+        return $this->belongsToMany(Filme::class, 'filme_usuario');
     }
 
-    public function reviews() {
+    public function avaliacoes()
+    {
         return $this->hasMany(Avaliacao::class);
+    }
+
+    public function listas()
+    {
+        return $this->hasMany(Lista::class);
     }
 }

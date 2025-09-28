@@ -15,11 +15,21 @@ class Filme extends Model
 
     public function generos()
     {
-        return $this->belongsToMany(Genero::class);
+        return $this->belongsToMany(Genero::class, 'filme_genero');
     }
 
     public function classificacao()
     {
         return $this->belongsTo(Classificacao::class, 'classificacao_id');
+    }
+
+    public function avaliacoes()
+    {
+        return $this->hasMany(Avaliacao::class);
+    }
+
+    public function listas()
+    {
+        return $this->belongsToMany(Lista::class, 'lista_filme');
     }
 }

@@ -32,3 +32,12 @@ Route::prefix('dashboard/usuarios')->group(function () {
 Route::prefix('dashboard/filmes')->group(function () {
     Route::post('/', [App\Http\Controllers\FilmeController::class, 'storeAPI']);
 });
+
+Route::prefix('avaliacoes')->group(function () {
+    Route::post('/', [App\Http\Controllers\AvaliacaoController::class, 'storeAPI']);
+});
+
+Route::prefix('listas')->group(function () {
+    Route::post('/', [App\Http\Controllers\ListaController::class, 'storeAPI']);
+    Route::post('/{lista}/filme', [App\Http\Controllers\ListaController::class, 'adicionarFilme']);
+});

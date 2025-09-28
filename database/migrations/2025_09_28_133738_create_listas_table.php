@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filme_usuario', function (Blueprint $table) {
+        Schema::create('listas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('usuario_id');
+            $table->string('nome');
+            $table->text('descricao')->nullable();
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filme_usuario');
+        Schema::dropIfExists('listas');
     }
 };
