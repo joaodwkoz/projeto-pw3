@@ -15,49 +15,40 @@
                 <li>
                     <a href="{{ route('dashboard.index') }}">
                         <div class="icon">
-                            <img src="{{ asset('imgs/side-home.png')}}" alt="">
+                            <img src="{{ asset('imgs/side-home.png')}}" alt="Ícone da Home">
                         </div>
-
                         <span class="text">Home</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="">
+                    <a href="{{ route('filmes') }}" class="active">
                         <div class="icon">
-                            <img src="{{ asset('imgs/side-movies.png')}}" alt="">
+                            <img src="{{ asset('imgs/side-movies.png')}}" alt="Ícone de Filmes">
                         </div>
-
                         <span class="text">Filmes</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="">
+                    <a href="#">
                         <div class="icon">
-                            <img src="{{ asset('imgs/side-lists.png')}}" alt="">
+                            <img src="{{ asset('imgs/side-lists.png')}}" alt="Ícone de Listas">
                         </div>
-
                         <span class="text">Listas</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{route('dashboard.contatos')}}">
+                    <a href="#">
                         <div class="icon">
-                            <img src="{{ asset('imgs/side-users.png')}}" alt="">
+                            <img src="{{ asset('imgs/side-users.png')}}" alt="Ícone de Perfil">
                         </div>
-
                         <span class="text">Perfil</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="{{ route('dashboard.contatos') }}">
+                    <a href="#">
                         <div class="icon">
-                            <img src="{{ asset('imgs/side-settings.png')}}" alt="">
+                            <img src="{{ asset('imgs/side-settings.png')}}" alt="Ícone de Configurações">
                         </div>
-
                         <span class="text">Configurações</span>
                     </a>
                 </li>
@@ -66,21 +57,33 @@
 
         <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}">
            <header>
-                <div class="search-bar">
+               <div class="search-bar">
+                    <div class="icon">
+                    <img src="{{ url('imgs/search-icon.png')}}" alt="">
+                    </div>
+                    <input type="text" placeholder="Pesquisar por filmes, diretores, etc.">
+               </div>
 
-                </div>
+               <div class="profile-container">
+                   <button class="notifications">
+                        <img src="{{ url('imgs/notifs-bell.png') }}" alt="">
+                   </button>
 
-                <div class="profile-container">
-                    <button class="notifications"></button>
+                   <button class="profile">
+                        <span>João Pedro</span>
+                   </button>
 
-                    <div class="profile"></div>
-                </div>
+                   <div class="profile-menu hidden">
+                       <a href="#">Ver perfil</a>
+                       <a href="#">Sair</a>
+                   </div>
+               </div>
            </header>
 
             <div class="content">
                 <div class="popular">
                     <div class="img">
-                        <img src="{{ asset('storage/' . $filmePopular->banner) }}" alt="">
+                        <img src="{{ asset('storage/' . $filmePopular->banner) }}" alt="Banner do filme {{ $filmePopular->nome }}">
                     </div>
 
                     <div class="info">
@@ -109,7 +112,6 @@
                                 <div class="icon">
                                     <img src="{{ url('imgs/watch-trailer-btn.png')}}" alt="">
                                 </div>
-
                                 <span>Assistir ao trailer</span>
                             </a>
 
@@ -130,15 +132,14 @@
                             </div>
                         @endforeach
                     </div>
-
                     <div class="movies">
-
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="js/filtro-filmes.js"></script>
+    <script src="{{ asset('js/filtro-filmes.js') }}"></script>
+    <script src="{{ asset('js/perfil-menu.js') }}"></script>
 </body>
 </html>
