@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "8fac62fa000557439a1027c0c1519c98",
+=======
+    "content-hash": "783dc28d4e99a4282dc35192c1b426b4",
+>>>>>>> 8103665 (Mudanças api buscar filmes)
     "packages": [
         {
             "name": "brick/math",
