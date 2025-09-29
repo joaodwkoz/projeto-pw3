@@ -25,4 +25,18 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+
+    /**
+     * Pega as credenciais necessárias da requisição para a autorização.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return [
+            'email' => $request->email,
+            'senha' => $request->password
+        ];
+    }
 }

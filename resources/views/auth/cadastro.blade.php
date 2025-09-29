@@ -24,8 +24,8 @@
             
 
         
-            <input type="text" placeholder="Nome de usuario" class="inEmail" name="nome" required>
-             @error('nome')
+            <input type="text" placeholder="Nome de usuario" class="inEmail" name="name" required>
+            @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -38,15 +38,15 @@
                 </span>
             @enderror
 
-            <input type="password" placeholder="Senha" class="inSenha" name="senha" required>
-             @error('senha')
+            <input type="password" placeholder="Senha" class="inSenha" name="password" required>
+             @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
             
-            <input type="password" placeholder="Confirmar senha" class="inSenha" name="senha_confirmation" required>
-             @error('senha_confirma')
+            <input type="password" placeholder="Confirmar senha" class="inSenha" name="password_confirmation" required>
+             @error('password_confirmation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

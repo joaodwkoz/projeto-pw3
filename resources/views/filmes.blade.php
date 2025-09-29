@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Filme</title>
     <link rel="stylesheet" href="{{ url('css/styles.css') }}">
 </head>
 <body>
-    <div id="dashboard">
+    <div id="filmes">
         <aside id="sidebar">
             <div class="logo"></div>
 
@@ -70,13 +70,21 @@
                    </button>
 
                    <button class="profile">
-                        <span>João Pedro</span>
+                        <span>{{ Auth::user()->nome }}</span>
                    </button>
 
                    <div class="profile-menu hidden">
                        <a href="#">Ver perfil</a>
-                       <a href="#">Sair</a>
+                       <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                            Sair
+                        </a>
                    </div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                </div>
            </header>
 

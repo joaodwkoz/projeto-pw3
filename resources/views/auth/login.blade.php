@@ -16,9 +16,7 @@
     </div>
 
     <div class="app" id="form">
-
         <form id="loginForm" method="POST" action="{{ route('login') }}">
-            
             @csrf
             
             <h1 class="titulo">Bem vindo de volta!</h1>

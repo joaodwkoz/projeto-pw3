@@ -1,44 +1,17 @@
-<<<<<<< HEAD
 <?php
-=======
-<?php 
->>>>>>> main
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-<<<<<<< HEAD
-=======
 use App\Models\Usuario;
 
 use App\Models\Filme;
 
->>>>>>> main
 class DashboardController extends Controller
 {
     public function index()
     {
-<<<<<<< HEAD
-        $filmesEmAlta = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-
-        $usuarios = [
-            'labels' => ['João', 'Maria', 'Pedro', 'Ana', 'Lucas'],
-            'data'   => [23, 45, 56, 12, 38]
-        ];
-
-        $generos = [
-            ['name' => 'Ação', 'value' => 35],
-            ['name' => 'Comédia', 'value' => 20],
-            ['name' => 'Drama', 'value' => 15],
-            ['name' => 'Terror', 'value' => 10],
-            ['name' => 'Ficção', 'value' => 20],
-        ];
-
-        return view('dashboard.index', compact('filmesEmAlta', 'usuarios', 'generos'));
-    }
-}
-=======
         $totalUsers = $this->usersCount();
         $totalMovies = $this->moviesCount();
         $topUsers = $this->usersWithMostMovies();
@@ -69,4 +42,3 @@ class DashboardController extends Controller
     }
 }
 ?>
->>>>>>> main

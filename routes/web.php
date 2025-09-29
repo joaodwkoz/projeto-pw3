@@ -1,57 +1,58 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+// Importe todos os controllers que você usa
 use App\Http\Controllers\FilmeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController; // Importante adicionar
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
+
+Route::get('/cadastro', function () {
+    return view('auth.cadastro');
+})->name('cadastro');
+
+Route::post('/cadastro', [RegisterController::class, 'register'])->name('register');
+
+Route::get('/', function () {
+    return redirect()->route('filmes');
+});
 
 Route::get('/contato', function () {
     return view('contato');
 });
 
-Route::get('/sla', function () {
-    return view('sla');
+Route::middleware('auth')->group(function () {
+    Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
+
+    Route::get('/perfil', function () {
+        return view('perfil');
+    })->name('perfil');
+
+    Route::get('/filme', function () {
+        return view('filme');
+    })->name('filme');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('/dashboard/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
+
+    Route::get('/dashboard/avaliacoes', function () {
+        return view('admin.avaliacoes');
+    })->name('dashboard.avaliacoes');
+
+    Route::get('/dashboard/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
-
-Route::get('/perfil', function () {
-    return view('perfil');
-});
-
-Route::get('/filme', function () {
-    return view('filme');
-});
-
-Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
-
-Route::get('/cadastro', function () {
-    return view('cadastro');
-})->name('cadastro');
-
-Route::get('/dashboard/index', function () {
-    return view('admin.index');
-})->name('dashboard.index');
-
-Route::get('/dashboard/usuarios', 'App\Http\Controllers\UsuarioController@index')->name('dashboard.usuarios');
-
-Route::get('/dashboard/avaliacoes', function () {
-    return view('admin.avaliacoes');
-})->name('dashboard.avaliacoes');
-
-Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index')->name('dashboard.contatos');
-
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
-    ->name('dashboardController.index');
-
-
