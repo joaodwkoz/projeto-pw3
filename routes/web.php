@@ -17,10 +17,6 @@ use App\Http\Controllers\FilmeController;
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('home');
-});
-
 Route::get('/contato', function () {
     return view('contato');
 });

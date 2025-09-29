@@ -81,43 +81,45 @@
            </header>
 
             <div class="content">
-                <div class="popular">
-                    <div class="img">
-                        <img src="{{ asset('storage/' . $filmePopular->banner) }}" alt="Banner do filme {{ $filmePopular->nome }}">
-                    </div>
-
-                    <div class="info">
-                        <div class="movie-title">
-                            <span class="movie-name">{{ $filmePopular->nome }}</span>
-
-                            <span class="movie-date">({{ $filmePopular->ano_lancamento }})</span>
+                <div class="popular-container">
+                    <div class="popular">
+                        <div class="img">
+                            <img src="{{ asset('storage/' . $filmePopular->banner) }}" alt="Banner do filme {{ $filmePopular->nome }}">
                         </div>
 
-                        <div class="movie-genres">
-                            @foreach($filmePopular->generos as $genero)
-                            <div class="movie-genre">
-                                <span>{{ $genero->nome }}</span>
+                        <div class="info">
+                            <div class="movie-title">
+                                <span class="movie-name">{{ $filmePopular->nome }}</span>
+
+                                <span class="movie-date">({{ $filmePopular->ano_lancamento }})</span>
                             </div>
-                            @endforeach
-                        </div>
 
-                        <span class="movie-director">{{ $filmePopular->diretor }}</span>
-
-                        <span class="movie-sinopse">
-                            {{ $filmePopular->sinopse }}
-                        </span>
-
-                        <div class="actions">
-                            <a id="watch-trailer-btn" href="{{ $filmePopular->trailer }}" target="_blank">
-                                <div class="icon">
-                                    <img src="{{ url('imgs/watch-trailer-btn.png')}}" alt="">
+                            <div class="movie-genres">
+                                @foreach($filmePopular->generos as $genero)
+                                <div class="movie-genre">
+                                    <span>{{ $genero->nome }}</span>
                                 </div>
-                                <span>Assistir ao trailer</span>
-                            </a>
+                                @endforeach
+                            </div>
 
-                            <a id="see-more">
-                                <span>Ver mais</span>
-                            </a>
+                            <span class="movie-director">{{ $filmePopular->diretor }}</span>
+
+                            <span class="movie-sinopse">
+                                {{ $filmePopular->sinopse }}
+                            </span>
+
+                            <div class="actions">
+                                <a id="watch-trailer-btn" href="{{ $filmePopular->trailer }}" target="_blank">
+                                    <div class="icon">
+                                        <img src="{{ url('imgs/watch-trailer-btn.png')}}" alt="">
+                                    </div>
+                                    <span>Assistir ao trailer</span>
+                                </a>
+
+                                <a id="see-more">
+                                    <span>Ver mais</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,8 +134,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="movies">
-                    </div>
+                    <div class="movies"></div>
                 </div>
             </div>
         </main>

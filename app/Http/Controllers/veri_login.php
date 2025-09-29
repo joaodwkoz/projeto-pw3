@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class veri_login extends Controller
 {
-
-
     public function login(Request $request)
     {
         // validação básica
@@ -22,7 +21,7 @@ class veri_login extends Controller
         if ($usuario && Hash::check($request->senha, $usuario->senha)) {
 
             Auth::login($usuario);
-            return redirect()->route('home');
+            return redirect()->route('filmes');
         }
 
         return back()->withErrors([

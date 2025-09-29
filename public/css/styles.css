@@ -29,6 +29,9 @@ button {
 #sidebar {
     width: 21.35%;
     height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
     background-color: #212121;
     padding: 2.5vw;
 }
@@ -92,11 +95,12 @@ button {
     flex-direction: column;
     gap: 3.33vw;
     padding: 3.33vw;
+    margin-left: 21.35%;
 }
 
 #app header {
     width: 100%;
-    height: 7.5%;
+    height: 10%;
     display: flex;
     gap: 3.33vw;
 }
@@ -234,9 +238,17 @@ button {
     min-height: 0;
 }
 
-#app .content .popular {
+.popular-container {
     width: 100%;
-    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app .content .popular {
+    width: 50%;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
     background-color: #333;
     border-radius: 1.67vw;
     position: relative;
@@ -262,7 +274,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 0.83vw;
-    max-width: 50%;
+    max-width: 75%;
 }
 
 #app .content .popular .info span {
@@ -290,7 +302,7 @@ button {
 
 #app .content .popular .info .movie-genres .movie-genre {
     padding: 0.416667vw 1.67vw;
-    background-color: #212121; /* COR SÓLIDA, SEM RGBA */
+    background-color: #212121;
     border-radius: 1.67vw;
     font-family: 'Poppins';
     font-size: 0.83vw;
@@ -346,7 +358,7 @@ button {
 
 #app .content .suggestions {
     width: 100%;
-    height: 55%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.67vw;
