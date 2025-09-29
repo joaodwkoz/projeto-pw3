@@ -50,3 +50,8 @@ Route::get('/dashboard/avaliacoes', function () {
 })->name('dashboard.avaliacoes');
 
 Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index')->name('dashboard.contatos');
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
+    ->name('dashboardController.index');
+
+
