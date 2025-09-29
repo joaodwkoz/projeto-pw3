@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+
+use App\Models\Filme;
+use App\Models\Avaliacao;
+use App\Models\Lista;
 
 class Usuario extends Authenticatable
 {
@@ -46,5 +50,20 @@ class Usuario extends Authenticatable
         }
 
         return 'deleted';
+    }
+
+    public function filmesAssistidos()
+    {
+        return $this->belongsToMany(Filme::class, 'filme_usuario');
+    }
+
+    public function avaliacoes()
+    {
+        return $this->hasMany(Avaliacao::class);
+    }
+
+    public function listas()
+    {
+        return $this->hasMany(Lista::class);
     }
 }

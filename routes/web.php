@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FilmeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,8 @@ Route::get('/perfil', function () {
 Route::get('/filme', function () {
     return view('filme');
 });
+
+Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
 
 Route::get('/cadastro', function () {
     return view('cadastro');
