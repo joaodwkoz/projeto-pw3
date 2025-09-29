@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email');
             $table->string('senha');
-            $table->tinyInteger('ehAdmin');
+            $table->boolean('ehAdmin')->default(false);
             $table->string('status');
             $table->timestamps();
         });

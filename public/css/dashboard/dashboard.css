@@ -142,7 +142,7 @@ button {
 
 #app #stats .cards {
     width: 100%;
-    height: 5vw;
+    height: 4vw;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3.33vw;
@@ -203,7 +203,7 @@ button {
 
 #app #stats .charts {
     width: 100%;
-    display: grid;
+    display: flex;
     grid-template-columns: 1.60fr 1.60fr 1.25fr;
     gap: 3.33vw;
 }
@@ -211,12 +211,17 @@ button {
 #app #stats .charts .chart {
     background-image: linear-gradient(to right, #1f1f1f, #1b1b1b);
     border-radius: 0.83333vw;
-    padding: 1.25vw;
+    padding: 1%;
+    height: 100%;
+}
+
+#app #stats .charts .chart #donutchart{
+    width: 80%;
 }
 
 #app #stats .charts .chart .chart-header {
     width: 100%;
-    height: 1.25vw;
+    height: 10%;
     display: flex;
     gap: 0.83333vw;
     align-items: center;
@@ -491,3 +496,4 @@ button {
 .issue .box span {
     color: #F55D5D !important;
 }
+

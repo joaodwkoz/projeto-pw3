@@ -15,6 +15,12 @@ use App\Http\Controllers\FilmeController;
 |
 */
 
+Auth::routes();
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 Route::get('/contato', function () {
     return view('contato');
 });
@@ -25,10 +31,6 @@ Route::get('/sla', function () {
 
 Route::get('/perfil', function () {
     return view('perfil');
-});
-
-Route::get('/login', function () {
-    return view('login');
 });
 
 Route::get('/filme', function () {
@@ -52,3 +54,8 @@ Route::get('/dashboard/avaliacoes', function () {
 })->name('dashboard.avaliacoes');
 
 Route::get('/dashboard/contatos', 'App\Http\Controllers\ContatoController@index')->name('dashboard.contatos');
+
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])
+    ->name('dashboardController.index');
+
+
