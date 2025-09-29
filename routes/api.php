@@ -57,3 +57,13 @@ Route::prefix('listas')->group(function () {
     Route::post('/{lista}/filme', [ListaController::class, 'adicionarFilme']);
     Route::delete('/{lista}/filme', [ListaController::class, 'removerFilme']);
 });
+
+Route::prefix('filmes')->group(function () {
+
+    Route::get('/', [FilmeController::class, 'index'])->name('filmes.index');
+    Route::get('/{imdbID}', [FilmeController::class, 'show'])->name('filmes.show');
+
+    Route::get('/buscar-externo', [FilmeController::class, 'buscarFilmeOMDb']);
+});
+
+Route::get('/usuarios/buscar', [UsuarioController::class, 'buscar']);

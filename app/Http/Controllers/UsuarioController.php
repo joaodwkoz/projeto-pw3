@@ -63,5 +63,19 @@ class UsuarioController extends Controller
         $usuario->delete();
         return response()->json(['success' => true], 200);
     }
+
+    public function buscar(Request $request) {
+        $termo = $request->input('q');
+
+        if(!$termo) {
+            return response()->json(['erro' => 'Termo de busca não informado.'], 400);
+        }
+
+        $usuarios = Usuario::where('nome', 'like', "%{$termo}%")
+        ->orWhere('email', 'like', "%{$termo}%")
+        ->get();
+
+        return response()->json($usuarios);
+    }
 }
 ?>

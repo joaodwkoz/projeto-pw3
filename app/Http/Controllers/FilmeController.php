@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class FilmeController extends Controller
 {
@@ -113,5 +114,31 @@ class FilmeController extends Controller
     {
         $filme->delete();
         return response()->json(['sucesso' => true], 200);
+    }
+
+    public function buscarFilme(Request $request) {
+        $titulo = $request->input('titulo');
+
+        if (!$titulo) {
+            return response()->json(['erro' => 'Título não informado'], 400);
+        }
+
+        $response = Http::get(env('OMDB_API_URL'), [
+            'apikey' => env('OMDB_API_KEY'),
+            't' => $titulo,
+            'plot' => 'full'
+        ]);
+
+        if (!$response->successful()) {
+            return response()->json(['erro' => 'Erro ao acessar a API OMDB'], 500);
+        }
+
+        $dados = $response->json();
+
+        if ($dados['Response'] === 'False') {
+            return response()->json(['erro' => 'Filme não encontrado'], 404);
+        }
+
+        return response()->json($dados);
     }
 }
