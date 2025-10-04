@@ -36,7 +36,7 @@ class LoginController extends Controller
     {
         return [
             'email' => $request->email,
-            'senha' => $request->password
+            'password' => $request->password
         ];
     }
 }
