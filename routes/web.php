@@ -31,7 +31,7 @@ Route::get('/', function () {
 
 Route::get('/contato', function () {
     return view('contato');
-});
+})->name('contato');
 
 Route::middleware('auth')->group(function () {
     Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/filme', function () {
         return view('filme');
     })->name('filme');
+
+    Route::get('/sobre', function () {
+        return view('sobre');
+    })->name('sobre');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
