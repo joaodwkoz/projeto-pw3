@@ -362,12 +362,14 @@ button {
 #app .content .popular .info a .icon {
     max-height: 0.83vw;
     aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #app .content .popular .info a .icon img {
-    height: 100%;
+    width: 100%;
     aspect-ratio: 1 / 1;
-    object-fit: contain;
 }
 
 #app .content .popular .info a span {

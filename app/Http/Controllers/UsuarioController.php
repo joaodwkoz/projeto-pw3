@@ -13,6 +13,11 @@ class UsuarioController extends Controller
         return view('admin.usuarios')->with('usuarios', $usuarios);
     }
 
+    public function all()
+    {
+        return Usuario::all();
+    }
+
     public function create()
     {
         //
@@ -60,7 +65,10 @@ class UsuarioController extends Controller
 
     public function destroyAPI(Usuario $usuario)
     {
-        $usuario->delete();
+        $usuario->update([
+            'status' => 'Deletado'
+        ]);
+
         return response()->json(['success' => true], 200);
     }
 

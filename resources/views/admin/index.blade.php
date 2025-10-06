@@ -5,34 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        var options = {
-            title: 'My Daily Activities',
-            pieHole: 0.75,
-            backgroundColor: 'transparent',
-            
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
-
 </head>
 <body>
     <div id="dashboard">
@@ -110,7 +82,7 @@
                     </span>
                 </div>
 
-                <a href="{{ route('logout') }}" class="log-out" onclick="event.preventDefault();
+                <a href="" class="log-out" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                     <div class="icon">
                         <img src="{{ asset('imgs/side-logout.png') }}" alt="">
@@ -212,7 +184,6 @@
 
                             <span class="chart-title">Genêros mais populares</span>
                         </div>
-                        <div id="donutchart" ></div>
                     </div>
                 </div>
             </div>

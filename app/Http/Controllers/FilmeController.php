@@ -26,6 +26,11 @@ class FilmeController extends Controller
         ]);
     }
 
+    public function all()
+    {
+        return Filme::all();
+    }
+
     public function fetchPorGenero(Genero $genero)
     {
         $filmes = $genero->filmes()->with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(5)->get();

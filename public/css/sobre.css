@@ -137,6 +137,7 @@ button {
 
 #app #content .team .dev:hover .info-overlay {
     top: 110%;
+    opacity: 1;
 }
 
 #app #content .team .dev .info-overlay {
@@ -151,7 +152,8 @@ button {
     align-items: center;
     padding: 0.8325vw;
     z-index: 1;
-    transition: top 0.5s ease;
+    transition: top 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
 }
 
 #app #content .team .dev .info-overlay .dev-info, 
@@ -213,11 +215,11 @@ button {
     transition: filter 0.2s ease;
 }
 
-#app #content .team .dev .img {
+#app #content .team .dev > img {
     width: 100%;
     height: 100%;
-    background-color: #fff;
-    border-radius: 1.5vw;
     position: relative;
     z-index: 2;
+    border-radius: 50%;
+    object-fit: cover;
 }

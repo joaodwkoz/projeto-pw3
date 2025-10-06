@@ -13,7 +13,7 @@ class AvaliacaoController extends Controller
      */
     public function index()
     {
-        //
+        return Avaliacao::all();
     }
 
     /**

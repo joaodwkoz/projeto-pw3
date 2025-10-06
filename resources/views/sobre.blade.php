@@ -87,10 +87,10 @@
                         $mensagem = "Olá, tenho uma dúvida sobre o Cinepop. Por favor, entre em contato o quanto antes.";
 
                         $emails = [
-                            'João' => 'fjoaopedro1302@gmail.com',
-                            'Kauã' => 'kauad.cavalcante@gmail.com',
-                            'Marcos' => 'marcosvinicius.cordeiro.2020@gmail.com',
-                            'Vitor' => 'vitor@gmail.com',
+                            'João' => ['email' => 'fjoaopedro1302@gmail.com', 'github' => 'https://github.com/joaodwkoz', 'imagem' => asset("imgs/foto-joao.PNG")],
+                            'Kauã' => ['email' => 'kauad.cavalcante@gmail.com', 'github' => 'https://github.com/kaucavalcante96', 'imagem' => asset("imgs/foto-kaua.webp")],
+                            'Marcos' => ['email' => 'marcosvinicius.2020@gmail.com', 'github' => 'https://github.com/marcolaCordeiro', 'imagem' => asset("imgs/foto-marcos.webp")],
+                            'Vitor' => ['email' => 'vtvitucosta@gmail.com', 'github' => 'https://github.com/vitudsg', 'imagem' => asset("imgs/foto-vitor.PNG")],
                         ];
 
                         if(!function_exists('hrefToMail')){
@@ -99,14 +99,14 @@
                                 $ass = urlencode($assunto);
                                 $msg = urlencode($mensagem);
 
-                                return "mailto:{$emails[$nome]}?subject={$ass}&body={$msg}";
+                                return "mailto:{$emails[$nome]['email']}?subject={$ass}&body={$msg}";
                             }
                         }
                     @endphp
 
-                    @foreach($emails as $nome => $email)
+                    @foreach($emails as $nome => $info)
                         <div class="dev">
-                            <div class="img"></div> <!-- Depois aqui tem que virar uma imagem mesmo -->
+                            <img src="{{ $info['imagem'] }}"> <!-- Depois aqui tem que virar uma imagem mesmo -->
 
                             <div class="info-overlay">
                                 <div class="dev-info">
@@ -116,11 +116,11 @@
                                 <div class="separator"></div>
 
                                 <div class="dev-links">
-                                    <a class="dev-link">
+                                    <a class="dev-link" href="{{ $info['github'] }}" target="__blank">
                                         <img src="{{ asset('imgs/icon-github.png') }}" alt="">
                                     </a>
 
-                                    <a class="dev-link" href="{{ hrefToMail($nome, $emails, $assunto, $mensagem) }}">
+                                    <a class="dev-link" href="{{ hrefToMail($nome, $emails, $assunto, $mensagem) }}" target="__blank">
                                         <img src="{{ asset('imgs/icon-gmail.png') }}" alt="">
                                     </a>
                                 </div>

@@ -14,6 +14,11 @@ class ContatoController extends Controller
         return view('admin.contatos')->with('contatos', $contatos);
     }
 
+    public function all()
+    {
+        return Contato::all();
+    }
+
     public function storeAPI(Request $request)
     {
         $validatedData = $request->validate([

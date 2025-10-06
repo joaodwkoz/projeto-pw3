@@ -99,7 +99,7 @@
                             @endif
                        @endauth
 
-                       <a href="{{ route('logout') }}"
+                       <a href=""
                         onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                             Sair

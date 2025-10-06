@@ -23,7 +23,11 @@ Route::prefix('contatos')->group(function () {
     Route::post('/', [ContatoController::class, 'storeAPI']);
 });
 
+Route::get('filmes/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
+Route::get('filmes/{filme}', [FilmeController::class, 'showAPI']);
+
 Route::prefix('usuarios')->group(function () {
+    Route::get('/', [UsuarioController::class, 'all']);
     Route::post('/', [UsuarioController::class, 'storeAPI']);
     Route::get('/buscar', [UsuarioController::class, 'buscar']);
     Route::get('/{usuario}', [UsuarioController::class, 'showAPI']);
@@ -31,33 +35,34 @@ Route::prefix('usuarios')->group(function () {
     Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
 });
 
+Route::prefix('avaliacoes')->group(function () {
+    Route::get('/', [AvaliacaoController::class, 'index']);
+    Route::post('/', [AvaliacaoController::class, 'storeAPI']);
+    Route::get('/{avaliacao}', [AvaliacaoController::class, 'showAPI']);
+    Route::put('/{avaliacao}', [AvaliacaoController::class, 'updateAPI']);
+    Route::delete('/{avaliacao}', [AvaliacaoController::class, 'destroyAPI']);
+});
+
+Route::prefix('listas')->group(function () {
+    Route::get('/', [ListaController::class, 'index']);
+    Route::post('/', [ListaController::class, 'storeAPI']);
+    Route::get('/{lista}', [ListaController::class, 'showAPI']);
+    Route::put('/{lista}', [ListaController::class, 'updateAPI']);
+    Route::delete('/{lista}', [ListaController::class, 'destroyAPI']);
+    Route::post('/{lista}/filme', [ListaController::class, 'adicionarFilme']);
+    Route::delete('/{lista}/filme', [ListaController::class, 'removerFilme']);
+});
+
+Route::prefix('filmes')->group(function () {
+    Route::get('/', [FilmeController::class, 'all']);
+    Route::post('/', [FilmeController::class, 'storeAPI']);
+    Route::put('/{filme}', [FilmeController::class, 'updateAPI']);
+    Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
-    });
-    
-    Route::prefix('avaliacoes')->group(function () {
-        Route::post('/', [AvaliacaoController::class, 'storeAPI']);
-        Route::get('/{avaliacao}', [AvaliacaoController::class, 'showAPI']);
-        Route::put('/{avaliacao}', [AvaliacaoController::class, 'updateAPI']);
-        Route::delete('/{avaliacao}', [AvaliacaoController::class, 'destroyAPI']);
-    });
-
-    Route::prefix('listas')->group(function () {
-        Route::post('/', [ListaController::class, 'storeAPI']);
-        Route::get('/{lista}', [ListaController::class, 'showAPI']);
-        Route::put('/{lista}', [ListaController::class, 'updateAPI']);
-        Route::delete('/{lista}', [ListaController::class, 'destroyAPI']);
-        Route::post('/{lista}/filme', [ListaController::class, 'adicionarFilme']);
-        Route::delete('/{lista}/filme', [ListaController::class, 'removerFilme']);
-    });
-
-    Route::prefix('filmes')->group(function () {
-        Route::get('/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
-        Route::get('/{filme}', [FilmeController::class, 'showAPI']);
-        Route::post('/', [FilmeController::class, 'storeAPI']);
-        Route::put('/{filme}', [FilmeController::class, 'updateAPI']);
-        Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
     });
 
     /* Lembra de arrumar rotas da api pro middleware is admin */

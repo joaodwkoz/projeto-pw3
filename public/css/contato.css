@@ -196,7 +196,7 @@ button {
 }
 
 #app form .info .info-input img {
-    height: 100%;
+    height: 75%;
     border: none;
 }
 
@@ -241,7 +241,6 @@ button {
     font-family: 'Poppins';
     color: #212121;
     letter-spacing: -0.02em;
-    line-height: 100%;
 }
 
 #app form #send-btn {

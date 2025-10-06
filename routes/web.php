@@ -25,14 +25,14 @@ Route::get('/cadastro', function () {
 Route::post('/cadastro', [RegisterController::class, 'register'])->name('register');
 
 Route::get('/', function () {
-    return redirect()->route('filmes');
+    return view('auth.login');
 });
 
 Route::get('/contato', function () {
     return view('contato');
 })->name('contato');
 
-Route::post('/contato', [ContatoController::class, 'storeWeb'])->name('contato.enviar');
+Route::post('/contato', [ContatoController::class, 'store'])->name('contato.enviar');
 
 Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
 

@@ -84,7 +84,7 @@
                     </span>
                 </div>
 
-                <a href="{{ route('logout') }}" class="log-out" onclick="event.preventDefault();
+                <a href="" class="log-out" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                     <div class="icon">
                         <img src="{{ asset('imgs/side-logout.png') }}" alt="">
