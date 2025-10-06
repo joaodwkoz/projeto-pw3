@@ -14,30 +14,31 @@ class ContatoController extends Controller
         return view('admin.contatos')->with('contatos', $contatos);
     }
 
-    public function storeApi(Request $request){
-        $contato = new Contato();
+    public function storeAPI(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nome' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'assunto' => 'required',
+            'mensagem' => 'required',
+        ]);
 
-        $contato->nome = $request->nome;
-        $contato->email = $request->email;
-        $contato->assunto = $request->assunto;
-        $contato->mensagem = $request->mensagem;
-        $contato->created_at = date('Y-m-d H:i:s');
-        $contato->updated_at = date('Y-m-d H:i:s');
-        
-        $contato->save();
+        Contato::create($validatedData);
+
+        return response()->json(['message' => "Contato enviado com sucesso!"], 201);
     }
 
-    public function store(Request $request){
-        $contato = new Contato();
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nome' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'assunto' => 'required',
+            'mensagem' => 'required',
+        ]);
 
-        $contato -> nome = $request -> txNome;
-        $contato -> email = $request -> txEmail;
-        $contato -> assunto = $request -> txAssunto;
-        $contato -> mensagem = $request -> txMensagem;
-        $contato -> created_at = date('Y-m-d H:i:s');
-        $contato -> update_at = date('Y-m-d H:i:s');
-        
-        $contato->save();
+        Contato::create($validatedData);
+
+        return redirect()->back()->with('success', 'Sua mensagem foi enviada com sucesso!');
     }
 }
-?>

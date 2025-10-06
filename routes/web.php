@@ -3,17 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// Importe todos os controllers que você usa
 use App\Http\Controllers\FilmeController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController; // Importante adicionar
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Rotas Web (Públicas e de Autenticação)
 |--------------------------------------------------------------------------
 */
 
@@ -33,30 +32,27 @@ Route::get('/contato', function () {
     return view('contato');
 })->name('contato');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
+Route::post('/contato', [ContatoController::class, 'storeWeb'])->name('contato.enviar');
 
+Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
+
+Route::get('/sobre', function () {
+    return view('sobre');
+})->name('sobre');
+
+Route::middleware('auth')->group(function () {
     Route::get('/perfil', function () {
         return view('perfil');
     })->name('perfil');
 
-    Route::get('/filme', function () {
-        return view('filme');
-    })->name('filme');
-
-    Route::get('/sobre', function () {
-        return view('sobre');
-    })->name('sobre');
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-    Route::get('/dashboard/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
-
-    Route::get('/dashboard/avaliacoes', function () {
-        return view('admin.avaliacoes');
-    })->name('dashboard.avaliacoes');
-
-    Route::get('/dashboard/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::middleware('is_admin')->prefix('dashboard')->group(function () { 
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
+        Route::get('/avaliacoes', function () {
+            return view('admin.avaliacoes');
+        })->name('dashboard.avaliacoes');
+        Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
+    });
 });

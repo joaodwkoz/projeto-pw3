@@ -13,7 +13,7 @@
 
             <ul>
                 <li>
-                    <a href="{{ route('dashboard.index') }}">
+                    <a href="">
                         <div class="icon">
                             <img src="{{ asset('imgs/side-home.png')}}" alt="Ícone da Home">
                         </div>
@@ -34,6 +34,23 @@
                             <img src="{{ asset('imgs/side-lists.png')}}" alt="Ícone de Listas">
                         </div>
                         <span class="text">Listas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('sobre') }}">
+                        <div class="icon">
+                            <img src="{{ asset('imgs/side-info.png')}}" alt="Ícone de Informações">
+                        </div>
+                        <span class="text">Sobre</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('contato') }}">
+                        <div class="icon">
+                            <img src="{{ asset('imgs/side-contacts.png')}}" alt="Ícone de Contato">
+                        </div>
+                        <span class="text">Contato</span>
                     </a>
                 </li>
                 <li>
@@ -75,9 +92,16 @@
 
                    <div class="profile-menu hidden">
                        <a href="#">Ver perfil</a>
+
+                       @auth
+                            @if(auth()->user()->ehAdmin == 1)
+                                <a href="{{ route('dashboard.index') }}">Admin</a>         
+                            @endif
+                       @endauth
+
                        <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                                document.getElementById('logout-form').submit();">
                             Sair
                         </a>
                    </div>

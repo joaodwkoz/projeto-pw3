@@ -13,7 +13,7 @@
 
             <ul>
                 <li>
-                    <a href="{{route('dashboard.index')}}">
+                    <a href="{{ route('dashboard.index')}} ">
                         <div class="icon">
                             <img src="{{ url('imgs/side-home.png')}}" alt="">
                         </div>
@@ -33,7 +33,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.usuarios') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-users.png')}}" alt="">
                         </div>
@@ -78,17 +78,22 @@
                     <div class="profile-icon"></div>
 
                     <span class="profile-name">
-                        João Pedro
+                        {{ auth()->user()->nome }}
                     </span>
                 </div>
 
-                <div class="log-out">
+                <a href="{{ route('logout') }}" class="log-out" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
                     <div class="icon">
-                        <img src="{{ url('imgs/side-logout.png')}}" alt="">
+                        <img src="{{ asset('imgs/side-logout.png') }}" alt="">
                     </div>
 
                     <span class="text">Sair</span>
-                </div>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </div>
         </aside>
         

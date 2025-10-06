@@ -13,7 +13,7 @@
 
             <ul>
                 <li>
-                    <a href="{{ route('dashboard.index') }}">
+                    <a href="">
                         <div class="icon">
                             <img src="{{ asset('imgs/side-home.png')}}" alt="Ícone da Home">
                         </div>
@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="active">
+                    <a href="{{ route('sobre') }}" class="active">
                         <div class="icon">
                             <img src="{{ asset('imgs/side-info.png')}}" alt="Ícone de Informações">
                         </div>

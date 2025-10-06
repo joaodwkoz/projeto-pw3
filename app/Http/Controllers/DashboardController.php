@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $topUsers = $this->usersWithMostMovies();
         $topMovies = $this->moviesWithMostReviews();
 
-        return view('dashboard', [
+        return view('admin.index', [
             'totalUsers' => $totalUsers,
             'totalMovies' => $totalMovies,
             'topUsers' => $topUsers,
@@ -34,11 +34,11 @@ class DashboardController extends Controller
     }
 
     private function usersWithMostMovies() {
-        return Usuario::withCount('watchedMovies')->orderBy('watched_movies_count', 'desc')->take(5)->get();
+        return Usuario::withCount('filmesAssistidos')->orderBy('filmes_assistidos_count', 'desc')->take(5)->get();
     }
 
     private function moviesWithMostReviews() {
-        return Filme::withCount('reviews')->orderBy('reviews_count', 'desc')->take(5)->get();
+        return Filme::withCount('avaliacoes')->orderBy('avaliacoes_count', 'desc')->take(5)->get();
     }
 }
 ?>

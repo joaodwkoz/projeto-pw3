@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('status', 'Ativo');
         formData.append('_method', 'PUT');
 
-        const response = await fetch(`/api/dashboard/usuarios/${parseInt(modal.dataset.userId)}`, {
+        const response = await fetch(`/api/usuarios/${parseInt(modal.dataset.userId)}`, {
             method: 'POST',
             body: formData
         });

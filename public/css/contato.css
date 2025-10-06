@@ -1,98 +1,258 @@
-*{
-    margin: 0px;
-    padding: 0px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background-color: #130E22;
+::-webkit-scrollbar {
+    width: 0.625vw;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.25vw;
+}
+
+body, html {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    background-color: #181818;
+}
+
+button {
+    border: none;
+    appearance: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#contato {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#sidebar {
+    width: 21.35%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #212121;
+    padding: 2.5vw;
+}
+
+#sidebar .logo {
+    width: 100%;
+    height: 15%;
+}
+
+#sidebar ul {
+    width: 100%;
+    height: 65%;
+    list-style: none;
+}
+
+#sidebar ul li a {
+    width: 100%;
+    height: 5.13vw;
+    padding: 0.83333vw;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1%;
-}
-
-.boxConteiner{
-    width: 48%;
-    height: 95%;
-    background-color: #2D2942;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-form{
-    width: 90%;
-    height: 90%;
-        display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 5%;
-}
-button{
-    background-color: #ffff;
-    border: none;
-    padding: 2%;
-    width: 20%;
-    border-radius: 60px;
-    margin-right: 70%;
-    margin-bottom: 5%;
-    font-family: "Poppins", sans-serif;
-}
-
-h1{
-    color: #ffff;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    margin-right: 48%;
-    margin-bottom: 12%;
-
-}
-
-input{
-    background-color: #2D2942;
-    border: none;
-    border-bottom: 1px solid #ffff;
-    padding: 8px;
-    font-size: 90%;
-    color: #ffff;
-    font-family: "Poppins", sans-serif; 
-}
-.top{
-    width:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5%;
-}
-.inTop{
-    width: 40%;
-}
-
-#inAssunto{
-    width: 88%;
-    margin: 10%;
-}
-
-textarea{
-    background-color: #2D2942;
-    width: 88%;
-    border: none;
-    border-bottom: 1px solid #ffff;
+    gap: 0.833333vw;
     text-decoration: none;
-    font-family: "Poppins", sans-serif;
-    padding-left: 8px;
-    color: #ffff;
 }
 
-#box2{
-    background-image: url("../img/filmes.jpg"); /* caminho da imagem */
-  background-size: cover;     /* cobre toda a div */
-  background-position: center;/* centraliza a imagem */
-  background-repeat: no-repeat;/* não repete */
+#sidebar ul li a .icon {
+    height: 50%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sidebar ul li a img {
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#sidebar ul li a .text {
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #fff;
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#sidebar ul li a.active img,
+#sidebar ul li a.active .text {
+    opacity: 1;
+}
+
+#app {
+    width: calc(100% - 21.35%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 21.35%;
+}
+
+#app form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+    align-items: center;
+}
+
+#app form .title {
+    font-family: 'Poppins';
+    font-size: 2.5vw;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 100%;
+}
+
+#app form .subtext {
+    display: flex;
+    align-items: center;
+    gap: 0.25vw;
+}
+
+#app form .subtext span {
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 100%;
+}
+
+#app form .subtext .email {
+    padding: 0.5vw 0.5vw;
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    font-size: 1.25vw;
+    font-weight: 400;
+    color: #fff;
+    font-family: 'Poppins';
+    letter-spacing: -0.02em;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+#app form .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.866667vw;
+    width: 40vw;
+}
+
+#app form span {
+    font-size: 1vw;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins';
+    letter-spacing: -0.02em;
+    line-height: 100%;
+    text-decoration: none;
+}
+
+#app form .info .info-input {
+    width: 100%;
+    height: 7vh;
+    border-radius: 2.5vw;
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    padding: 1vw;
+    display: flex;
+    align-items: center;
+    gap: 0.866667vw;
+    outline: 0.15vw solid #fff;
+}
+
+#app form .info .info-textarea {
+    width: 100%;
+    height: 14vh;
+    border-radius: 1.25vw;
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    padding: 1vw;
+    display: flex;
+    align-items: center;
+    gap: 0.866667vw;
+    outline: 0.15vw solid #fff;
+}
+
+#app form .info .info-input img {
+    height: 100%;
+    border: none;
+}
+
+#app form .info .info-input input, #app form .info .info-textarea textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    font-size: 1vw;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins';
+    letter-spacing: -0.02em;
+    line-height: 100%;
+    border: none;
+    resize: none;
+}
+
+#app form .info .info-input input:focus, #app form .info .info-textarea textarea:focus {
+    outline: none;
+}
+
+#app form .info .info-input select {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    font-size: 1vw;
+    font-weight: 500;
+    color: #fff;
+    font-family: 'Poppins';
+    letter-spacing: -0.02em;
+    line-height: 100%;
+}
+
+#app form .info .info-input select:focus {
+    outline: none;
+}
+
+#app form .info .info-input select option {
+    font-size: 1vw;
+    font-weight: 500;
+    font-family: 'Poppins';
+    color: #212121;
+    letter-spacing: -0.02em;
+    line-height: 100%;
+}
+
+#app form #send-btn {
+    width: 100%;
+    height: 7vh;
+    border-radius: 2.5vw;
+    background-color: #fff;
+    font-size: 1.5vw;
+    font-weight: 500;
+    font-family: 'Poppins';
+    color: #212121;
+    letter-spacing: -0.02em;
+    line-height: 100%;
 }

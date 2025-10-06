@@ -6,6 +6,20 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 0.625vw;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.25vw;
+}
+
 body, html {
     width: 100%;
     height: 100%;
