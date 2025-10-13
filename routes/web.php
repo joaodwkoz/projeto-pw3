@@ -36,6 +36,10 @@ Route::post('/contato', [ContatoController::class, 'store'])->name('contato.envi
 
 Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes');
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
 Route::get('/sobre', function () {
     return view('sobre');
 })->name('sobre');
