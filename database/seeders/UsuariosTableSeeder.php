@@ -21,6 +21,7 @@ class UsuariosTableSeeder extends Seeder
             'ehAdmin' => false,
             'status' => 'Ativo',
         ]);
+        
         Usuario::create([
             'nome' => 'Administrador',
             'email' => 'admin@admin.com',

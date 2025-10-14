@@ -44,6 +44,10 @@ Route::get('/sobre', function () {
     return view('sobre');
 })->name('sobre');
 
+Route::get('/listas', function () {
+    return view('listas');
+})->name('listas');
+
 Route::middleware('auth')->group(function () {
     Route::get('/perfil', function () {
         return view('perfil');

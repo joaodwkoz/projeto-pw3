@@ -34,7 +34,7 @@ button {
     cursor: pointer;
 }
 
-#perfil {
+#listas {
     width: 100%;
     height: 100%;
     display: flex;
@@ -220,17 +220,15 @@ button {
 
 .profile-menu a {
     text-decoration: none;
-    font-family: 'Poppins';
-    font-size: 1vw;
-    padding: 0.8vw 1vw;
-    border-radius: 0.5vw;
-    transition: background-color 0.2s ease, color 0.2s ease;
     color: #fff;
     font-family: 'Poppins';
     font-size: 1.1vw;
     font-weight: 500;
     line-height: 100%;
     letter-spacing: -0.02em;
+    padding: 0.8vw 1vw;
+    border-radius: 0.5vw;
+    transition: background-color 0.2s ease, color 0.2s ease;
     cursor: pointer;
 }
 
@@ -247,171 +245,79 @@ button {
 
 #app .content {
     width: 100%;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.67vw;
     min-height: 0;
 }
 
-.user-profile {
-    width: 100%;
-    height: 20vh;
-    display: flex;
-    gap: 1.67vw;
-    align-items: center;
-    padding: 2.25vw;
+#app .content .list {
+    border-radius: 1vw;
     background-color: #111;
-    border-radius: 1.25vw;
-}
-
-.user-profile .user {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 1.67vw;
-}
-
-.user-profile .user-img {
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    background-color: #fff;
-}
-
-.user-profile .user-name {
-    font-family: 'Poppins';
-    font-size: 1.5vw;
-    color: #fff;
-    font-weight: 500;
-    line-height: 120%;
-    letter-spacing: -0.02em;
-}
-
-.tabs {
-    height: 9.5vh;
-    background-color: #111;
-    border-radius: 0.5vw;
-    display: flex;
-    gap: 1vw;
-    align-items: center;
-    padding: 1vw;
-}
-
-.tabs .tab {
-    height: calc(9.5vh - 2vw);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1vw;
-    cursor: pointer;
-    border-radius: 0.25vw;
-    transition: background-color 0.2s ease;
-}
-
-.tabs .tab:hover, .tabs .tab.active {
-    background-color: #181818;
-}
-
-.tabs .tab .tab-name {
-    font-family: 'Poppins';
-    font-size: 1.1vw;
-    font-weight: 500;
-    line-height: 100%;
-    letter-spacing: -0.02em;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.activities {
-    width: 100%;
-    height: 45vw;
-    max-height: 45vh;
-    background-color: #111;
-    border-radius: 0.75vw;
-    border: 0.15vw solid rgba(255, 255, 255, 0.5);
-}
-
-.activities:empty {
-    display: none;
-}
-
-.activities .activity {
-    width: 100%;
-    border-bottom: 0.15vw solid rgba(255, 255, 255, 0.5);
-    padding: 1vw;
+    padding: 1.25vw;
     display: flex;
     flex-direction: column;
-    gap: 0.8333333vw;
+    gap: 0.833333vw;
 }
 
-.activities .activity .activity-data {
-    height: 5vh;
+.list .list-info {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.activities .activity .activity-movie {
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    gap: 0.833333vw;
+.list .list-info .list-updated {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 0.866667vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
 }
 
-.activity-user {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.833333vw;
+.list .picture {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+    border-radius: 0.5vw;
 }
 
-.user-img {
-    height: 75%;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
+.picture .img {
     background-color: #fff;
 }
 
-.user-name {
-    font-family: 'Poppins';
-    font-size: 1.25vw;
+.list .list-name {
     color: #fff;
-    font-weight: 500;
-    line-height: 120%;
-    letter-spacing: -0.02em;
-}
-
-.action {
-    font-family: 'Poppins';
-    font-size: 1.25vw;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 400;
-    line-height: 120%;
-    letter-spacing: -0.02em;
-}
-
-.date {
     font-family: 'Poppins';
     font-size: 1.15vw;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 400;
-    line-height: 120%;
+    font-weight: 500;
+    line-height: 100%;
     letter-spacing: -0.02em;
 }
 
-.movie-img {
-    height: 75%;
-    aspect-ratio: 2 / 3;
-    border-radius: 0.25vw;
-    background-color: #fff;
+.list .list-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.833333vw;
 }
 
-.movie-name {
+.list .list-quantity img {
+    height: 1.15vw;
+    object-fit: contain;
+    opacity: 0.5;
+}
+
+.list .list-quantity .quantity {
+    color: rgba(255, 255, 255, 0.5);
     font-family: 'Poppins';
-    font-size: 1.25vw;
-    color: #fff;
+    font-size: 1vw;
     font-weight: 500;
-    line-height: 120%;
+    line-height: 100%;
     letter-spacing: -0.02em;
 }
