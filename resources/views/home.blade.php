@@ -190,27 +190,315 @@
 
                                     <span class="user-name">João Pedro</span>
 
-                                    <span class="action">Assistiu o filme</span>
+                                    <span class="action">Criou uma nova lista</span>
                                 </div>
 
                                 <span class="date">Há 1h</span>
                             </div>
 
-                            <div class="activity-movie">
-                                <div class="movie-img"></div>
+                            <div class="activity-list">
+                                <div class="list-img"></div>
 
-                                <span class="movie-info">A morte dos esquecidos (2001)</span>
+                                <span class="list-info">Filmes de terror do século</span>
+                            </div>
+                        </div>
+
+                        <div class="activity">
+                            <div class="activity-data">
+                                <div class="user">
+                                    <div class="user-img"></div>
+
+                                    <span class="user-name">João Pedro</span>
+
+                                    <span class="action">Seguiu você</span>
+                                </div>
+
+                                <span class="date">Há 1h</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="movies-list">
-                    <span>Filmes populares</span>
+                    <div class="movies-list-header">
+                        <span>Filmes populares</span>
+
+                        <div class="movies-list-btns">
+                            <button>
+                                <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
+                            </button>
+
+                            <button>
+                                <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="movies-scroll-list">
+                        <div class="movie"></div>
+
+                        <div class="movie"></div>
+
+                        <div class="movie"></div>
+
+                        <div class="movie"></div>
+
+                        <div class="movie"></div>
+
+                        <div class="movie"></div>
+                    </div>
                 </div>
 
                 <div class="lists-list">
-                    <span>Listas populares</span>
+                    <div class="lists-list-header">
+                        <span>Listas populares</span>
+
+                        <div class="lists-list-btns">
+                            <button>
+                                <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
+                            </button>
+
+                            <button>
+                                <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lists-scroll-list">
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <div class="list-creator-user">
+                                    <div class="creator-img"></div>
+
+                                    <span class="creator-name">João Pedro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list">
+                            <div class="list-info">
+                                <span class="list-updated">Atualizada há 10d</span>
+                            </div>
+
+                            <div class="picture">
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+
+                                <div class="img"></div>
+                            </div>
+
+                            <span class="list-name">Favoritos</span>
+
+                            <div class="list-quantity">
+                                <img src="{{ asset('imgs/side-movies.png') }}" alt="">
+
+                                <span class="quantity">10</span>
+                            </div>
+
+                            <div class="list-creator">
+                                <span class="list-created-by">Criada por</span>
+
+                                <span class="creator-name">João Pedro</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

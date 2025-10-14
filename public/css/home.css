@@ -7,7 +7,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 0.625vw;
+    width: 0.625vw !important;
     background: transparent;
 }
 
@@ -47,7 +47,7 @@ button {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: #212121;
+    background-color: #111;
     padding: 2.5vw;
 }
 
@@ -111,12 +111,11 @@ button {
     gap: 3.33vw;
     padding: 3.33vw;
     margin-left: 21.35%;
-    overflow-y: auto;
 }
 
 #app header {
     width: 100%;
-    height: 7.5%;
+    height: 7.5vh;
     display: flex;
     gap: 3.33vw;
 }
@@ -249,23 +248,27 @@ button {
 
 #app .content {
     width: 100%;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 1.67vw;
+    padding-bottom: 3.33vw;
 }
 
 #app .content .activity-feed {
+    max-height: 31vh;
+}
+
+#app .content .activity-feed, #app .content .movies-list, #app .content .lists-list {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.67vw;
     flex-shrink: 0;
-    max-height: 33vh;
     min-height: 0;
     overflow: hidden; 
 }
 
-.activity-feed > span, .movies-list > span , .lists-list > span {
+.activity-feed > span, .movies-list .movies-list-header > span, .lists-list .lists-list-header > span {
     font-family: 'Poppins';    
     color: #fff;    
     font-size: 1.5vw;
@@ -276,7 +279,7 @@ button {
 
 #app .content .activity-feed .activities {
     width: 100%;
-    background-color: #171717;
+    background-color: #111;
     border-radius: 0.5vw;
     border: 0.05vw solid rgba(255, 255, 255, 0.5);
     overflow-y: auto;
@@ -285,11 +288,11 @@ button {
 }
 
 #app .content .activity-feed .activities .activity {
-    border-bottom: 0.05vw solid rgba(255, 255, 255, 0.5);
-    padding: 1.25vw;
+    border-bottom: 0.15vw solid rgba(255, 255, 255, 0.5);
+    padding: 1vw;
     display: flex;
     flex-direction: column;
-    gap: 1.67vw;
+    gap: 0.8333333vw;
 }
 
 #app .content .activity-feed .activities .activity:last-child {
@@ -297,25 +300,29 @@ button {
 }
 
 .activity-data {
+    height: 5vh;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
-.activity-data, .activity-movie {
+.activity-data, .activity-movie, .activity-list {
     width: 100%;
-    height: 50%;
+    height: 5vh;
     display: flex;
     align-items: center;
 }
 
 .activity .activity-data .user {
+    height: 100%;
     display: flex;
     gap: 0.83333vw;
     align-items: center;
 } 
 
 .user .user-img {
-    height: 1.5vw !important;
-    width: 1.5vw !important;
+    height: 75%;
+    aspect-ratio: 1 / 1;
     background-color: #fff;
     border-radius: 50%;
 }
@@ -325,7 +332,7 @@ button {
     color: #fff;    
     font-size: 1.25vw;
     font-weight: 500;
-    line-height: 100%;
+    line-height: 120%;
     letter-spacing: -0.02em;
 }
 
@@ -334,44 +341,44 @@ button {
     color: rgba(255, 255, 255, 0.5);    
     font-size: 1.25vw;
     font-weight: 400;
-    line-height: 100%;
+    line-height: 120%;
     letter-spacing: -0.02em;
 }
 
 .date {
     font-family: 'Poppins';    
     color: rgba(255, 255, 255, 0.5);    
-    font-size: 1vw;
+    font-size: 1.15vw;
     font-weight: 400;
-    line-height: 100%;
+    line-height: 120%;
     letter-spacing: -0.02em;
 }
 
-.activity-movie {
+.activity-movie, .activity-list {
     display: flex;
     gap: 0.83333vw;
 }
 
 .movie-img {
-    height: 2vw;
+    height: 75%;
     aspect-ratio: 2 / 3;
     background-color: #fff;
     border-radius: 0.25vw;
 }
 
-.movie-info {
+.movie-info, .list-info {
     font-family: 'Poppins';    
     color: #fff;    
-    font-size: 1.5vw;
+    font-size: 1.25vw;
     font-weight: 500;
-    line-height: 100%;
+    line-height: 120%;
     letter-spacing: -0.02em;
 }
 
 .review {
     display: flex;
     flex-direction: column;
-    gap: 1.67vw;
+    gap: 0.8333333vw;
 }
 
 .review .rating {
@@ -395,6 +402,170 @@ button {
     color: #fff;    
     font-size: 1.15vw;
     font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list-img {
+    height: 75%;
+    aspect-ratio: 3 / 2;
+    background-color: #fff;
+    border-radius: 0.25vw;
+}
+
+.movies-list .movies-list-header, .lists-list .lists-list-header {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.movies-list-header .movies-list-btns, .lists-list-header .lists-list-btns {
+    height: 100%;
+    display: flex;
+    gap: 0.833333vw;
+}
+
+.movies-list-btns button:hover, .lists-list-btns button:hover {
+    opacity: 1;
+}
+
+.movies-list-btns button, .lists-list-btns button {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 0.2vw solid #fff;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+}
+
+.movies-list-btns button img, .lists-list-btns button img {
+    height: 50%;
+    object-fit: contain;
+}
+
+.movies-list .movies-scroll-list, .lists-list .lists-scroll-list {
+    width: 100%;
+    height: calc(100% - 3.17vw);
+    display: flex;
+    gap: 1.67vw;
+    overflow-x: auto;
+    overflow-x: scroll; 
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.movies-scroll-list .movie {
+    aspect-ratio: 2 / 3;
+}
+
+.lists-scroll-list .list {
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.833333vw;
+}
+
+.movies-scroll-list .movie, .lists-scroll-list .list {
+    min-width: calc((71.35vw - (5 * 1.67vw)) / 5.5);
+    background-color: #111;
+    border-radius: 0.5vw;
+}
+
+.list .list-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list .list-info .list-updated {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 0.866667vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list .picture {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+    border-radius: 0.5vw;
+}
+
+.picture .img {
+    background-color: #fff;
+}
+
+.list .list-name {
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.15vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list .list-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.833333vw;
+}
+
+.list .list-quantity img {
+    height: 1.15vw;
+    object-fit: contain;
+    opacity: 0.5;
+}
+
+.list .list-quantity .quantity {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 1vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list .list-creator {
+    width: 100%;
+    height: 1.15vw;
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.list-creator .list-created-by {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 0.75vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list-creator .list-creator-user {
+    height: 1.15vw;
+    display: flex;
+    align-items: center;
+}
+
+.list-creator-user .creator-name {
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 0.75vw;
+    font-weight: 500;
     line-height: 100%;
     letter-spacing: -0.02em;
 }
