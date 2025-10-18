@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lista;
+use App\Models\Usuario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListaController extends Controller
 {
+    public function obterListasUsuario(Usuario $usuario) 
+    {
+        if (Auth::user()->id != $usuario->id) {
+            return response()->json(['message' => 'Você não tem acesso a esse endpoint.'], 403);
+        }
+
+        $listas = $usuario->listas()->with('filmes')->get();
+
+        return response()->json($listas);
+    }
+
     public function adicionarFilme(Request $request, Lista $lista)
     {
         $lista->filmes()->attach($request->filme_id);

@@ -33,6 +33,7 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/{usuario}', [UsuarioController::class, 'showAPI']);
     Route::put('/{usuario}', [UsuarioController::class, 'updateAPI']);
     Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
+    Route::get('/{usuario}/listas', [ListaController::class, 'obterListasUsuario']);
 });
 
 Route::prefix('avaliacoes')->group(function () {

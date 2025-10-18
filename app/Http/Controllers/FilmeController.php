@@ -8,9 +8,15 @@ use App\Models\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Spatie\FlareClient\View;
 
 class FilmeController extends Controller
 {
+    public function marcarComoAssistido()
+    {
+        
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -76,6 +82,11 @@ class FilmeController extends Controller
     public function showAPI(Filme $filme)
     {
         return response()->json($filme->load('generos', 'classificacao', 'avaliacoes'), 200);
+    }
+
+    public function showFilmePage(Filme $filme)
+    {
+        return view('filme')->with(['filme' => $filme->load('generos', 'classificacao', 'avaliacoes.usuario')]);
     }
 
     /**

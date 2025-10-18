@@ -1,1 +1,2 @@
-Validação em métodos store
+- Criar novas telas 
+- Terminar a Dashboard

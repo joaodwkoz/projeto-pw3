@@ -11,7 +11,7 @@ class Avaliacao extends Model
 
     protected $table = 'avaliacoes';
 
-    protected $fillable = ['id', 'usuario_id', 'filme_id', 'nota', 'comentario', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'usuario_id', 'filme_id', 'nota', 'comentario'];
 
     public function usuario()
     {

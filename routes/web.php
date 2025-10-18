@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    Route::get('/filmes/{filme}', [FilmeController::class, 'showFilmePage']);
+
     Route::middleware('is_admin')->prefix('dashboard')->group(function () { 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
