@@ -6,15 +6,37 @@ use App\Models\Filme;
 use App\Http\Controllers\Controller;
 use App\Models\Genero;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Spatie\FlareClient\View;
 
 class FilmeController extends Controller
 {
-    public function marcarComoAssistido()
+    public function marcarComoAssistido(Request $request, Filme $filme)
     {
-        
+        $jaAssistido = $filme->usuariosQueAssistiram()->where('usuario_id', $request->usuario_id)->exists();
+
+        if ($jaAssistido) {
+            return response()->json(['message' => 'Você já marcou esse filme como assistido'], 409);
+        }
+
+        $filme->usuariosQueAssistiram()->attach($request->usuario_id);
+
+        return response()->json(['sucesso' => true], 200);
+    }
+
+    public function desmarcarComoAssistido(Request $request, Filme $filme)
+    {
+        $jaAssistido = $filme->usuariosQueAssistiram()->where('usuario_id', $request->usuario_id)->exists();
+
+        if (!$jaAssistido) {
+            return response()->json(['message' => 'Você não marcou esse filme como assistido'], 409);
+        }
+
+        $filme->usuariosQueAssistiram()->detach($request->usuario_id);
+
+        return response()->json(['sucesso' => true], 200);
     }
 
     /**
@@ -86,7 +108,11 @@ class FilmeController extends Controller
 
     public function showFilmePage(Filme $filme)
     {
-        return view('filme')->with(['filme' => $filme->load('generos', 'classificacao', 'avaliacoes.usuario')]);
+        $usuario = Auth::user();
+
+        $jaAssistiu = $filme->usuariosQueAssistiram()->where('usuario_id', $usuario->id)->exists();
+
+        return view('filme')->with(['filme' => $filme->load('generos', 'classificacao', 'avaliacoes.usuario'), 'assistido' => $jaAssistiu]);
     }
 
     /**

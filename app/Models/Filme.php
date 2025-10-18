@@ -32,4 +32,9 @@ class Filme extends Model
     {
         return $this->belongsToMany(Lista::class, 'lista_filme');
     }
+
+    public function usuariosQueAssistiram()
+    {
+        return $this->belongsToMany(Usuario::class, 'filme_usuario');
+    }
 }

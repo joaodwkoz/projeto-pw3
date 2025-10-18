@@ -72,7 +72,7 @@
             </ul>
         </aside>
 
-        <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}">
+        <main id="app" data-usuario-id="{{ Auth::user()->id }}" data-check-img-url="{{ asset('imgs/check.png') }}" data-filme-id="{{ $filme->id }}" data-usuario-nome="{{ Auth::user()->nome }}" data-star-img-url="{{ asset('imgs/side-reviews.png') }}">
            <header>
                <div class="search-bar">
                     <div class="icon">
@@ -148,8 +148,8 @@
                         </div>
 
                         <div class="movie-btns">
-                            <button class="movie-btn" id="mark-viewed-btn">
-                                <span>Marcar como assistido</span>
+                            <button class="movie-btn" id="mark-viewed-btn" data-assistido="{{ $assistido ? 'true' : 'false' }}">
+                                <span>{{ $assistido ? 'Desmarcar como assistido' : 'Marcar como assistido' }}</span>
                             </button>
 
                             <button class="movie-btn" id="make-review-btn">
@@ -160,7 +160,7 @@
                                 <span>Assistir trailer</span>
                             </a>
 
-                            <button class="movie-btn" id="add-to-list-btn">
+                            <button class="movie-btn" id="add-to-list-btn" >
                                 <span>Adicionar à lista</span>
                             </button>
                         </div>
@@ -184,7 +184,30 @@
                                         <span class="user-name">{{ $avaliacao->usuario->nome }}</span>
                                     </div>
 
-                                <span class="date">Há 10h</span>
+                                <span class="date">
+                                    @php
+                                        $minutos = $avaliacao->created_at->diffInMinutes();
+                                        $horas = $avaliacao->created_at->diffInHours();
+                                        $dias = $avaliacao->created_at->diffInDays();
+                                        $meses = $avaliacao->created_at->diffInMonths();
+                                        
+                                        $output = '';
+
+                                        if ($minutos < 60) {
+                                            $output = $minutos > 1 ? "Há $minutos min" : "Agora mesmo";
+                                        } elseif ($horas < 24) {
+                                            $output = $horas > 1 ? "Há $horas horas" : "Há $horas hora";
+                                        } elseif ($dias < 30) {
+                                            $output = $dias > 1 ? "Há $dias dias" : "Há $dias dia";
+                                        } elseif ($meses < 12) {
+                                            $output = $meses > 1 ? "Há $meses meses" : "Há $meses mês";
+                                        } else {
+                                            $output = $avaliacao->created_at->format('d/m/Y');
+                                        }
+                                    @endphp
+                                    
+                                    {{ $output }}
+                                </span>
                                 </div>
                             
                                 <div class="review-rating">
@@ -215,25 +238,380 @@
                     Salvar filme em
                 </span>
 
-                <div class="modal-header-close">
+                <button class="modal-header-close">
                     <img src="{{ asset('imgs/close.png') }}" alt="">
-                </div>
+                </button>
             </div>
 
             <div class="modal-content">
-                <input type="checkbox" id="add-list-1" class="modal-content-checkbox">
+    
+            </div>
+        </div>
+    </div>
 
-                <label for="add-list-1">
-                    <div class="modal-content-add">
-                        <img src="{{ asset('imgs/check.png') }}" alt="">
+    <div id="review-modal-fade" class="hidden">
+        <div id="review-modal">
+            <div class="modal-header">
+                <span class="modal-header-text">
+                    Fazer avaliação
+                </span>
+
+                <button class="modal-header-close">
+                    <img src="{{ asset('imgs/close.png') }}" alt="">
+                </button>
+            </div>
+
+            <div class="modal-content">
+                <div class="modal-content-rating">
+                    <div class="star">
+                        <img src="{{ asset('imgs/side-reviews.png') }}" alt="" >
                     </div>
 
-                    <span class="list-name">A volta dos que não foram</span>
-                </label> 
+                    <div class="star">
+                        <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                    </div>
+
+                    <div class="star">
+                        <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                    </div>
+
+                    <div class="star">
+                        <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                    </div>
+
+                    <div class="star">
+                        <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                    </div>
+                </div>
+
+                <textarea placeholder="Escreva sua avaliação aqui" id="review-comment"></textarea>
+
+                <div class="btns">
+                    <button id="cancel-review-btn" style="background: transparent; border: 0.25vw solid rgba(255, 255, 255, 0.5)">
+                        <span style="color: rgba(255, 255, 255, 0.5)">
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button id="save-review-btn">
+                        <span>
+                            Salvar
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="{{ asset('js/perfil-menu.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuarioId = Number(document.querySelector('main').dataset.usuarioId);
+
+            const addListBtn = document.querySelector('#add-to-list-btn');
+            const addListModal = document.querySelector('#add-list-modal-fade');
+            const addListModalContent = addListModal.querySelector('.modal-content');
+            const addListModalClose = addListModal.querySelector('.modal-header-close');
+
+            addListModal.addEventListener('click', (e) => {
+                if (e.target === addListModal) {
+                    fecharModalLista();
+                }
+            });
+
+            const abrirModalLista = () => {
+                addListModal.classList.remove('hidden');
+            }
+
+            const fecharModalLista = () => {
+                addListModalContent.innerHTML = "";
+                addListModal.classList.add('hidden');
+            }
+
+            addListModalClose.addEventListener('click', fecharModalLista);
+
+            const filmeId = Number(document.querySelector('main').dataset.filmeId);
+
+            addListBtn.addEventListener('click', () => {
+                addListModalContent.innerHTML = "";
+                fetchListasUsuario();
+                abrirModalLista();
+            });
+
+            const markAsViewedBtn = document.querySelector('#mark-viewed-btn');
+
+            markAsViewedBtn.addEventListener('click', () => {
+                if (markAsViewedBtn.dataset.assistido === 'true') {
+                    desmarcarComoAssistido();
+                } else {
+                    marcarComoAssistido();
+                }
+            });
+
+            async function marcarComoAssistido() {
+                const url = "../api/filmes/" + filmeId + "/marcar-como-assistido";
+
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({usuario_id: usuarioId})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert('Marcado como assistido!');
+                        markAsViewedBtn.querySelector('span').textContent = 'Desmarcar como assistido';
+                        markAsViewedBtn.dataset.assistido = 'true';
+                    } else {
+                        alert(data.message + "!");
+                    }
+                });
+            }
+
+            async function desmarcarComoAssistido() {
+                const url = "../api/filmes/" + filmeId + "/desmarcar-como-assistido";
+
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({usuario_id: usuarioId})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert('Desmarcado como assistido!');
+                        markAsViewedBtn.querySelector('span').textContent = 'Marcar como assistido';
+                        markAsViewedBtn.dataset.assistido = 'false';
+                    } else {
+                        alert(data.message + "!");
+                    }
+                });
+            }
+
+            async function fetchListasUsuario() {
+                const url = "../api/usuario/" + usuarioId + "/listas/" + filmeId;
+
+                await fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        let i = 1;
+
+                        for (const lista of data) {
+                            const input = document.createElement('input');
+                            input.setAttribute('type', 'checkbox');
+                            input.setAttribute('id', `add-list-${i}`);
+                            input.className = 'modal-content-checkbox';
+
+                            if (lista.is_checked) {
+                                input.setAttribute('checked', 'checked'); 
+                            }
+
+                            const currentInput = input;
+
+                            currentInput.addEventListener('change', () => {
+                                const isChecked = currentInput.checked;
+
+                                if (isChecked) {
+                                    adicionarFilmeLista(lista.id);
+                                } else {
+                                    removerFilmeLista(lista.id);
+                                }
+                            });
+
+                            addListModalContent.appendChild(currentInput);
+                            addListModalContent.appendChild(createListaRow(lista, i));
+
+                            i++;
+                        }
+                    } else {
+                        alert('Nenhuma lista criada. Crie uma para conseguir adicionar seus filmes preferidos!');
+                    }
+                });
+            }
+
+            async function adicionarFilmeLista(listaId) {
+                const url = "../api/listas/" + listaId + "/filme";
+
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({'filme_id': filmeId})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert('Filme adicionado à lista com sucesso!');
+                    }
+                });
+            }
+
+            async function removerFilmeLista(listaId) {
+                const url = "../api/listas/" + listaId + "/filme";
+
+                await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({'filme_id': filmeId})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert('Filme removido da lista com sucesso!');
+                    }
+                });
+            }
+
+            function createListaRow(lista, id) {
+                const label = document.createElement('label');
+                label.setAttribute('for', `add-list-${id}`);
+
+                const div = document.createElement('div');
+                div.className = 'modal-content-add';
+
+                const img = document.createElement('img');
+                img.src = document.querySelector('main').dataset.checkImgUrl;
+
+                div.appendChild(img);
+
+                label.appendChild(div);
+
+                const span = document.createElement('span');
+                span.className = 'list-name';
+                span.textContent = lista.nome;
+
+                label.appendChild(span);
+
+                return label;
+            }
+
+            const reviewModal = document.querySelector('#review-modal-fade');
+
+            const abrirModalAvaliacao = () => {
+                reviewModal.classList.remove('hidden');
+            }
+
+            const makeReviewBtn = document.querySelector('#make-review-btn');
+            makeReviewBtn.addEventListener('click', abrirModalAvaliacao);
+
+            const stars = reviewModal.querySelectorAll('.star');
+            let currentNota = 0;
+
+            stars.forEach((starElement, index) => {
+                starElement.addEventListener('click', () => {
+                    const clickedIndex = index;
+                    currentNota = index + 1;
+                    stars.forEach((star, i) => {
+                        if (i <= clickedIndex) {
+                            star.classList.add('active');
+                        } else {
+                            star.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            const saveReviewBtn = reviewModal.querySelector('#save-review-btn');
+
+            const cancelReviewBtn = reviewModal.querySelector('#cancel-review-btn');
+
+            saveReviewBtn.addEventListener('click', () => {
+                makeReview();
+            });
+
+            const fecharModalAvaliacao = () => {
+                reviewModal.classList.add('hidden');
+
+                document.querySelector('#review-comment').value = "";
+                stars.forEach((starElement, index) => {
+                    starElement.classList.remove('active');
+                });
+            }
+
+            cancelReviewBtn.addEventListener('click', fecharModalAvaliacao);
+
+            const reviews = document.querySelector('.reviews');
+
+            function createReviewElement(nome, comentario, nota) {
+                const createRatingHtml = (nota) => {
+                    let starsHtml = '';
+                    const fullStars = Math.floor(nota);
+
+                    for (let i = 1; i <= 5; i++) {
+                        const isActive = i <= fullStars ? 'active' : '';
+        
+                        starsHtml += `
+                            <div class="star ${isActive}">
+                                <img src="${document.querySelector('main').dataset.starImgUrl}" alt="">
+                            </div>
+                        `;
+                    }
+                    return starsHtml;
+                };
+
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review';
+                
+                reviewDiv.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-user">
+                            <div class="user-img"></div>
+                            
+                            <span class="user-name">${nome || 'Usuário'}</span> 
+                        </div>
+                        
+                        <span class="date">Agora mesmo</span>
+                    </div>
+                    
+                    <div class="review-rating">
+                        ${createRatingHtml(nota || 0)}
+                    </div>
+                    
+                    ${comentario ? 
+                        `<span class="review-text">${comentario}</span>` 
+                        : ''}
+                `;
+
+                return reviewDiv;
+            }
+
+            async function makeReview() {
+                const url = "../api/avaliacoes/";
+
+                const comentario = reviewModal.querySelector('#review-comment').value;
+
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({'usuario_id': usuarioId, 'filme_id': filmeId, 'nota': currentNota, 'comentario': comentario})
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        alert('Avaliação feita com sucesso!');
+                    }
+                })
+                .finally(() => {
+                    fecharModalAvaliacao();
+                    reviews.appendChild(createReviewElement(document.querySelector('main').dataset.usuarioNome, comentario, currentNota));
+                });
+            }
+        });
+    </script>
 </body>
 </html>

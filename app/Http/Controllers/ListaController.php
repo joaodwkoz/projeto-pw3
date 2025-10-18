@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Lista;
 use App\Models\Usuario;
+use App\Models\Filme;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ListaController extends Controller
 {
-    public function obterListasUsuario(Usuario $usuario) 
+    public function obterListasUsuario(Usuario $usuario, Filme $filme)
     {
-        if (Auth::user()->id != $usuario->id) {
-            return response()->json(['message' => 'Você não tem acesso a esse endpoint.'], 403);
-        }
+        $listas = $usuario->listas()->get();
 
-        $listas = $usuario->listas()->with('filmes')->get();
+        $listasComStatus = $listas->map(function ($lista) use ($filme) {
+            $lista->is_checked = $lista->filmes()->where('filme_id', $filme->id)->exists();
 
-        return response()->json($listas);
+            return $lista;
+        });
+
+        return response()->json($listasComStatus);
     }
 
     public function adicionarFilme(Request $request, Lista $lista)

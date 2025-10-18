@@ -26,14 +26,14 @@ Route::prefix('contatos')->group(function () {
 Route::get('filmes/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
 Route::get('filmes/{filme}', [FilmeController::class, 'showAPI']);
 
-Route::prefix('usuarios')->group(function () {
+Route::prefix('usuario')->group(function () {
     Route::get('/', [UsuarioController::class, 'all']);
     Route::post('/', [UsuarioController::class, 'storeAPI']);
     Route::get('/buscar', [UsuarioController::class, 'buscar']);
     Route::get('/{usuario}', [UsuarioController::class, 'showAPI']);
     Route::put('/{usuario}', [UsuarioController::class, 'updateAPI']);
     Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
-    Route::get('/{usuario}/listas', [ListaController::class, 'obterListasUsuario']);
+    Route::get('/{usuario}/listas/{filme}', [ListaController::class, 'obterListasUsuario']);
 });
 
 Route::prefix('avaliacoes')->group(function () {
@@ -59,6 +59,8 @@ Route::prefix('filmes')->group(function () {
     Route::post('/', [FilmeController::class, 'storeAPI']);
     Route::put('/{filme}', [FilmeController::class, 'updateAPI']);
     Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
+    Route::post('/{filme}/marcar-como-assistido', [FilmeController::class, 'marcarComoAssistido']);
+    Route::post('/{filme}/desmarcar-como-assistido', [FilmeController::class, 'desmarcarComoAssistido']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
