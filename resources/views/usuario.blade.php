@@ -5,15 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filme</title>
-    <link rel="stylesheet" href="{{ url('css/perfil.css') }}">
+    <link rel="stylesheet" href="{{ url('css/usuario.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
 <body>
-    @php
-    $usuario = auth()->user();
-    @endphp
-
     <div id="perfil">
         <aside id="sidebar">
             <div class="logo"></div>
@@ -61,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="active">
+                    <a href="#" class="{{ auth()->user()->id == $usuario->id ? 'active' : '' }}">
                         <div class="icon">
                             <img src="{{ asset('imgs/side-users.png')}}" alt="Ícone de Perfil">
                         </div>
@@ -94,7 +89,7 @@
                     </button>
 
                     <button class="profile">
-                        <span>{{ $usuario->nome }}</span>
+                        <span>{{ auth()->user()->nome }}</span>
                     </button>
 
                     <div class="profile-menu hidden">
@@ -130,17 +125,19 @@
                     </div>
 
                     <div class="user-btns">
-                        <button id="delete-profile-btn">
-                            <span>
-                                Excluir perfil
-                            </span>
-                        </button>
+                        @if(auth()->user()->id == $usuario->id ? 'active' : '' )
+                            <button id="delete-profile-btn">
+                                <span>
+                                    Excluir perfil
+                                </span>
+                            </button>
 
-                        <button id="edit-profile-btn">
-                            <span>
-                                Editar perfil
-                            </span>
-                        </button>
+                            <button id="edit-profile-btn">
+                                <span>
+                                    Editar perfil
+                                </span>
+                            </button>
+                        @endif   
                     </div>
                 </div>
 
@@ -348,7 +345,6 @@
     </div>
 
     <script src="{{ asset('js/perfil-menu.js') }}"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const usuarioId = Number(document.querySelector('main').dataset.usuarioId);

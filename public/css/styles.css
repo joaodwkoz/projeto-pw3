@@ -254,151 +254,16 @@ button {
     min-height: 0;
 }
 
-.popular-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#app .content .popular {
-    width: 66%;
-    aspect-ratio: 16 / 9;
-    flex-shrink: 0;
-    background-color: #333;
-    border-radius: 1.67vw;
-    position: relative;
-    overflow: hidden;
-    transform: translateZ(0);
-}
-
-#app .content .popular:hover .img img {
-    filter: blur(0);
-}
-
-#app .content .popular .img {
-    width: 100%;
-    height: 100%;
-}
-
-#app .content .popular .img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(4px);
-    transition: filter 0.2s ease;
-}
-
-#app .content .popular .info {
-    position: absolute;
-    bottom: 1.67vw;
-    left: 1.67vw;
-    display: flex;
-    flex-direction: column;
-    gap: 0.83vw;
-    max-width: 75%;
-}
-
-#app .content .popular .info span {
-    line-height: 100%;
-}
-
-#app .content .popular .info .movie-title {
-    display: flex;
-    gap: 0.83vw;
-    align-items: baseline;
-}
-
-#app .content .popular .info .movie-title span {
-    font-family: 'Poppins';
-    font-size: 1.5vw;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+.content-title {
     color: #fff;
-}
-
-#app .content .popular .info .movie-genres {
-    display: flex;
-    gap: 0.83vw;
-}
-
-#app .content .popular .info .movie-genres .movie-genre {
-    padding: 0.416667vw 1.67vw;
-    background-color: transparent;
-    border-radius: 1.67vw;
-    border: 0.2083vw solid #fff;
     font-family: 'Poppins';
-    font-size: 0.83vw;
+    font-size: 2vw;
     font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #fff;
     line-height: 100%;
-}
-
-#app .content .popular .info .movie-director, #app .content .popular .info .movie-sinopse {
-    font-family: 'Poppins';
-    font-size: 1vw;
-    font-weight: 400;
     letter-spacing: -0.02em;
-    color: #fff;
 }
 
-#app .content .popular .info .actions {
-    display: flex;
-    gap: 0.83vw;
-    margin-top: 0.5vw;
-}
-
-#app .content .popular .info .actions a {
-    display: flex;
-    align-items: center;
-    gap: 0.83vw;
-    padding: 0.83vw 1.67vw;
-    border-radius: 1.67vw;
-    background-color: #fff;
-    text-decoration: none;
-}
-
-#app .content .popular .info a .icon {
-    max-height: 0.83vw;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#app .content .popular .info a .icon img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-}
-
-#app .content .popular .info a span {
-    font-family: 'Poppins';
-    font-size: 0.83vw;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #212121;
-    line-height: 100%;
-}
-
-#app .content .suggestions {
-    width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.67vw;
-}
-
-#app .content .suggestions .maybeyoulike {
-    font-family: 'Poppins';
-    font-size: 1.75vw;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #fff;
-    line-height: 100%;
-}
-
-#app .content .suggestions .genres {
+.genres {
     width: 100%;
     min-height: 5vh;
     display: grid;
@@ -406,7 +271,7 @@ button {
     gap: 1.67vw;
 }
 
-#app .content .suggestions .genres .genre {
+.genre {
     background-color: transparent;
     border-radius: 1.67vw;
     display: flex;
@@ -417,20 +282,20 @@ button {
     transition: all 0.2s ease-in-out;
 }
 
-#app .content .suggestions .genres .genre:hover {
+.genres .genre:hover {
     background-color: #333;
 }
 
-#app .content .suggestions .genres .genre.active {
+.genres .genre.active {
     background-color: #fff;
     border-color: #fff;
 }
 
-#app .content .suggestions .genres .genre.active span {
+.genres .genre.active span {
     color: #212121;
 }
 
-#app .content .suggestions .genres .genre span {
+.genres .genre span {
     font-family: 'Poppins';
     font-size: 0.866667vw;
     font-weight: 500;
@@ -438,47 +303,194 @@ button {
     color: #fff;
 }
 
-#app .content .suggestions .movies {
+.movies-list {
     width: 100%;
-    min-height: 37.5vh;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 3.33vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+    flex-shrink: 0;
+    min-height: 0;
 }
 
-#app .content .suggestions .movies:empty {
-    display: flex;        
+.movies-list:empty 
+
+.movies-list .movies-list-header {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.movies-list-title {
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.5vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.movies-list-header .movies-list-btns {
+    height: 100%;
+    display: flex;
+    gap: 0.833333vw;
+}
+
+.movies-list-btns button:hover {
+    opacity: 1;
+}
+
+.movies-list-btns button {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 0.2vw solid #fff;
+    opacity: 0.5;
+    display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity 0.2s ease;
 }
 
-#app .content .suggestions .movies:empty::before {
-    content: "Carregando...";
-    color: #fff;
-    opacity: 0.5;
-    font-family: 'Poppins';
-    font-size: 1.25vw;
-    text-align: center;
-    margin-top: 0;
-    grid-column: auto;
+.movies-list-btns button img {
+    height: 50%;
+    object-fit: contain;
+}
+
+.movies-list .movies-scroll-list {
     width: 100%;
+    min-height: calc(100% - 3.17vw);
+    display: flex;
+    gap: 1.67vw;
+    overflow-x: auto;
+    overflow-x: scroll; 
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
-#app .content .suggestions .movies .movie {
-    background-color: #fff;
-    border-radius: 1.67vw;
+.movies-list .movies-scroll-list:empty {
+    overflow-x: hidden; 
+    display: grid; 
+    place-items: center; 
+}
+
+
+.movies-list .movies-scroll-list:empty::before {
+    content: "Nenhum filme encontrado";
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5vw; 
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    grid-column: 1 / -1; 
+}
+
+.movies-scroll-list .movie {
+    aspect-ratio: 2 / 3;
+    min-width: calc((71.35vw - (5 * 1.67vw)) / 5.5);
+    max-width: calc((71.35vw - (5 * 1.67vw)) / 5.5);
+    background-color: #111;
+    border-radius: 0.5vw;
     overflow: hidden;
     transform: translateZ(0);
+    position: relative;
+    cursor: pointer;
 }
 
-#app .content .suggestions .movies .movie:hover img {
+.movie .movie-poster {
+    width: 100%;
+    height: 100%;
+}
+
+.movie-poster:hover img {
     filter: grayscale(0);
 }
 
-#app .content .suggestions .movies .movie img {
+.movie-poster img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: grayscale(0.5);
-    transition: filter 0.2 ease;
+    transition: filter 0.2s ease;
+}
+
+.movie .movie-rating-badge {
+    height: 2vw;
+    padding: 0.25vw;
+    display: flex;
+    gap: 0.5vw;
+    align-items: center;
+    justify-content: flex-end;
+    background-image: linear-gradient(to top right, #111, #0c0c0c);
+    border-radius: 0.25vw;
+    position: absolute;
+    top: 0.5vw;
+    right: 0.5vw;
+}
+
+.movie-rating-num {
+    font-size: max-content;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.movie-rating-stars {
+    margin-top: 0;
+    padding-top: 0;
+    height: 1vw;
+    aspect-ratio: 1 / 1;
+}
+
+.movie-rating-stars img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.movies-scroll-list.vertical {
+    display: grid;
+    grid-auto-rows: auto; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1.67vw;
+    min-height: 0;
+}
+
+.movies-scroll-list.vertical .movie {
+    min-width: 0 !important;
+}
+
+.paginate-btns {
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    gap: 1.67vw;
+}
+
+.paginate-btn {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background-image: linear-gradient(to top right, #111, #0c0c0c);
+    border-radius: 0.25vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: outline 0.3s ease;
+    cursor: pointer;
+}
+
+.paginate-btn:hover, .paginate-btn.active {
+    outline: 0.125vw solid rgba(255, 255, 255, 0.5);
+}
+
+.paginate-counter {
+    font-size: 1.5vw;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
 }

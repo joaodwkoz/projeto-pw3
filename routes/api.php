@@ -37,7 +37,7 @@ Route::prefix('usuarios')->group(function () {
 });
 
 Route::prefix('avaliacoes')->group(function () {
-    Route::get('/', [AvaliacaoController::class, 'index']);
+    Route::get('/', [AvaliacaoController::class, 'all']);
     Route::post('/', [AvaliacaoController::class, 'storeAPI']);
     Route::get('/{avaliacao}', [AvaliacaoController::class, 'showAPI']);
     Route::put('/{avaliacao}', [AvaliacaoController::class, 'updateAPI']);

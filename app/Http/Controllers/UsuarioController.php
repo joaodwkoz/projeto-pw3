@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
+    public function showProfile(Usuario $usuario)
+    {
+        $usuario->load(['filmesAssistidos', 'listas', 'avaliacoes']);
+
+        return view('usuario')->with('usuario', $usuario);
+    }
+
     public function index()
     {
         $usuarios = Usuario::all();

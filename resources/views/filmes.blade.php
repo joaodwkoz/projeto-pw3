@@ -72,7 +72,7 @@
             </ul>
         </aside>
 
-        <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}">
+        <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}" data-filme-show-url-base="{{ url('filmes') }}/">
            <header>
                <div class="search-bar">
                     <div class="icon">
@@ -113,66 +113,226 @@
            </header>
 
             <div class="content">
-                <div class="popular-container">
-                    <div class="popular">
-                        <div class="img">
-                            <img src="{{ asset('storage/' . $filmePopular->banner) }}" alt="Banner do filme {{ $filmePopular->nome }}">
+                <span class="content-title">Descubra por gênero</span>
+
+                <div class="genres">
+                    @foreach($generos as $genero)
+                        <div class="genre" data-id="{{ $genero->id }}">
+                            <span>{{ $genero->nome }}</span>
                         </div>
+                    @endforeach
+                </div>
 
-                        <div class="info">
-                            <div class="movie-title">
-                                <span class="movie-name">{{ $filmePopular->nome }}</span>
+                <div class="movies-list">
+                    <div class="movies-list-header">
+                        <span class="movies-list-title">Filmes populares</span>
 
-                                <span class="movie-date">({{ $filmePopular->ano_lancamento }})</span>
+                        @if($filmesPopulares->count() > 5)
+                            <div class="movies-list-btns">
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
+                                </button>
+
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
+                                </button>
                             </div>
+                        @endif
+                    </div>
 
-                            <div class="movie-genres">
-                                @foreach($filmePopular->generos as $genero)
-                                <div class="movie-genre">
-                                    <span>{{ $genero->nome }}</span>
-                                </div>
-                                @endforeach
-                            </div>
-
-                            <span class="movie-director">{{ $filmePopular->diretor }}</span>
-
-                            <span class="movie-sinopse">
-                                {{ $filmePopular->sinopse }}
-                            </span>
-
-                            <div class="actions">
-                                <a id="watch-trailer-btn" href="{{ $filmePopular->trailer }}" target="_blank">
-                                    <div class="icon">
-                                        <img src="{{ url('imgs/watch-trailer-btn.png')}}" alt="">
+                    <div class="movies-scroll-list">
+                        @if($filmesPopulares->count() > 0)
+                            @foreach($filmesPopulares as $popular)
+                                <a class="movie" href="{{ route('filmes.show', ['filme' => $popular->id]) }}">
+                                    <div class="movie-poster">
+                                        <img src="{{ asset('storage/' . $popular->capa) }}" alt="">
                                     </div>
-                                    <span>Assistir ao trailer</span>
-                                </a>
 
-                                <a id="see-more">
-                                    <span>Ver mais</span>
+                                    <div class="movie-rating-badge">
+                                        <span class="movie-rating-num">{{ round($popular->notaMedia) ?? 0 }}</span>
+
+                                        <div class="movie-rating-stars">
+                                            <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                                        </div>
+                                    </div>
                                 </a>
-                            </div>
-                        </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
 
-                <div class="suggestions">
-                    <span class="maybeyoulike">Talvez você goste</span>
+                <div class="movies-list">
+                    <div class="movies-list-header">
+                        <span class="movies-list-title">Recomendados por gênero</span>
 
-                    <div class="genres">
-                        @foreach($generos as $genero)
-                            <div class="genre" data-id="{{ $genero->id }}">
-                                <span>{{ $genero->nome }}</span>
+                        @if($recomendadosPorGenero->count() > 5)
+                            <div class="movies-list-btns">
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
+                                </button>
+
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
+                                </button>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
-                    <div class="movies"></div>
+
+                    <div class="movies-scroll-list recommended">
+                        @if($recomendadosPorGenero->count() > 0)
+                            @foreach($recomendadosPorGenero as $recomendado)
+                                <a class="movie" href="{{ route('filmes.show', ['filme' => $recomendado->id]) }}">
+                                    <div class="movie-poster">
+                                        <img src="{{ asset('storage/' . $recomendado->capa) }}" alt="">
+                                    </div>
+
+                                    <div class="movie-rating-badge">
+                                        <span class="movie-rating-num">{{ round($recomendado->notaMedia) ?? 0 }}</span>
+
+                                        <div class="movie-rating-stars">
+                                            <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+                <div class="movies-list total">
+                    <div class="movies-list-header">
+                        <span class="movies-list-title">Todos os filmes</span>
+                    </div>
+
+                    <div class="movies-scroll-list vertical">
+                        @if($filmes->count() > 0)
+                            @foreach($filmes as $filme)
+                                <a class="movie" href="{{ route('filmes.show', ['filme' => $filme->id]) }}">
+                                    <div class="movie-poster">
+                                        <img src="{{ asset('storage/' . $filme->capa) }}" alt="">
+                                    </div>
+
+                                    <div class="movie-rating-badge">
+                                        <span class="movie-rating-num">{{ round($filme->notaMedia) ?? 0 }}</span>
+
+                                        <div class="movie-rating-stars">
+                                            <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    @if($filmes->count() > 0)
+                        <div class="paginate-btns">
+                            @for($i = 1; $i <= $filmes->lastPage(); $i++)
+                                <div class="paginate-btn {{ $i == 1 ? 'active' : '' }}" data-page="{{ $i }}">
+                                    <span class="paginate-counter">
+                                        {{ $i }}
+                                    </span>
+                                </div>
+                            @endfor
+                        </div>
+                    @endif
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="{{ asset('js/filtro-filmes.js') }}"></script>
     <script src="{{ asset('js/perfil-menu.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const storageUrl = document.querySelector('main').dataset.storageUrl;
+            const filmesShowUrlBase = document.querySelector('main').dataset.filmeShowUrlBase;
+
+            const filmesGrid = document.querySelector('.movies-scroll-list.vertical');
+            const paginateBtnsContainer = document.querySelector('.paginate-btns');
+
+            fetchMovies(1);
+
+            function renderPaginationButtons(lastPage, currentPage) {
+                if (!paginateBtnsContainer) return;
+    
+                paginateBtnsContainer.innerHTML = ''; 
+
+                for (let i = 1; i <= lastPage; i++) {
+                    const btn = document.createElement('div');
+
+                    btn.className = 'paginate-btn';
+
+                    if (i === currentPage) {
+                        btn.classList.add('active');
+                    }
+
+                    btn.dataset.page = i;
+
+                    const span = document.createElement('span');
+                    span.className = 'paginate-counter';
+                    span.textContent = i;
+                    btn.appendChild(span);
+                    
+                    btn.addEventListener('click', function() {
+                        const pageNumber = this.dataset.page;
+                        fetchMovies(pageNumber); 
+                    });
+
+                    paginateBtnsContainer.appendChild(btn);
+                }
+            }
+
+            function renderMovies(filmes) {
+                filmesGrid.innerHTML = ''; 
+                
+                filmes.forEach(filme => {
+                    filmesGrid.appendChild(createMovieCard(filme)); 
+                });
+            }
+
+            function createMovieCard(filme) {
+                const movie = document.createElement('a');
+                movie.className = 'movie';
+                movie.href = `${filmesShowUrlBase}${filme.id}`;
+
+                movie.innerHTML = `
+                    <div class="movie-poster">
+                        <img src="${storageUrl}/${filme.capa}" alt="${filme.nome}">
+                    </div>
+                    <div class="movie-rating-badge">
+                        <span class="movie-rating-num">${Math.round(filme.avaliacoes_avg_nota) || 0}</span>
+                        <div class="movie-rating-stars">
+                            <img src="/imgs/side-reviews.png" alt="">
+                        </div>
+                    </div>
+                `;
+
+                return movie;
+            }
+
+            async function fetchMovies(page = 1) {
+                const apiUrl = '../api/filmes/';
+
+                const url = new URL(apiUrl, window.location.origin);
+                url.searchParams.append('page', page);
+
+                try {
+                    const response = await fetch(url);
+
+                    if (!response.ok) throw new Error('Falha ao carregar filmes.');
+                    
+                    const data = await response.json();
+                
+                    renderMovies(data.data);
+                    
+                    renderPaginationButtons(data.last_page, data.current_page);
+                
+                } catch (e) {
+                    console.error('Erro ao buscar filmes:', e);
+                    alert('Erro ao buscar filmes:', e);
+                }
+            }
+        });
+    </script>
+    <script src="{{ asset('js/filtro-filmes.js') }}"></script>
 </body>
 </html>

@@ -477,7 +477,7 @@ button {
 .watched-movies {
     display: grid;
     grid-auto-rows: auto; 
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(5, 1fr); 
     gap: 1.67vw;
     min-height: 0;
 }
@@ -525,7 +525,7 @@ button {
 
 .watched-movie-title {
     font-family: 'Poppins';
-    font-size: 1.25vw;
+    font-size: 1vw;
     color: #fff;
     font-weight: 500;
     line-height: 120%;
@@ -534,7 +534,7 @@ button {
 
 .movie-stars-count {
     font-family: 'Poppins';
-    font-size: 1.5vw;
+    font-size: 1.25vw;
     color: rgba(255, 255, 255, 0.5);
     font-weight: 500;
     line-height: 100%;
@@ -550,7 +550,7 @@ button {
 }
 
 .movie-rating .star {
-    height: 1.5vw;
+    height: 1vw;
     aspect-ratio: 1 / 1;
 }
 

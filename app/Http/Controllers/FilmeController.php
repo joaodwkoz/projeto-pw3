@@ -44,24 +44,36 @@ class FilmeController extends Controller
      */
     public function index()
     {
-        $filmePopular = Filme::with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->first();
+        $filmePopulares = Filme::with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(10)->get();
+
+        $recomendadosPorGenero = Filme::with('generos')->whereHas('generos', 
+            function ($query) {
+                $query->where('nome', 'Ação');
+            })
+        ->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(10)->get();
+
+        $filmes = Filme::with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->paginate(10);
 
         $generos = Genero::orderBy('nome')->get();
 
         return view('filmes')->with([
-            'filmePopular' => $filmePopular,
+            'filmesPopulares' => $filmePopulares,
+            'recomendadosPorGenero' => $recomendadosPorGenero,
+            'filmes' => $filmes,
             'generos' => $generos,
         ]);
     }
 
     public function all()
     {
-        return Filme::all();
+        $filmes = Filme::with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->paginate(10);
+
+        return $filmes;
     }
 
     public function fetchPorGenero(Genero $genero)
     {
-        $filmes = $genero->filmes()->with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(5)->get();
+        $filmes = $genero->filmes()->with('generos')->withAvg('avaliacoes', 'nota')->orderByDesc('avaliacoes_avg_nota')->take(10)->get();
 
         return response()->json($filmes);
     }
