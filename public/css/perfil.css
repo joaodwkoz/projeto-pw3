@@ -34,6 +34,10 @@ button {
     cursor: pointer;
 }
 
+.hidden {
+    display: none !important;
+}
+
 #perfil {
     width: 100%;
     height: 100%;
@@ -260,6 +264,7 @@ button {
     display: flex;
     gap: 1.67vw;
     align-items: center;
+    justify-content: space-between;
     padding: 2.25vw;
     background-color: #111;
     border-radius: 1.25vw;
@@ -278,6 +283,14 @@ button {
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: #fff;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.user-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .user-profile .user-name {
@@ -314,6 +327,10 @@ button {
     background-color: #181818;
 }
 
+.tabs .tab:hover, .tabs .tab.active .tab-name {
+    color: #fff;
+}
+
 .tabs .tab .tab-name {
     font-family: 'Poppins';
     font-size: 1.1vw;
@@ -321,6 +338,7 @@ button {
     line-height: 100%;
     letter-spacing: -0.02em;
     color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
 }
 
 .activities {
@@ -382,6 +400,38 @@ button {
     letter-spacing: -0.02em;
 }
 
+.user-btns {
+    height: 50%;
+    display: flex;
+    gap: 1.67vw;
+}
+
+.user-btns button {
+    width: 8.5vw;
+    aspect-ratio: 3 / 2;
+    background-color: #fff;
+    border-radius: 0.33vw;
+}
+
+.user-btns button > span {
+    white-space: nowrap;
+    display: inline-block;
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    color: #111;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+}
+
+#delete-profile-btn {
+    background-color: #ce3232;
+}
+
+#delete-profile-btn > span {
+    color: #fff;
+}
+
 .action {
     font-family: 'Poppins';
     font-size: 1.25vw;
@@ -405,6 +455,14 @@ button {
     aspect-ratio: 2 / 3;
     border-radius: 0.25vw;
     background-color: #fff;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.movie-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .movie-name {
@@ -414,4 +472,445 @@ button {
     font-weight: 500;
     line-height: 120%;
     letter-spacing: -0.02em;
+}
+
+.watched-movies {
+    display: grid;
+    grid-auto-rows: auto; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1.67vw;
+    min-height: 0;
+}
+
+.watched-movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.67vw;
+}
+
+.watched-movie:hover .movie-img {
+    outline: 0.25vw solid rgba(255, 255, 255, 0.5);
+}
+
+.watched-movie .movie-img {
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 1.25vw;
+    outline: none;
+    transition: outline 0.3s ease;
+    flex-shrink: 0;
+    overflow: hidden;
+    transform: translateZ(0)
+}
+
+.watched-movie .movie-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.watched-movie-info {
+    width: 100%;
+    height: 7.5vh;
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    border-radius: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.67vw;
+    padding: 1vw;
+}
+
+.watched-movie-title {
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    color: #fff;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+}
+
+.movie-stars-count {
+    font-family: 'Poppins';
+    font-size: 1.5vw;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.movie-rating {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    opacity: 0.5
+}
+
+.movie-rating .star {
+    height: 1.5vw;
+    aspect-ratio: 1 / 1;
+}
+
+.movie-rating .star img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.reviews {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+}
+
+.reviews .review {
+    width: 100%;
+    padding: 1.67vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+    background-image: linear-gradient(to right, #111111, #0c0c0c);
+    border-radius: 1.25vw;
+}
+
+.review .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-header .review-user {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.review-user .user-img {
+    height: 3.5vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.review-user .user-name {
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.review-header .date {
+    font-family: 'Poppins';
+    font-size: 1vw;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.review-rating {
+    display: flex;
+    height: 1vw;
+    gap: 0.416667vw;
+}
+
+.review-rating .star {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    opacity: 0.5;
+}
+
+.review-rating .star img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.star.active {
+    opacity: 1;
+}
+
+.review .review-text {
+    font-family: 'Poppins';
+    font-size: 1.125vw;
+    font-weight: 400;
+    line-height: 115%;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.lists {
+    width: 100%;
+    display: grid;
+    grid-auto-rows: auto; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1.67vw;
+    min-height: 0;
+}
+
+.lists .list {
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.833333vw;
+    outline: none;
+    transition: outline 0.3s ease;
+}
+
+.list:hover {
+    outline: 0.125vw solid rgba(255, 255, 255, 0.5);
+}
+
+.lists .list {
+    background-color: #111;
+    border-radius: 0.5vw;
+}
+
+.list .list-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list .list-info .list-updated {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 0.866667vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list .picture {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+    border-radius: 0.5vw;
+}
+
+.picture .img {
+    background-color: #fff;
+}
+
+.list .list-name {
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.15vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+.list .list-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.833333vw;
+}
+
+.list .list-quantity img {
+    height: 1.15vw;
+    object-fit: contain;
+    opacity: 0.5;
+}
+
+.list .list-quantity .quantity {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Poppins';
+    font-size: 1vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+}
+
+#profile-modal-fade {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+
+#profile-modal {
+    width: 40vw;
+    background-image: linear-gradient(to top right, #111, #0c0c0c);
+    border-radius: 1.25vw;
+    padding: 1.67vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+}
+
+.modal-header {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header .modal-header-close {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-header-close img {
+    height: 50%;
+    object-fit: contain;
+}
+
+.modal-title {
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 2.5vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;   
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.67vw;
+}
+
+.img-preview {
+    display: block;
+    width: 7.5vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: #212121;
+    position: relative;
+    transform: translateZ(0);
+}
+
+.img-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.change-img {
+    width: 3vw;
+    aspect-ratio: 1 / 1;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 3vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.change-img img {
+    width: 50%;
+    object-fit: contain;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.67vw;
+}
+
+.form-group label {
+    display: block;
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.02em;   
+}
+
+.form-group input {
+    width: 100%;
+    height: 5.5vh;
+    background-color: #212121;
+    border-radius: 0.33vw;
+    border: none;
+    outline: none;
+    padding: 1vw;
+    font-family: 'Poppins';
+    font-size: 1vw;
+    font-weight: 400;
+    line-height: 115%;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.modal-btns {
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-footer .actions {
+    height: 100%;
+    display: flex;
+    gap: 1.67vw;
+}
+
+.modal-footer button {
+    height: 100%;
+    aspect-ratio: 2 / 1;
+    border-radius: 0.5vw;
+    background-color: #fff;
+    padding: 0 0.83333vw;
+    white-space: nowrap;
+}
+
+#delete-user-btn, #cancel-edit-btn {
+    background: transparent;
+    border: 0.25vw solid;
+}
+
+#delete-user-btn {
+    border-color: #ce3232;
+}
+
+#delete-user-btn span {
+    color: #ce3232;
+}
+
+#cancel-edit-btn {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#cancel-edit-btn span {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-footer button span {
+    font-family: 'Poppins';
+    font-size: 1.25vw;
+    font-weight: 500;
+    line-height: 115%;
+    letter-spacing: -0.02em;
+    color: #1b1b1b;
 }

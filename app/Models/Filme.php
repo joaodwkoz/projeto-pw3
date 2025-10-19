@@ -37,4 +37,9 @@ class Filme extends Model
     {
         return $this->belongsToMany(Usuario::class, 'filme_usuario');
     }
+
+    public function getNotaMediaAttribute()
+    {
+        return $this->avaliacoes()->avg('nota');
+    }
 }

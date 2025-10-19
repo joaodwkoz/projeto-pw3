@@ -26,7 +26,7 @@ Route::prefix('contatos')->group(function () {
 Route::get('filmes/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
 Route::get('filmes/{filme}', [FilmeController::class, 'showAPI']);
 
-Route::prefix('usuario')->group(function () {
+Route::prefix('usuarios')->group(function () {
     Route::get('/', [UsuarioController::class, 'all']);
     Route::post('/', [UsuarioController::class, 'storeAPI']);
     Route::get('/buscar', [UsuarioController::class, 'buscar']);

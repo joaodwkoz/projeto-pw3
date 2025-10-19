@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -29,6 +30,12 @@ class UsuarioController extends Controller
         $usuario->nome = $request->nome;
         $usuario->email = $request->email;
         $usuario->senha = Hash::make($request->senha);
+
+        if ($request->hasFile('fotoPerfil')) {
+            $caminho = $request->file('fotoPerfil')->store('usuarios/perfis', 'public');
+            $usuario->fotoPerfil = $caminho; 
+        }
+
         $usuario->ehAdmin = $request->ehAdmin;
         $usuario->status = $request->status;
         $usuario->save();
@@ -53,10 +60,19 @@ class UsuarioController extends Controller
 
     public function updateAPI(Request $request, Usuario $usuario)
     {
-        $usuario->nome = $request->input('nome');
-        $usuario->email = $request->input('email');
-        $usuario->ehAdmin = $request->input('ehAdmin');
-        $usuario->status = $request->input('status');
+        $usuario->nome = $request->nome;
+        $usuario->email = $request->email;
+        $usuario->ehAdmin = $request->ehAdmin ?? 0;
+        $usuario->status = $request->status ?? 'Ativo';
+
+        if ($request->hasFile('fotoPerfil')) {
+            if ($usuario->fotoPerfil) {
+                Storage::disk('public')->delete($usuario->fotoPerfil);
+            }
+
+            $caminho = $request->file('fotoPerfil')->store('usuarios/perfis', 'public');
+            $usuario->fotoPerfil = $caminho;
+        }
 
         $usuario->save();
         

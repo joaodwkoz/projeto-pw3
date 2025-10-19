@@ -18,7 +18,7 @@ class Usuario extends Authenticatable
     protected $table = 'usuarios';
 
     // Campos que podem ser preenchidos via create()
-    protected $fillable = ['nome', 'email', 'senha', 'ehAdmin', 'status'];
+    protected $fillable = ['nome', 'email', 'senha', 'fotoPerfil', 'ehAdmin', 'status'];
 
     // Campos ocultos
     protected $hidden = ['senha'];
@@ -60,7 +60,7 @@ class Usuario extends Authenticatable
 
     public function avaliacoes()
     {
-        return $this->hasMany(Avaliacao::class);
+        return $this->hasMany(Avaliacao::class)->orderByDesc('created_at');;
     }
 
     public function listas()

@@ -27,12 +27,14 @@ class ListaController extends Controller
     public function adicionarFilme(Request $request, Lista $lista)
     {
         $lista->filmes()->attach($request->filme_id);
+        $lista->touch();
         return response()->json(['sucesso' => true], 201);
     }
 
     public function removerFilme(Request $request, Lista $lista)
     {
         $lista->filmes()->detach($request->filme_id);
+        $lista->touch();
         return response()->json(['sucesso' => true], 200);
     }
 

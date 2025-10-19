@@ -185,28 +185,7 @@
                                     </div>
 
                                 <span class="date">
-                                    @php
-                                        $minutos = $avaliacao->created_at->diffInMinutes();
-                                        $horas = $avaliacao->created_at->diffInHours();
-                                        $dias = $avaliacao->created_at->diffInDays();
-                                        $meses = $avaliacao->created_at->diffInMonths();
-                                        
-                                        $output = '';
-
-                                        if ($minutos < 60) {
-                                            $output = $minutos > 1 ? "Há $minutos min" : "Agora mesmo";
-                                        } elseif ($horas < 24) {
-                                            $output = $horas > 1 ? "Há $horas horas" : "Há $horas hora";
-                                        } elseif ($dias < 30) {
-                                            $output = $dias > 1 ? "Há $dias dias" : "Há $dias dia";
-                                        } elseif ($meses < 12) {
-                                            $output = $meses > 1 ? "Há $meses meses" : "Há $meses mês";
-                                        } else {
-                                            $output = $avaliacao->created_at->format('d/m/Y');
-                                        }
-                                    @endphp
-                                    
-                                    {{ $output }}
+                                    {{ $avaliacao->getTempoDesde() }}
                                 </span>
                                 </div>
                             

@@ -17,4 +17,26 @@ class Avaliacao extends Model
     {
         return $this->belongsTo(Usuario::class, 'usuario_id');
     }
+
+    public function getTempoDesde()
+    {
+        $dataReferencia = $this->updated_at; 
+
+        $minutos = $dataReferencia->diffInMinutes();
+        $horas = $dataReferencia->diffInHours();
+        $dias = $dataReferencia->diffInDays();
+        $meses = $dataReferencia->diffInMonths();
+
+        if ($minutos < 60) {
+            return $minutos > 1 ? "Há $minutos min" : "Agora mesmo";
+        } elseif ($horas < 24) {
+            return $horas > 1 ? "Há $horas horas" : "Há $horas hora";
+        } elseif ($dias < 30) {
+            return $dias > 1 ? "Há $dias dias" : "Há $dias dia";
+        } elseif ($meses < 12) {
+            return $meses > 1 ? "Há $meses meses" : "Há $meses mês";
+        } else {
+            return $dataReferencia->format('d/m/Y');
+        }
+    }
 }
