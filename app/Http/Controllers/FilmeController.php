@@ -91,14 +91,10 @@ class FilmeController extends Controller
      */
     public function storeAPI(Request $request)
     {
-        $dados = $request->except(['capa', 'banner', 'generos']);
+        $dados = $request->except(['capa', 'generos']);
 
         if($request->hasFile('capa')){
             $dados['capa'] = $request->file('capa')->store('filmes/capas', 'public');
-        }
-
-        if($request->hasFile('banner')){
-            $dados['banner'] = $request->file('banner')->store('filmes/banners', 'public');
         }
 
         $filme = Filme::create($dados);
@@ -147,11 +143,6 @@ class FilmeController extends Controller
             $dados['capa'] = $request->file('capa')->store('filmes/capas', 'public');
         }
 
-        if($request->hasFile('banner')){
-            Storage::disk('public')->delete($filme->banner);
-            $dados['banner'] = $request->file('banner')->store('filmes/banners', 'public');
-        }
-
         $filme->update($dados);
 
         if ($request->has('generos')) {
@@ -168,31 +159,5 @@ class FilmeController extends Controller
     {
         $filme->delete();
         return response()->json(['sucesso' => true], 200);
-    }
-
-    public function buscarFilme(Request $request) {
-        $titulo = $request->input('titulo');
-
-        if (!$titulo) {
-            return response()->json(['erro' => 'Título não informado'], 400);
-        }
-
-        $response = Http::get(env('OMDB_API_URL'), [
-            'apikey' => env('OMDB_API_KEY'),
-            't' => $titulo,
-            'plot' => 'full'
-        ]);
-
-        if (!$response->successful()) {
-            return response()->json(['erro' => 'Erro ao acessar a API OMDB'], 500);
-        }
-
-        $dados = $response->json();
-
-        if ($dados['Response'] === 'False') {
-            return response()->json(['erro' => 'Filme não encontrado'], 404);
-        }
-
-        return response()->json($dados);
     }
 }

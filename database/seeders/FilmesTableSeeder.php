@@ -25,7 +25,6 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => 'Um homem de escritório insone, procurando uma maneira de mudar sua vida, cruza o caminho com um fabricante de sabão diabólico e eles formam um clube de luta clandestino que se transforma em algo muito, muito maior.',
                 'trailer' => 'https://www.youtube.com/watch?v=SUXWAEX2jlg',
                 'capa' => database_path('seeders/images/fight_club_capa.jfif'),
-                'banner' => database_path('seeders/images/fight_club_banner.jpg'),
                 'generos' => [4, 8]
             ],
             [
@@ -36,7 +35,6 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => 'Um hacker de computador aprende com misteriosos rebeldes sobre a verdadeira natureza de sua realidade e seu papel na guerra contra seus controladores.',
                 'trailer' => 'https://www.youtube.com/watch?v=m8e-FF8MsqU',
                 'capa' => database_path('seeders/images/matrix_capa.jfif'),
-                'banner' => database_path('seeders/images/matrix_banner.jpg'),
                 'generos' => [1, 6]
             ],
             [
@@ -47,7 +45,6 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => 'Um ladrão que rouba segredos corporativos através do uso da tecnologia de compartilhamento de sonhos recebe a tarefa inversa de plantar uma ideia na mente de um C.E.O.',
                 'trailer' => 'https://www.youtube.com/watch?v=YoHD9XEInc0',
                 'capa' => database_path('seeders/images/inception_capa.jfif'),
-                'banner' => database_path('seeders/images/inception_banner.jpg'),
                 'generos' => [1, 2, 6]
             ],
             [
@@ -58,7 +55,6 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => 'A ganância e a discriminação de classe ameaçam o relacionamento simbiótico recém-formado entre a rica família Park e o pobre clã Kim.',
                 'trailer' => 'https://www.youtube.com/watch?v=5xH0HfJHsaY',
                 'capa' => database_path('seeders/images/parasite_capa.jfif'),
-                'banner' => database_path('seeders/images/parasite_banner.jpeg'),
                 'generos' => [3, 4, 8]
             ],
             [
@@ -69,14 +65,12 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => 'Um rico executivo de banco de investimentos de Nova York esconde seu alter ego psicopata de seus colegas de trabalho e amigos enquanto mergulha mais fundo em suas fantasias violentas e hedonistas.',
                 'trailer' => 'https://www.youtube.com/watch?v=5Yle_YJ_a_k',
                 'capa' => database_path('seeders/images/american_psycho_capa.jfif'),
-                'banner' => database_path('seeders/images/american_psycho_banner.jfif'),
                 'generos' => [4, 9]
             ],
         ];
 
         foreach($filmes as $filmeData){
             $caminhoCapa = Storage::disk('public')->putFile('filmes/capas', new File($filmeData['capa']));
-            $caminhoBanner = Storage::disk('public')->putFile('filmes/banners', new File($filmeData['banner']));
 
             $filme = Filme::create([
                 'nome' => $filmeData['nome'],
@@ -86,7 +80,6 @@ class FilmesTableSeeder extends Seeder
                 'sinopse' => $filmeData['sinopse'],
                 'trailer' => $filmeData['trailer'],
                 'capa' => $caminhoCapa,
-                'banner' => $caminhoBanner,
             ]);
 
             $filme->generos()->sync($filmeData['generos']);

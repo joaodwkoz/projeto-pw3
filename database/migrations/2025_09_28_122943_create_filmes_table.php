@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('sinopse');
             $table->string('trailer')->nullable();
             $table->string('capa')->nullable();
-            $table->string('banner')->nullable();
             $table->foreign('classificacao_id')->references('id')->on('classificacoes')->onDelete('cascade');
             $table->timestamps();
         });

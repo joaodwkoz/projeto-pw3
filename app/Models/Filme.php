@@ -11,7 +11,7 @@ class Filme extends Model
 
     protected $table = 'filmes';
 
-    protected $fillable = ['nome', 'diretor', 'ano_lancamento', 'classificacao_id', 'sinopse', 'trailer', 'capa', 'banner'];
+    protected $fillable = ['nome', 'diretor', 'ano_lancamento', 'classificacao_id', 'sinopse', 'trailer', 'capa'];
 
     public function generos()
     {

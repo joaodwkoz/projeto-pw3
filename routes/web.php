@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ContatoController;
+use App\Models\Classificacao;
+use App\Models\Genero;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,9 +64,18 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is_admin')->prefix('dashboard')->group(function () { 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
+
         Route::get('/avaliacoes', function () {
             return view('admin.avaliacoes');
         })->name('dashboard.avaliacoes');
+
         Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
+
+        Route::get('/filmes', function () {
+            return view('admin.filmes')->with([
+                'generos' => Genero::all(),
+                'classificacoes' => Classificacao::all()
+            ]);
+        })->name('dashboard.filmes');
     });
 });
