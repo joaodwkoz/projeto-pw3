@@ -77,5 +77,9 @@ Route::middleware('auth')->group(function () {
                 'classificacoes' => Classificacao::all()
             ]);
         })->name('dashboard.filmes');
+
+        Route::get('/download-pdf', 'App\Http\Controllers\FuncionarioController@downloadPDF');
+
+    
     });
 });
