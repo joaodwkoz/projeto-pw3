@@ -71,11 +71,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
 
-        Route::get('/filmes', function () {
-            return view('admin.filmes')->with([
-                'generos' => Genero::all(),
-                'classificacoes' => Classificacao::all()
-            ]);
-        })->name('dashboard.filmes');
+        Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
     });
 });

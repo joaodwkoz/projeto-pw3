@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Filme;
 use App\Http\Controllers\Controller;
+use App\Models\Classificacao;
 use App\Models\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,15 @@ class FilmeController extends Controller
             'filmes' => $filmes,
             'generos' => $generos,
         ]);
+    }
+
+    public function dashboardData()
+    {
+        $filmes = Filme::all()->load('generos', 'classificacao', 'avaliacoes');
+        $classificacoes = Classificacao::all();
+        $generos = Genero::all();
+
+        return view('admin.filmes')->with(['filmes' => $filmes, 'classificacoes' => $classificacoes, 'generos' => $generos]);
     }
 
     public function all()
