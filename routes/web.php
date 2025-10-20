@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\AdminController;
 use App\Models\Classificacao;
 use App\Models\Genero;
 
@@ -73,4 +74,5 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
     });
+    Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');
 });
