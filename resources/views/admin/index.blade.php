@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
+
+
 </head>
 <body>
     <div id="dashboard">
@@ -160,7 +162,20 @@
 
                             <span class="chart-title">Usuários mais interativos</span>
                         </div>
-                         <div id="usuarios" style="width: 90%; height: 90%;"></div>
+                         <div id="campos" >
+                            @foreach($topUsers as $usuario)
+                            <div class="campo user">
+                                <div class="barra"></div>
+                                <div class="circleImg">
+                                    <img src="imgs/icon-usuario.png" alt="" class="img user">
+                                </div>
+                                <div class="campoTxt">
+                                    <p class="txt user">{{$usuario -> nome}}</p>
+                                    <p class="txt user">{{$usuario -> filmes_assistidos_count}}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                         </div>
                     </div>
 
                     <div class="chart">
@@ -171,8 +186,20 @@
 
                             <span class="chart-title">Filmes em alta</span>
                         </div>
-
-                         <canvas id="filmesAlta"></canvas>
+                            <div id="campos" >
+                            @foreach($topMovies as $movie)
+                            <div class="campo filme">
+                                <div class="barra"></div>
+                                <div class="circleImg">
+                                    <img src="imgs/icon-usuario.png" alt="" class="img filme">
+                                </div>
+                                <div class="campoTxt">
+                                    <p class="txt filme">{{$movie -> nome}}</p>
+                                    <p class="txt filme">{{$movie -> avaliacoes_count}}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                         </div>
 
                     </div>
 
@@ -183,6 +210,16 @@
                             </div>
 
                             <span class="chart-title">Genêros mais populares</span>
+                        </div>
+
+                        <div class="grafico">
+                              <canvas id="myChart"></canvas>
+                              <div class="txtGrafico">
+                                <div class="genero">
+                                    <p class="txtGenero">comedia</p>
+                                    <p class="txtGenero">20</p>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -231,5 +268,29 @@
             </div>
         </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+            datasets: [{
+        label: '',
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: ['#5D6BFF', '#68E05D', '#DF543A', '#F07020', '#FEB01F'],
+        borderWidth: 0,
+        spacing:0,
+      }]
+    },
+    options: {
+    responsive: false,
+    cutout: '80%',
+    }
+  });
+</script>
+
 </body>
 </html>
