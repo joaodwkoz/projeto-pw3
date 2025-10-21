@@ -74,5 +74,5 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
     });
-    Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');
 });
+Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');

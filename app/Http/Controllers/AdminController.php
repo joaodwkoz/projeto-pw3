@@ -3,22 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\Admin;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
-
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
-    public function download() {
-        $sql = 'select * from tbFilmes';
+    public function download()
+    {
+        $sql = 'SELECT * FROM filmes';
         $queryJson = DB::select($sql);
 
         $filename = 'filmes.csv';
@@ -37,14 +29,11 @@ class AdminController extends Controller
                 "sinopse", "trailer", "capa", "created_at", "updated_at"
             ];
 
-            // Convertendo para ISO-8859-1
-            $header = array_map(function ($col) {
-                return mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8');
-            }, $header);
-
+            // Converter cabeçalho para ISO-8859-1
+            $header = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
             fputcsv($file, $header, ';');
 
-            // Escreve as linhas
+            // Escrever linhas
             foreach ($queryJson as $d) {
                 $row = [
                     $d->id,
@@ -68,4 +57,3 @@ class AdminController extends Controller
         return Response::stream($callback, 200, $headers);
     }
 }
-
