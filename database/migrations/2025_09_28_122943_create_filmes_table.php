@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('trailer')->nullable();
             $table->string('capa')->nullable();
             $table->foreign('classificacao_id')->references('id')->on('classificacoes')->onDelete('cascade');
+            $table->enum('status', ['ativo', 'bloqueado', 'deletado'])->default('ativo');
             $table->timestamps();
         });
     }

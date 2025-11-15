@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios/delete-modal.css') }}">
-    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios/update-modal.css') }}">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/dialog-modal.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/alert-dialog.css') }}">
 </head>
 <body>
-    <div id="dashboard">
+    <div id="usuarios" data-imgs-url="{{ url('imgs/') }}">
         <aside id="sidebar">
             <div class="logo"></div>
 
             <ul>
                 <li>
-                    <a href="{{route('dashboard.index')}}">
+                    <a href="{{ route('dashboard.index')}} ">
                         <div class="icon">
                             <img src="{{ url('imgs/side-home.png')}}" alt="">
                         </div>
@@ -27,16 +27,6 @@
                 <li>
                     <a href="">
                         <div class="icon">
-                            <img src="{{ url('imgs/side-movies.png')}}" alt="">
-                        </div>
-
-                        <span class="text">Filmes</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('dashboard.usuarios') }}">
-                        <div class="icon">
                             <img src="{{ url('imgs/side-users.png')}}" alt="">
                         </div>
 
@@ -45,7 +35,17 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('dashboard.avaliacoes') }}">
+                    <a href="{{ route('dashboard.usuarios') }}" class="active">
+                        <div class="icon">
+                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                        </div>
+
+                        <span class="text">Filmes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
                         <div class="icon">
                             <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
@@ -74,217 +74,308 @@
                     </a>
                 </li>
             </ul>
-
-            <div class="profile-content">
-                <div class="profile">
-                    <div class="profile-icon"></div>
-
-                    <span class="profile-name">
-                        {{ auth()->user()->nome }}
-                    </span>
-                </div>
-
-                <a href="" class="log-out" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                    <div class="icon">
-                        <img src="{{ asset('imgs/side-logout.png') }}" alt="">
-                    </div>
-
-                    <span class="text">Sair</span>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
         </aside>
-        
-        <main id="app">
-            <span class="title">Lista de usuários</span>
 
-            <div id="list">
-                <div class="header">
-                    <div class="category" style="width: 160px;">
-                        <span>Foto/avatar</span>
+        <main id="app" data-usuario-id="{{ Auth::user()->id }}" data-check-img-url="{{ asset('imgs/check.png') }}" data-storage-url="{{ asset('storage/') }}">
+           <header>
+               <div class="search-bar">
+                    <div class="icon">
+                    <img src="{{ url('imgs/search-icon.png')}}" alt="">
                     </div>
+                    <input type="text" placeholder="Pesquisar por usuar$usuarios, diretores, etc.">
+               </div>
 
-                    <div class="category" style="width: 200px;">
-                        <span>Nome</span>
-                    </div>
+               <div class="profile-container">
+                   <button class="notifications">
+                        <img src="{{ url('imgs/notifs-bell.png') }}" alt="">
+                   </button>
 
-                    <div class="category" style="width: 260px;">
-                        <span>Email</span>
-                    </div>
+                   <button class="profile">
+                        <span>{{ Auth::user()->nome }}</span>
+                   </button>
 
-                    <div class="category" style="width: 140px;">
-                        <span>Tipo</span>
-                    </div>
+                   <div class="profile-menu hidden">
+                       <a href="#">Ver perfil</a>
 
-                    <div class="category" style="width: 140px;">
-                        <span>Status</span>
-                    </div>
+                        <a href="{{ route('filmes') }}">Usuário</a>   
 
-                    <div class="category" style="width: 160px;">
-                        <span>Ações</span>
+                       <a href=""
+                        onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                            Sair
+                        </a>
+                   </div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+               </div>
+           </header>
+
+            <div class="content">
+                <div class="list">
+                    <div class="list-header">
+                        <span class="content-title">Lista de usuários</span>
+
+                        <button id="user-add-btn">
+                            <span>
+                                Adicionar usuário
+                            </span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="data">
-                    @foreach($usuarios as $usuario)
-                        <div class="row" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->nome }}">
-                            <div class="info" style="width: 160px;">
-                                <div class="img"></div>
-                            </div>
-
-                            <div class="info" style="width: 200px;">
-                                <span>@ {{$usuario->nome}}</span>
-                            </div>
-
-                            <div class="info" style="width: 260px;">
-                                <span>{{$usuario->email}}</span>
-                            </div>
-
-                            <div class="info tipo {{ !$usuario->ehAdmin ? 'user' : 'admin' }}" style="width: 160px;">
-                                <span>
-                                    @if($usuario->ehAdmin == 0)
-                                        Usuário
-                                    @else 
-                                        Admin
-                                    @endif
-                                </span>
-                            </div>
-
-                            <div class="info status {{ $usuario->statusClass() }}" style="width: 140px;">
-                                <span>{{$usuario->status}}</span>
-                            </div>
-
-                            <div class="info acoes" style="width: 160px;">
-                                <button class="edit-btn">
-                                    <img src="{{url('imgs/admin-editar.png')}}" alt="">
-                                </button>
-
-                                <button class="delete-btn">
-                                    <img src="{{url('imgs/admin-deletar.png')}}" alt="">
-                                </button>
-                            </div>
+                <div class="users-list">
+                    <div class="users-list-header">
+                        <div class="users-header-col">
+                            <span>
+                                Nome
+                            </span>
                         </div>
-                    @endforeach
+
+                        <div class="users-header-col">
+                            <span>
+                                Email
+                            </span>
+                        </div>
+
+                        <div class="users-header-col">
+                            <span>
+                                Tipo
+                            </span>
+                        </div>
+
+                        <div class="users-header-col">
+                            <span>
+                                Status
+                            </span>
+                        </div>
+
+                        <div class="users-header-col">
+                            <span>
+                                Ações
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="users-list-rows">
+                        @foreach($usuarios as $usuario)
+                            <div class="users-list-row" data-usuario-id="{{ $usuario->id }}">
+                                <div class="users-list-col">
+                                    <span>
+                                        {{ $usuario->nome }}
+                                    </span>
+                                </div>
+
+                                <div class="users-list-col">
+                                    <span>
+                                        {{ $usuario->email }}
+                                    </span>
+                                </div>
+
+                                <div class="users-list-col">
+                                    <span>
+                                        {{ $usuario->ehAdmin }}
+                                    </span>
+                                </div>
+                        
+                                <div class="users-list-col">
+                                    <span class="status {{ $usuario->status }}">
+                                        {{ $usuario->showStatusHTML() }}
+                                    </span>
+                                </div>
+
+                                <div class="users-list-col">
+                                    <button class="action-btn ver">
+                                        <img src="{{ asset('imgs/ver.png') }}" alt="">
+                                    </button>
+
+                                    <button class="action-btn editar">
+                                        <img src="{{ asset('imgs/editar.png') }}" alt="">
+                                    </button>
+
+                                    @if($usuario->status == 'deletado')
+                                        <button class="action-btn reativar">
+                                            <img src="{{ asset('imgs/reativar.png') }}" alt="">
+                                        </button>
+                                    @else
+                                        <button class="action-btn excluir">
+                                            <img src="{{ asset('imgs/deletar.png') }}" alt="">
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="delete-modal-fade" class="hidden">
-        <div class="delete-modal">
-            <div class="close">
-                <button id="close-modal-btn">
-                    <img src="{{ url('imgs/close.png') }}" alt="">
+    <div id="user-modal-fade" class="hidden">
+        <div id="user-modal">
+            <div class="modal-header">
+                <span class="modal-title">
+                    Editar usuário
+                </span>
+
+                <button class="modal-header-close">
+                    <img src="{{ asset('imgs/close.png') }}" alt="">
                 </button>
             </div>
 
-            <form class="delete-content">
-                <span>Deseja remover este usuário?</span>
+            <form class="modal-body" id="user-form">
+                @csrf
 
-                <div class="delete-input">
-                    <div class="delete-input-text">
-                        <span class="normal">Digite o nome de usuário - </span>
+                <div class="form-user-img">
+                    <div class="img-preview">
+                        <img src="{{''}}" alt="">
 
-                        <span class="bold">"João Pedro"</span>
+                        <label for="change-img-btn" class="change-img">
+                            <img src="{{ asset('imgs/camera.png') }}" alt="">
+                        </label>
                     </div>
 
-                    <input type="text" placeholder="João Pedro">
+                    <input type="file" id="change-img-btn" style="display: none;" accept="image/*" name="fotoPerfil">
                 </div>
 
-                <div class="btns">
-                    <button id="cancel-btn" type="button">
-                        <span>Cancelar</span>
-                    </button>
+                <div class="form-group">
+                    <label for="form-nome">Nome</label>
 
-                    <button id="continue-btn" type="submit">
-                        <span>Continuar</span>
-                    </button>
+                    <input type="text" id="form-nome" name="nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-email">Email</label>
+
+                    <input type="text" id="form-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-ano">Tipo de conta</label>
+
+                    <div class="radio-group">
+                        <input type="radio" id="radio-usuario" name="ehAdmin" value="0">
+
+                        <label for="radio-usuario">
+                            <div class="radio-box">
+                                <div class="radio-checked"></div>
+                            </div>
+
+                            <span>
+                                Usuário
+                            </span>
+                        </label>
+
+                        <input type="radio" id="radio-admin" name="ehAdmin" value="1">
+
+                        <label for="radio-admin">
+                            <div class="radio-box">
+                                <div class="radio-checked"></div>
+                            </div>
+
+                            <span>
+                                Admin
+                            </span>
+                        </label>
+                    </div>
                 </div>
             </form>
+
+            <div class="modal-footer">
+                <div class="modal-btns">
+                    <button id="cancel-user-btn">
+                        <span>
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button id="save-user-btn">
+                        <span>
+                            Salvar
+                        </span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="update-modal-fade" class="hidden">
-        <div class="update-modal">
-            <div class="header">
-                <div class="title">
-                    <div class="icon">
-                        <img src="{{ url('imgs/admin-user.png') }}" alt="">
+    <div id="dialog-modal-fade" class="hidden">
+        <div id="dialog-modal">
+            <div class="modal-header">
+                <img src="{{ url('imgs/modal-sucesso.png') }}" alt="">
+            </div>
+
+            <div class="modal-body">
+                <span class="title">
+                    Sucesso!
+                </span>
+
+                <span class="text">
+                    Adicionado com sucesso!
+                </span>
+
+                <div class="info">
+                    <span>
+                        Mais informações:
+                    </span>
+
+                    <div class="box">
+                        <span>
+                            Erro ao salvar o nome
+                        </span>
                     </div>
-
-                    <span>Detalhes do usuário</span>
-                </div>
-
-                <div class="close">
-                    <img src="{{ url('imgs/admin-close.png') }}" alt="">
                 </div>
             </div>
 
-            <form action="" id="update-form">
-                <div class="update-img">
-                    <span>Foto de perfil</span>
-
-                    <div class="profile-img">
-                        <img src="" alt="">
-                    </div>
-
-                    <button id="update-img-btn" type="button">
-                        Alterar
-                    </button>
-                </div>
-
-                <div class="update-input">
-                    <span>Nome</span>
-
-                    <input type="text" style="width: 719px;" id="nome-input" name="nome">
-                </div>
-
-                <div class="update-input">
-                    <span>Email</span>
-
-                    <input type="text" style="width: 719px;" id="email-input" name="email">
-                </div>
-
-                <div class="update-select">
-                    <span>Tipo</span>
-
-                    <div class="select">
-                        <span>Usuário</span>
-
-                        <button id="open-options-btn" type="button">
-                            <img src="{{ url('imgs/icon-seta-baixo.png') }}" alt="">
-                        </button>
-
-                        <ul class="options hidden">
-                            <li class="active" data-value="usuario">
-                                Usuário
-                            </li>
-
-                            <li data-value="admin">
-                                Admin
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="btns">
-                    <button id="cancel-edit-btn" type="button">
-                        Cancelar
-                    </button>
-
-                    <button id="save-edit-btn" type="submit">
-                        Salvar
-                    </button>
-                </div>
-            </form>
+            <div class="modal-footer">
+                <button id="continue-dialog-btn">
+                    <span>
+                        Continuar
+                    </span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <script src="{{ url('js/modal.js') }}"></script>
-    <script src="{{ url('js/update.js') }}"></script>
+    <div id="alert-modal-fade" class="hidden">
+        <div id="alert-modal">
+            <div class="modal-header">
+                <span class="modal-title">
+                    Você tem certeza?                    
+                </span>
+            </div>
+
+            <div class="modal-body">
+                <span class="text">
+                    Essa ocasionará no bloqueio do usuário de acessar a sua própria conta
+                </span>
+            </div>
+
+            <div class="modal-footer">
+                <div class="modal-btns">
+                    <button id="cancel-alert-btn">
+                        <span>
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button id="continue-alert-btn">
+                        <span>
+                            Continuar
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/components/dialog-modal.js') }}"></script>
+    <script src="{{ asset('js/components/alert-dialog.js') }}"></script>
+    <script src="{{ asset('js/perfil-menu.js') }}"></script>
+    <script src="{{ asset('js/admin/usuarios/dom-elements.js') }}"></script>
+    <script src="{{ asset('js/admin/usuarios/modals.js') }}"></script>
+    <script src="{{ asset('js/admin/usuarios/api.js') }}"></script>
+    <script src="{{ asset('js/admin/usuarios/events.js') }}"></script>
 </body>
 </html>

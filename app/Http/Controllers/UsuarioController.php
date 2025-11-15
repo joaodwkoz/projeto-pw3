@@ -47,7 +47,11 @@ class UsuarioController extends Controller
         $usuario->status = $request->status;
         $usuario->save();
 
-        return response()->json($usuario, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuário salvo com sucesso!',
+            'data' => $usuario
+        ], 201);
     }
 
     
@@ -83,7 +87,11 @@ class UsuarioController extends Controller
 
         $usuario->save();
         
-        return response()->json($usuario, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuário editado com sucesso!',
+            'data' => $usuario
+        ], 200);
     }
 
     public function destroyAPI(Usuario $usuario)
@@ -92,7 +100,11 @@ class UsuarioController extends Controller
             'status' => 'Deletado'
         ]);
 
-        return response()->json(['success' => true], 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuário excluído com sucesso!',
+            'data' => $usuario
+        ], 200);
     }
 
     public function buscar(Request $request) {
@@ -107,6 +119,19 @@ class UsuarioController extends Controller
         ->get();
 
         return response()->json($usuarios);
+    }
+
+    public function reactivateAPI(Usuario $usuario)
+    {
+        $usuario->update(
+            ['status' => 'ativo']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuário reativado com sucesso!',
+            'data' => $usuario
+        ], 200);
     }
 }
 ?>

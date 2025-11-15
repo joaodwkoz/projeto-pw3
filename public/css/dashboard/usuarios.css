@@ -38,7 +38,7 @@ button {
     display: none !important;
 }
 
-#filmes {
+#usuarios {
     width: 100%;
     height: 100%;
     display: flex;
@@ -273,14 +273,14 @@ button {
     align-items: center;
 }
 
-#movie-add-btn {
+#user-add-btn {
     height: 100%;
     padding: 0.75vw 1.5vw;
     background-color: #fff;
     border-radius: 0.25vw;
 }
 
-#movie-add-btn span {
+#user-add-btn span {
     display: block;
     color: #212121;
     font-family: 'Poppins';
@@ -290,27 +290,27 @@ button {
     letter-spacing: -0.02em;
 }
 
-.movies-list {
+.users-list {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.67vw;
 }
 
-.movies-list-header, .movies-list-row {
+.users-list-header, .users-list-row {
     width: 100%;
     display: grid;
-    grid-template-columns: 1.5fr 2fr 0.75fr 1fr 0.75fr 1fr 1fr;
+    grid-template-columns: 1.5fr 2fr 1fr 1fr 1fr;
     gap: 1.67vw;
 }
 
-.movies-list-header {
+.users-list-header {
     height: 7.5vh;
     background-image: linear-gradient(to right, #111111, #0c0c0c);
     border-radius: 0.5vw;
 }
 
-.movies-header-col, .movies-list-col {
+.users-header-col, .users-list-col {
     height: 100%;
     display: flex;
     align-items: center;
@@ -318,7 +318,7 @@ button {
     gap: 0.5vw;
 }
 
-.movies-header-col > span, .movies-list-col > span {
+.users-header-col > span, .users-list-col > span {
     display: block;
     color: #fff;
     font-family: 'Poppins';
@@ -328,11 +328,11 @@ button {
     letter-spacing: -0.02em;   
 }
 
-.movies-list-col > span {
+.users-list-col > span {
     font-size: 0.833333vw;
 }
 
-.movies-list-row {
+.users-list-row {
     width: 100%;
     height: 6.5vh;
     background-color: #141414;
@@ -361,7 +361,7 @@ button {
     background-color: #FFE769;
 }
 
-.movies-list-row:nth-of-type(even) {
+.users-list-row:nth-of-type(even) {
     background-color: #252525;
 }
 
@@ -390,7 +390,7 @@ button {
     object-fit: contain;
 }
 
-#movie-modal-fade {
+#user-modal-fade {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -403,7 +403,7 @@ button {
     left: 0;
 }
 
-#movie-modal {
+#user-modal {
     width: 40vw;
     background-image: linear-gradient(to top right, #111, #0c0c0c);
     border-radius: 1.25vw;
@@ -450,17 +450,15 @@ button {
     flex-direction: column;
     align-items: center;
     gap: 1.25vw;
-    max-height: 25vw;
-    overflow-y: scroll;
     border-bottom: 0.15vw solid rgba(255, 255, 255, 0.25);
     padding-bottom: 1.25vw;
 }
 
-.form-movie-img {
+.form-user-img {
     display: block;
     width: 6vw;
-    aspect-ratio: 2 / 3;
-    border-radius: 0.75vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
 }
 
 .img-preview {
@@ -470,14 +468,14 @@ button {
     background-color: #212121;
     position: relative;
     transform: translateZ(0);
-    border-radius: 0.75vw;
+    border-radius: 50%;
 }
 
 .img-preview img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0.75vw;
+    border-radius: 50%;
 }
 
 .change-img {
@@ -517,7 +515,7 @@ button {
     letter-spacing: -0.02em;   
 }
 
-.form-group input, .selected-option {
+.form-group input {
     width: 100%;
     height: 4.5vh;
     background-color: #212121;
@@ -531,6 +529,67 @@ button {
     line-height: 115%;
     letter-spacing: -0.02em;
     color: #fff;
+}
+
+.radio-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5vw;
+}
+
+.radio-group label {
+    height: 3vh;
+    display: flex;
+    align-items: center;
+    gap: 0.625vw;
+}
+
+.radio-box {
+    height: 75%;
+    aspect-ratio: 1 / 1;
+    background-color: #1b1b1b;
+    border: 0.075vw solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-checked {
+    height: 66%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.radio-group label span {
+    font-family: 'Poppins';
+    font-size: 1vw;
+    font-weight: 500;
+    line-height: 115%;
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.25);
+    transition: color 0.2s ease;
+}
+
+.radio-group input[type="radio"]:checked + label .radio-checked {
+    opacity: 1;
+}
+
+.radio-group input[type="radio"]:checked + label span {
+    color: #fff;
+}
+
+.radio-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
 .modal-btns {
@@ -551,16 +610,16 @@ button {
     white-space: nowrap;
 }
 
-#cancel-movie-btn {
+#cancel-user-btn {
     background: transparent;
     border: 0.15vw solid;
 }
 
-#cancel-movie-btn {
+#cancel-user-btn {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-#cancel-movie-btn span {
+#cancel-user-btn span {
     color: rgba(255, 255, 255, 0.5);
 }
 

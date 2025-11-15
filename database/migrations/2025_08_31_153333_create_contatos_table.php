@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('assunto');
             $table->string('mensagem');
+            $table->enum('status', ['pendente', 'resolvida', 'nao_resolvida'])->default('pendente');
             $table->timestamps();
         });
     }

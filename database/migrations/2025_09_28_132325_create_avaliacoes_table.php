@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
             $table->foreign('filme_id')->references('id')->on('filmes')->onDelete('cascade');
             $table->unique(['usuario_id', 'filme_id']);
+            $table->enum('status', ['ativo', 'bloqueado', 'deletado'])->default('ativo');
             $table->timestamps();
         });
     }

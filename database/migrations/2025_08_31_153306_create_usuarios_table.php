@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('senha');
             $table->string('fotoPerfil', 2048)->nullable();
             $table->boolean('ehAdmin')->default(false);
-            $table->string('status');
+            $table->enum('status', ['ativo', 'bloqueado', 'deletado'])->default('ativo');
             $table->timestamps();
         });
     }

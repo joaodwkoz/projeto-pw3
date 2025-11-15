@@ -37,22 +37,6 @@ class Usuario extends Authenticatable
         return $this->senha;
     }
 
-    /**
-
-
-     * Classe CSS baseada no status.
-     */
-    public function statusClass()
-    {
-        if ($this->status === 'Ativo') {
-            return 'active';
-        } elseif ($this->status === 'Bloqueado') {
-            return 'blocked';
-        }
-
-        return 'deleted';
-    }
-
     public function filmesAssistidos()
     {
         return $this->belongsToMany(Filme::class, 'filme_usuario');
@@ -66,5 +50,19 @@ class Usuario extends Authenticatable
     public function listas()
     {
         return $this->hasMany(Lista::class);
+    }
+
+    /**
+     * Classe CSS baseada no status.
+     */
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'bloqueado' => 'Bloqueado',
+            'deletado' => 'Deletado',
+            default => 'Ativo'
+        };
+
+        return $status;
     }
 }

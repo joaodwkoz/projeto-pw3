@@ -13,14 +13,14 @@ class GenerosTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Genero::create(['nome' => 'Ação']);
-        Genero::create(['nome' => 'Aventura']);
-        Genero::create(['nome' => 'Comédia']);
-        Genero::create(['nome' => 'Drama']);
-        Genero::create(['nome' => 'Fantasia']);
-        Genero::create(['nome' => 'Ficção C.']);
-        Genero::create(['nome' => 'Romance']);
-        Genero::create(['nome' => 'Suspense']);
-        Genero::create(['nome' => 'Terror']);
+        Genero::create(['nome' => 'Ação', 'cor' => '#FF6547']);
+        Genero::create(['nome' => 'Aventura', 'cor' => '#A3FF63']);
+        Genero::create(['nome' => 'Comédia', 'cor' => '#FFD930']);
+        Genero::create(['nome' => 'Drama', 'cor' => '#C7C7C7']);
+        Genero::create(['nome' => 'Fantasia', 'cor' => '#9E57F2']);
+        Genero::create(['nome' => 'Ficção C.', 'cor' => '#61BBFA']);
+        Genero::create(['nome' => 'Romance', 'cor' => '#FC77D9']);
+        Genero::create(['nome' => 'Suspense', 'cor' => '#A64D00']);
+        Genero::create(['nome' => 'Terror', 'cor' => '#820E0E']);
     }
 }

@@ -11,7 +11,7 @@ class Filme extends Model
 
     protected $table = 'filmes';
 
-    protected $fillable = ['nome', 'diretor', 'ano_lancamento', 'classificacao_id', 'sinopse', 'trailer', 'capa'];
+    protected $fillable = ['nome', 'diretor', 'ano_lancamento', 'classificacao_id', 'sinopse', 'trailer', 'capa', 'status'];
 
     public function generos()
     {
@@ -41,5 +41,16 @@ class Filme extends Model
     public function getNotaMediaAttribute()
     {
         return $this->avaliacoes()->avg('nota');
+    }
+
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'bloqueado' => 'Bloqueado',
+            'deletado' => 'Deletado',
+            default => 'Ativo'
+        };
+
+        return $status;
     }
 }

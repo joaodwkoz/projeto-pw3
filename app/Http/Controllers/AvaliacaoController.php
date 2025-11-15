@@ -36,7 +36,11 @@ class AvaliacaoController extends Controller
             'comentario' => $request->comentario,
         ]);
 
-        return response()->json($avaliacao, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Avaliação salva com sucesso!',
+            'data' => $avaliacao
+        ], 201);
     }
 
     /**
@@ -65,7 +69,11 @@ class AvaliacaoController extends Controller
             'comentario' => $request->comentario,
         ]);
 
-        return response()->json($avaliacao, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Avaliação editada com sucesso!',
+            'data' => $avaliacao
+        ], 200);
     }
 
     /**
@@ -73,7 +81,27 @@ class AvaliacaoController extends Controller
      */
     public function destroyAPI(Avaliacao $avaliacao)
     {
-        $avaliacao->delete();
-        return response()->json(['sucesso' => true], 200);
+        $avaliacao->update([
+            'status' => 'deletado',
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Avaliação excluída com sucesso!',
+            'data' => $avaliacao
+        ], 200);
+    }
+
+    public function reactivateAPI(Avaliacao $avaliacao)
+    {
+        $avaliacao->update(
+            ['status' => 'ativo']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Avaliação reativada com sucesso!',
+            'data' => $avaliacao
+        ], 200);
     }
 }

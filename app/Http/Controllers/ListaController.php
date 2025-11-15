@@ -35,6 +35,7 @@ class ListaController extends Controller
     {
         $lista->filmes()->detach($request->filme_id);
         $lista->touch();
+        
         return response()->json(['sucesso' => true], 200);
     }
 
@@ -65,7 +66,11 @@ class ListaController extends Controller
             'descricao' => $request->descricao,
         ]);
 
-        return response()->json($lista, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Lista salva com sucesso!',
+            'data' => $lista
+        ], 201);
     }
 
     /**
@@ -94,7 +99,11 @@ class ListaController extends Controller
             'descricao' => $request->descricao,
         ]);
 
-        return response()->json($lista, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Lista editada com sucesso!',
+            'data' => $lista
+        ], 200);
     }
 
     /**
@@ -102,7 +111,27 @@ class ListaController extends Controller
      */
     public function destroyAPI(Lista $lista)
     {
-        $lista->delete();
-        return response()->json(['sucesso' => true], 200);
+        $lista->update(
+            ['status' => 'deletado']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Lista excluída com sucesso!',
+            'data' => $lista
+        ], 200);
+    }
+
+    public function reactivateAPI(Lista $lista)
+    {
+        $lista->update(
+            ['status' => 'ativo']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Lista reativada com sucesso!',
+            'data' => $lista
+        ], 200);
     }
 }

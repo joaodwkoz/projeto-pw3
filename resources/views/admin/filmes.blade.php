@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filme</title>
+    <title>Filmes</title>
     <link rel="stylesheet" href="{{ url('css/dashboard/filmes.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/dialog-modal.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/alert-dialog.css') }}">
 </head>
 <body>
-    <div id="filme">
+    <div id="filmes" data-imgs-url="{{ url('imgs/') }}">
         <aside id="sidebar">
             <div class="logo"></div>
 
@@ -23,7 +25,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="" class="active">
                         <div class="icon">
                             <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
@@ -145,12 +147,6 @@
 
                         <div class="movies-header-col">
                             <span>
-                                Sinopse
-                            </span>
-                        </div>
-
-                        <div class="movies-header-col">
-                            <span>
                                 Classificação
                             </span>
                         </div>
@@ -158,6 +154,12 @@
                         <div class="movies-header-col">
                             <span>
                                 Trailer
+                            </span>
+                        </div>
+
+                        <div class="movies-header-col">
+                            <span>
+                                Status
                             </span>
                         </div>
 
@@ -172,10 +174,6 @@
                         @foreach($filmes as $filme)
                             <div class="movies-list-row" data-filme-id="{{ $filme->id }}">
                                 <div class="movies-list-col">
-                                    <div class="movie-img">
-                                        <img src="{{ asset('storage/' . $filme->capa) }}" alt="">
-                                    </div>
-
                                     <span>
                                         {{ $filme->nome }}
                                     </span>
@@ -195,25 +193,21 @@
 
                                 <div class="movies-list-col">
                                     <span>
-                                        @if(strlen($filme->sinopse) > 30)
-                                            {{ substr($filme->sinopse, 0, 27) . ' [...]' }} 
-                                        @else
-                                            {{ $filme->sinopse }}
-                                        @endif
-                                    </span>
-                                </div>
-
-                                <div class="movies-list-col">
-                                    <span>
                                         {{ $filme->classificacao->nome }}
                                     </span>
                                 </div>
 
                                 <div class="movies-list-col">
                                     <span>
-                                        <a href="{{ $filme->trailer }}" class="trailer-link">
+                                        <a href="{{ $filme->trailer }}" class="trailer-link" target="__blank">
                                             Ver
                                         </a>
+                                    </span>
+                                </div>
+
+                                <div class="movies-list-col">
+                                    <span class="status {{ $filme->status }}">
+                                        {{ $filme->showStatusHTML() }}
                                     </span>
                                 </div>
 
@@ -226,9 +220,15 @@
                                         <img src="{{ asset('imgs/editar.png') }}" alt="">
                                     </button>
 
-                                    <button class="action-btn excluir">
-                                        <img src="{{ asset('imgs/deletar.png') }}" alt="">
-                                    </button>
+                                    @if($filme->status == 'deletado')
+                                        <button class="action-btn reativar">
+                                            <img src="{{ asset('imgs/reativar.png') }}" alt="">
+                                        </button>
+                                    @else
+                                        <button class="action-btn excluir">
+                                            <img src="{{ asset('imgs/deletar.png') }}" alt="">
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
@@ -283,7 +283,7 @@
                     <input type="number" id="form-ano" name="ano_lancamento" required>
                 </div>
 
-                <div class="form-group" style="align-items: center">
+                <div class="form-group">
                     <label>Classificação</label>
 
                     <div class="selected-option">
@@ -320,335 +320,110 @@
                 <div class="form-group">
                     <label>Sinopse</label>
 
-                    <textarea id="review-comment" name="sinopse"></textarea>
+                    <textarea name="sinopse"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Trailer</label>
 
-                    <input type="text" id="form-diretor" name="trailer" required>
+                    <input type="text" id="form-trailer" name="trailer" required>
                 </div>
             </form>
 
             <div class="modal-footer">
                 <div class="modal-btns">
-                    <button id="delete-movie-btn">
+                    <button id="cancel-movie-btn">
                         <span>
-                            Excluir filme
+                            Cancelar
                         </span>
                     </button>
 
-                    <div class="actions">
-                        <button id="cancel-movie-btn">
-                            <span>
-                                Cancelar
-                            </span>
-                        </button>
-
-                        <button id="save-movie-btn">
-                            <span>
-                                Salvar
-                            </span>
-                        </button>
-                    </div>
+                    <button id="save-movie-btn">
+                        <span>
+                            Salvar
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="dialog-modal-fade" class="hidden">
+        <div id="dialog-modal">
+            <div class="modal-header">
+                <img src="{{ url('imgs/modal-sucesso.png') }}" alt="">
+            </div>
+
+            <div class="modal-body">
+                <span class="title">
+                    Sucesso!
+                </span>
+
+                <span class="text">
+                    Adicionado com sucesso!
+                </span>
+
+                <div class="info">
+                    <span>
+                        Mais informações:
+                    </span>
+
+                    <div class="box">
+                        <span>
+                            Erro ao salvar o nome
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="continue-dialog-btn">
+                    <span>
+                        Continuar
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert-modal-fade" class="hidden">
+        <div id="alert-modal">
+            <div class="modal-header">
+                <span class="modal-title">
+                    Você tem certeza?                    
+                </span>
+            </div>
+
+            <div class="modal-body">
+                <span class="text">
+                    Essa ocasionará no bloqueio do usuário de acessar a sua própria conta
+                </span>
+            </div>
+
+            <div class="modal-footer">
+                <div class="modal-btns">
+                    <button id="cancel-alert-btn">
+                        <span>
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button id="continue-alert-btn">
+                        <span>
+                            Continuar
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/components/dialog-modal.js') }}"></script>
+    <script src="{{ asset('js/components/alert-dialog.js') }}"></script>
     <script src="{{ asset('js/perfil-menu.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.querySelector('#movie-modal-fade');
-            const nomeInput = document.querySelector('input[name="nome"]');
-            const diretorInput = document.querySelector('input[name="diretor"]');
-            const lancamentoInput = document.querySelector('input[name="ano_lancamento"]');
-            const sinopseInput = document.querySelector('textarea[name="sinopse"]');
-            const trailerInput = document.querySelector('input[name="trailer"]');
-
-            let filmeId = -1;
-            let editMode = false;
-            let readOnlyMode = false;
-
-            const fecharModal = () => modal.classList.add('hidden');
-
-            const abrirModal = () => modal.classList.remove('hidden');
-
-            const inputImagem = document.querySelector('#change-img-btn');
-            const previewImagem = document.querySelector('.img-preview img');
-
-            inputImagem.addEventListener('change', function(e) {
-                if (e.target.files && e.target.files[0]) {
-                    const file = e.target.files[0];
-
-                    if (!file.type.startsWith('image/')) {
-                        console.error("O arquivo selecionado não é uma imagem.");
-                        previewImagem.src = "";
-                        previewImagem.style.display = 'none';
-                        return;
-                    }
-
-                    const reader = new FileReader();
-
-                    reader.onload = function(ev) {
-                        previewImagem.src = ev.target.result;
-                        previewImagem.style.display = 'block';
-                    };
-
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            const disableInputs = () => {
-                [inputImagem, nomeInput, diretorInput, lancamentoInput, sinopseInput, trailerInput].forEach(inp => inp.disabled = true);
-            }
-
-            const enableInputs = () => {
-                [inputImagem, nomeInput, diretorInput, lancamentoInput, sinopseInput, trailerInput].forEach(inp => inp.disabled = false);
-            }
-
-            let generos = [];
-            const chipInputOptions = document.querySelectorAll('.option');
-
-            chipInputOptions.forEach(chipInputOption => {
-                chipInputOption.addEventListener('click', () => {
-                    if (!readOnlyMode) {
-                        const id = Number(chipInputOption.dataset.generoId);
-
-                        const index = generos.indexOf(id); 
-
-                        if (chipInputOption.classList.contains('selected')) {
-                            if (index > -1) {
-                                generos.splice(index, 1);
-                            }
-                            chipInputOption.classList.remove('selected');
-                        } else {
-                            if (index === -1) { 
-                                generos.push(id);
-                            }
-                            chipInputOption.classList.add('selected');
-                        }
-                        
-                        console.log("Gêneros Ativos:", generos);
-                    }
-                });
-            });
-
-            const dropdownSelectedOption = document.querySelector('.selected-option');
-            const dropdownSelectedOptionSpan = dropdownSelectedOption.querySelector('span');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
-            let classificacaoId = 1;
-
-            dropdownSelectedOption.addEventListener('click', () => {
-                if (!readOnlyMode) {
-                    if (dropdownMenu.classList.contains('hidden')) {
-                        dropdownMenu.classList.remove('hidden');
-                    } else {
-                        dropdownMenu.classList.add('hidden');
-                    }
-                }
-            });
-
-            const dropdownBtns = dropdownMenu.querySelectorAll('.dropdown-btn');
-
-            dropdownBtns.forEach(dropdownBtn => {
-                dropdownBtn.addEventListener('click', () => {
-                    if (!readOnlyMode) {
-                        const novoTexto = dropdownBtn.querySelector('span').textContent.trim();
-                        
-                        dropdownSelectedOptionSpan.textContent = novoTexto; 
-                        
-                        classificacaoId = dropdownBtn.dataset.classificacaoId;
-
-                        dropdownMenu.classList.add('hidden');
-                    }
-                })
-            });
-
-            const clearInputs = () => {
-                [nomeInput, diretorInput, lancamentoInput, sinopseInput, trailerInput].forEach(inp => inp.value = '');
-
-                generos = [];
-
-                editMode = false;
-                readOnlyMode = false;
-
-                chipInputOptions.forEach(chipInputOption => {
-                    chipInputOption.classList.remove('selected');
-                });
-
-                classificacaoId = 1;
-
-                dropdownSelectedOptionSpan.textContent = 'Livre'; 
-            }
-
-            const verBtns = document.querySelectorAll('.action-btn.ver');
-            const editarBtns = document.querySelectorAll('.action-btn.editar');
-            const deletarBtns = document.querySelectorAll('.action-btn.excluir');
-
-            verBtns.forEach(verBtn => {
-                verBtn.addEventListener('click', (e) => {
-                    filmeId = e.target.closest('.movies-list-row').dataset.filmeId;
-
-                    readOnlyMode = true;
-
-                    disableInputs();
-                    clearInputs();
-
-                    fetchMovieById(filmeId);
-
-                    abrirModal();
-                });
-            });
-
-            editarBtns.forEach(editarBtn => {
-                editarBtn.addEventListener('click', (e) => {
-                    filmeId = e.target.closest('.movies-list-row').dataset.filmeId;
-
-                    readOnlyMode = false;
-                    editMode = true;
-
-                    enableInputs();
-
-                    clearInputs();
-
-                    fetchMovieById(filmeId);
-
-                    abrirModal();
-                });
-            });
-
-            deletarBtns.forEach(deletarBtn => {
-                deletarBtn.addEventListener('click', (e) => {
-                    filmeId = e.target.closest('.movies-list-row').dataset.filmeId;
-
-                    deleteMovie(filmeId);
-                });
-            });
-
-            const saveMovieBtn = document.querySelector('#save-movie-btn');
-            const cancelMovieBtn = document.querySelector('#cancel-movie-btn');
-            const modalCloseBtn = document.querySelector('.modal-header-close');
-            const addMovieBtn = document.querySelector('#movie-add-btn')
-
-            saveMovieBtn.addEventListener('click', () => {
-                if (readOnlyMode) {
-                    fecharModal();
-                } else {
-                    saveMovie(editMode);
-                }
-            });
-
-            [cancelMovieBtn, modalCloseBtn].forEach(cancel => {
-                cancel.addEventListener('click', () => {
-                    clearInputs();
-                    fecharModal();
-                });
-            });
-
-            addMovieBtn.addEventListener('click', () => {
-                editMode = false;
-                abrirModal();
-            });
-
-            async function saveMovie(edit = false) {
-                const url = edit ? `../api/filmes/${filmeId}` : '../api/filmes/';
-
-                const formBody = document.querySelector('#movie-form');
-
-                const formData = new FormData(formBody);
-                
-                formData.append('classificacao_id', classificacaoId);
-
-                generos.forEach(generoId => {
-                    formData.append('generos[]', generoId); 
-                });
-
-                if (edit) {
-                    formData.append('_method', 'PUT');
-                }
-
-                await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    fecharModal();
-
-                    alert(edit ? 'Editado com sucesso!' : 'Salvo com sucesso!');
-                    location.reload();
-                });
-            }
-
-            async function deleteMovie(filmeId) {
-                if (confirm('Deseja mesmo excluir o filme?')) {
-                    const url = "../api/filmes/" + filmeId;
-
-                    await fetch(url, {
-                        method: 'DELETE',
-                        headers: {
-                            'Accept': 'application/json',
-                        }
-                    })
-                    .then(res => {
-                        if (!res.ok) throw new Error('Falha ao buscar filme.');
-                        return res.json();
-                    })
-                    .then(data => {
-                        alert('Deletado com sucesso!');
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.error('Erro ao deletar o filme:', error);
-                        alert('Não foi possível deletar o filme.');
-                    });
-                }
-            }
-
-            async function fetchMovieById(filmeId) {
-                document.querySelectorAll('.chip-input .option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-
-                generos = [];
-
-                const url = `../api/filmes/${filmeId}`;
-
-                await fetch(url)
-                .then(res => {
-                    if (!res.ok) throw new Error('Falha ao buscar filme.');
-                    return res.json();
-                })
-                .then(data => {
-                    previewImagem.src = document.querySelector('main').dataset.storageUrl + "/" + data.capa;
-                    nomeInput.value = data.nome || '';
-                    diretorInput.value = data.diretor || '';
-                    lancamentoInput.value = Number(data.ano_lancamento) || '';
-                    sinopseInput.value = data.sinopse || '';
-                    trailerInput.value = data.trailer || '';
-                    data.generos.forEach(genero => {
-                        const chipBtn = document.querySelector(`.chip-input button[data-genero-id="${genero.id}"]`);
-                        if (chipBtn) {
-                            chipBtn.classList.add('selected');
-                            generos.push(genero.id);
-                        }
-                    });
-
-                    if (data.classificacao) {
-                        classificacaoId = data.classificacao.id;
-                        dropdownSelectedOptionSpan.textContent = data.classificacao.nome;
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar detalhes do filme:', error);
-                    alert('Não foi possível carregar os detalhes do filme.');
-                });
-            }
-        });
-    </script>
+    <script src="{{ asset('js/admin/filmes/dom-elements.js') }}"></script>
+    <script src="{{ asset('js/admin/filmes/modals.js') }}"></script>
+    <script src="{{ asset('js/admin/filmes/api.js') }}"></script>
+    <script src="{{ asset('js/admin/filmes/events.js') }}"></script>
 </body>
 </html>

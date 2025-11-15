@@ -30,6 +30,7 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/', [UsuarioController::class, 'all']);
     Route::post('/', [UsuarioController::class, 'storeAPI']);
     Route::get('/buscar', [UsuarioController::class, 'buscar']);
+    Route::put('/{usuario}/reativar', [UsuarioController::class, 'reactivateAPI']);
     Route::get('/{usuario}', [UsuarioController::class, 'showAPI']);
     Route::put('/{usuario}', [UsuarioController::class, 'updateAPI']);
     Route::delete('/{usuario}', [UsuarioController::class, 'destroyAPI']);
@@ -58,6 +59,7 @@ Route::prefix('filmes')->group(function () {
     Route::get('/', [FilmeController::class, 'all']);
     Route::get('/{filme}', [FilmeController::class, 'showAPI']);
     Route::post('/', [FilmeController::class, 'storeAPI']);
+    Route::put('/{filme}/reativar', [FilmeController::class, 'reactivateAPI']);
     Route::put('/{filme}', [FilmeController::class, 'updateAPI']);
     Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
     Route::post('/{filme}/marcar-como-assistido', [FilmeController::class, 'marcarComoAssistido']);

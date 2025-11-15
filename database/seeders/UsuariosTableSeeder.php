@@ -19,7 +19,7 @@ class UsuariosTableSeeder extends Seeder
             'email' => 'joao.pedro@example.com',
             'senha' => Hash::make('12345678'),
             'ehAdmin' => false,
-            'status' => 'Ativo',
+            'status' => 'ativo',
         ]);
         
         Usuario::create([
@@ -27,7 +27,7 @@ class UsuariosTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'senha' => Hash::make('12345678'),
             'ehAdmin' => true,
-            'status' => 'Ativo',
+            'status' => 'ativo',
         ]);
     }
 }

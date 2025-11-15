@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nome');
             $table->text('descricao')->nullable();
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->enum('status', ['ativo', 'bloqueado', 'deletado'])->default('ativo');
         });
     }
 

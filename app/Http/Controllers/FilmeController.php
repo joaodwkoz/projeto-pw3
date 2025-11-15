@@ -159,7 +159,11 @@ class FilmeController extends Controller
             $filme->generos()->sync($request->generos);
         }
 
-        return response()->json($filme, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Filme editado com sucesso!',
+            'data' => $filme
+        ], 200);
     }
 
     /**
@@ -167,7 +171,27 @@ class FilmeController extends Controller
      */
     public function destroyAPI(Filme $filme)
     {
-        $filme->delete();
-        return response()->json(['sucesso' => true], 200);
+        $filme->update(
+            ['status' => 'deletado']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Filme excluído com sucesso!',
+            'data' => $filme
+        ], 200);
+    }
+
+    public function reactivateAPI(Filme $filme)
+    {
+        $filme->update(
+            ['status' => 'ativo']
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Filme reativado com sucesso!',
+            'data' => $filme
+        ], 200);
     }
 }
