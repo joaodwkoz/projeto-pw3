@@ -108,9 +108,9 @@
                     <div class="info-input">
                         <select name="assunto">
                             <option value="sugestao">Sugestão</option>
-                            <option value="question">Dúvida</option>
-                            <option value="denuncia">Denúncia</option>
+                            <option value="duvida">Dúvida</option>
                             <option value="problema">Problema</option>
+                            <option value="denuncia">Denúncia</option>
                         </select>
                     </div>
                 </div>

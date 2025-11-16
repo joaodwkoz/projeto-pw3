@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url('css/dashboard/dashboard.css') }}">
+    <title>Contatos</title>
+    <link rel="stylesheet" href="{{ url('css/dashboard/contatos.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/dialog-modal.css') }}">
+    <link rel="stylesheet" href="{{ url('css/components/alert-dialog.css') }}">
 </head>
 <body>
-    <div id="dashboard">
+    <div id="contatos" data-imgs-url="{{ url('imgs/') }}">
         <aside id="sidebar">
             <div class="logo"></div>
 
@@ -25,6 +27,16 @@
                 <li>
                     <a href="">
                         <div class="icon">
+                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                        </div>
+
+                        <span class="text">Usuários</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('dashboard.avaliacoes') }}">
+                        <div class="icon">
                             <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
 
@@ -33,12 +45,12 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('dashboard.usuarios') }}">
+                    <a href="{{ route('dashboard.avaliacoes') }}">
                         <div class="icon">
-                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                            <img src="{{ url('imgs/side-genres.png')}}" alt="">
                         </div>
 
-                        <span class="text">Usuários</span>
+                        <span class="text">Gêneros</span>
                     </a>
                 </li>
 
@@ -63,7 +75,7 @@
                 </li>
 
                 <li>
-                    <a href="{{route('dashboard.contatos')}}">
+                    <a href="{{route('dashboard.contatos')}}" class="active">
                         <div class="icon">
                             <img src="{{ url('imgs/side-contacts.png')}}" alt="">
                         </div>
@@ -72,88 +84,284 @@
                     </a>
                 </li>
             </ul>
-
-            <div class="profile-content">
-                <div class="profile">
-                    <div class="profile-icon"></div>
-
-                    <span class="profile-name">
-                        {{ auth()->user()->nome }}
-                    </span>
-                </div>
-
-                <a href="" class="log-out" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                    <div class="icon">
-                        <img src="{{ asset('imgs/side-logout.png') }}" alt="">
-                    </div>
-
-                    <span class="text">Sair</span>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
         </aside>
-        
-        <main id="app">
-            <span class="title">Lista de contatos</span>
 
-            <div id="list">
-                <div class="header">
-                    <div class="category" style="width: 220px;">
-                        <span>Nome</span>
+        <main id="app" data-usuario-id="{{ Auth::user()->id }}" data-check-img-url="{{ asset('imgs/check.png') }}" data-storage-url="{{ asset('storage/') }}">
+           <header>
+               <div class="search-bar">
+                    <div class="icon">
+                    <img src="{{ url('imgs/search-icon.png')}}" alt="">
                     </div>
+                    <input type="text" placeholder="Pesquisar por filmes, diretores, etc.">
+               </div>
 
-                    <div class="category" style="width: 240px;">
-                        <span>Email</span>
-                    </div>
+               <div class="profile-container">
+                   <button class="notifications">
+                        <img src="{{ url('imgs/notifs-bell.png') }}" alt="">
+                   </button>
 
-                    <div class="category" style="width: 144px;">
-                        <span>Assunto</span>
-                    </div>
+                   <button class="profile">
+                        <span>{{ Auth::user()->nome }}</span>
+                   </button>
 
-                    <div class="category" style="width: 320px;">
-                        <span>Mensagem</span>
-                    </div>
+                   <div class="profile-menu hidden">
+                       <a href="#">Ver perfil</a>
 
-                    <div class="category" style="width: 210px;">
-                        <span>Status</span>
+                        <a href="{{ route('filmes') }}">Usuário</a>   
+
+                       <a href=""
+                        onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                            Sair
+                        </a>
+                   </div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+               </div>
+           </header>
+
+            <div class="content">
+                <div class="list">
+                    <div class="list-header">
+                        <span class="content-title">Lista de contatos</span>
                     </div>
                 </div>
 
-                <div class="data">
-                    @foreach($contatos as $contato)
-                        <div class="row">
-                            <div class="info" style="width: 220px;">
-                                <span>{{$contato->nome}}</span>
-                            </div>
-
-                            <div class="info" style="width: 240px;">
-                                <span>{{$contato->email}}</span>
-                            </div>
-
-                            <div class="info assunto {{ $contato->assuntoClass() }}" style="width: 144px;">
-                                <div class="box">
-                                    <span>{{$contato->assuntoTexto()}}</span>
-                                </div>
-                            </div>
-
-                            <div class="info" style="width: 320px;">
-                                <span>{{$contato->mensagem}}</span>
-                            </div>
-                            
-                            <div class="info status solved" style="width: 210px;">
-                                <div class="box">
-                                    <span>Resolvido</span>
-                                </div>
-                            </div>
+                <div class="contacts-list">
+                    <div class="contacts-list-header">
+                        <div class="contacts-header-col">
+                            <span>
+                                Nome
+                            </span>
                         </div>
-                    @endforeach
+
+                        <div class="contacts-header-col">
+                            <span>
+                                Email
+                            </span>
+                        </div>
+
+                        <div class="contacts-header-col">
+                            <span>
+                                Assunto
+                            </span>
+                        </div>
+
+                        <div class="contacts-header-col">
+                            <span>
+                                Status
+                            </span>
+                        </div>
+
+                        <div class="contacts-header-col">
+                            <span>
+                                Ações
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="contacts-list-rows">
+                        @foreach($contatos as $contato)
+                            <div class="contacts-list-row" data-contato-id="{{ $contato->id }}">
+                                <div class="contacts-list-col">
+                                    <span>
+                                        {{ $contato->nome }}
+                                    </span>
+                                </div>
+
+                                <div class="contacts-list-col">
+                                    <span>
+                                        {{ $contato->email }}
+                                    </span>
+                                </div>
+
+                                <div class="contacts-list-col">
+                                    <span class="assunto {{ $contato->assunto }}">
+                                        {{ $contato->showAssuntoHTML() }}
+                                    </span>
+                                </div>
+                        
+                                <div class="contacts-list-col">
+                                    <span class="status {{ $contato->status }}">
+                                        {{ $contato->showStatusHTML() }}
+                                    </span>
+                                </div>
+
+                                <div class="contacts-list-col">
+                                    <button class="action-btn ver">
+                                        <img src="{{ asset('imgs/ver.png') }}" alt="">
+                                    </button>
+
+                                    @if($contato->status == 'pendente')
+                                        <button class="action-btn nao-resolver">
+                                            <img src="{{ asset('imgs/nao-resolver.png') }}" alt="">
+                                        </button>
+                                        
+                                        <button class="action-btn resolver">
+                                            <img src="{{ asset('imgs/resolver.png') }}" alt="">
+                                        </button>
+                                    @else
+                                        @if($contato->status == 'resolvido')
+                                            <button class="action-btn nao-resolver">
+                                                <img src="{{ asset('imgs/nao-resolver.png') }}" alt="">
+                                            </button>
+                                        @else
+                                            <button class="action-btn resolver">
+                                                <img src="{{ asset('imgs/resolver.png') }}" alt="">
+                                            </button>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <div id="contact-modal-fade" class="hidden">
+        <div id="contact-modal">
+            <div class="modal-header">
+                <span class="modal-title">
+                    Ver avaliação
+                </span>
+
+                <button class="modal-header-close">
+                    <img src="{{ asset('imgs/close.png') }}" alt="">
+                </button>
+            </div>
+
+            <div class="modal-body" id="contact-form">
+                <div class="form-group">
+                    <span class="label">
+                        Nome
+                    </span>
+
+                    <div class="data nome">
+                        <span>
+                            
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="label">
+                        Email
+                    </span>
+
+                    <div class="data email">
+                        <span>
+                            
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="label">
+                        Assunto
+                    </span>
+
+                    <div class="data assunto">
+                        <span>
+                            
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="label">
+                        Mensagem
+                    </span>
+
+                    <div class="data multiline mensagem">
+                        <span>
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog-modal-fade" class="hidden">
+        <div id="dialog-modal">
+            <div class="modal-header">
+                <img src="{{ url('imgs/modal-sucesso.png') }}" alt="">
+            </div>
+
+            <div class="modal-body">
+                <span class="title">
+                    Sucesso!
+                </span>
+
+                <span class="text">
+                    Adicionado com sucesso!
+                </span>
+
+                <div class="info">
+                    <span>
+                        Mais informações:
+                    </span>
+
+                    <div class="box">
+                        <span>
+                            Erro ao salvar o nome
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="continue-dialog-btn">
+                    <span>
+                        Continuar
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert-modal-fade" class="hidden">
+        <div id="alert-modal">
+            <div class="modal-header">
+                <span class="modal-title">
+                    Você tem certeza?                    
+                </span>
+            </div>
+
+            <div class="modal-body">
+                <span class="text">
+                    Essa ocasionará no bloqueio do usuário de acessar a sua própria conta
+                </span>
+            </div>
+
+            <div class="modal-footer">
+                <div class="modal-btns">
+                    <button id="cancel-alert-btn">
+                        <span>
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button id="continue-alert-btn">
+                        <span>
+                            Continuar
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/components/dialog-modal.js') }}"></script>
+    <script src="{{ asset('js/components/alert-dialog.js') }}"></script>
+    <script src="{{ asset('js/perfil-menu.js') }}"></script>
+    <script src="{{ asset('js/admin/contatos/dom-elements.js') }}"></script>
+    <script src="{{ asset('js/admin/contatos/modals.js') }}"></script>
+    <script src="{{ asset('js/admin/contatos/api.js') }}"></script>
+    <script src="{{ asset('js/admin/contatos/events.js') }}"></script>
 </body>
 </html>

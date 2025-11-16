@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('email');
-            $table->string('assunto');
+            $table->enum('assunto', ['sugestao', 'duvida', 'problema', 'denuncia'])->default('sugestao');
             $table->string('mensagem');
-            $table->enum('status', ['pendente', 'resolvida', 'nao_resolvida'])->default('pendente');
+            $table->enum('status', ['pendente', 'resolvido', 'nao_resolvido'])->default('pendente');
             $table->timestamps();
         });
     }

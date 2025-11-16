@@ -12,37 +12,28 @@ class Contato extends Model
 
     protected $table = 'contatos';
 
-    protected $fillable = ['id','nome','email','assunto','mensagem','created_at','updated_at'];
+    protected $fillable = ['id', 'nome', 'email', 'assunto', 'mensagem', 'status'];
 
-    public function assuntoClass(){
-        if($this->assunto == "problema"){
-            return 'issue';
-        } 
-        
-        if($this->assunto == "denuncia"){
-            return 'report';
-        } 
-        
-        if($this->assunto == "sugestao"){
-            return 'suggestion';
-        }
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'nao_resolvido' => 'Não resolvido',
+            'resolvido' => 'Resolvido',
+            default => 'Pendente'
+        };
 
-        return 'question';
+        return $status;
     }
 
-    public function assuntoTexto(){
-        if($this->assunto == "problema"){
-            return 'Problema';
-        } 
-        
-        if($this->assunto == "denuncia"){
-            return 'Denúncia';
-        } 
-        
-        if($this->assunto == "sugestao"){
-            return 'Sugestão';
-        }
+    public function showAssuntoHTML()
+    {
+        $assunto = match($this->assunto) {
+            'duvida' => 'Dúvida',
+            'problema' => 'Problema',
+            'denuncia' => 'Denúncia',
+            default => 'Sugestão'
+        };
 
-        return 'Dúvida';
+        return $assunto;
     }
 }

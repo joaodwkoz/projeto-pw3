@@ -21,7 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('contatos')->group(function () {
+    Route::get('/', [ContatoController::class, 'all']);
     Route::post('/', [ContatoController::class, 'storeAPI']);
+    Route::get('/{contato}', [ContatoController::class, 'showAPI']);
+    Route::put('/{contato}/resolver', [ContatoController::class, 'resolveAPI']);
+    Route::put('/{contato}/nao-resolver', [ContatoController::class, 'unresolveAPI']);
 });
 
 Route::get('filmes/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
