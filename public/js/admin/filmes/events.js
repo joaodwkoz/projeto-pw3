@@ -142,6 +142,8 @@ saveMovieBtn.addEventListener('click', () => {
 addMovieBtn.addEventListener('click', () => {
     clearInputs();
 
+    enableInputs();
+
     modalTitle.textContent = 'Adicionar filme';
 
     abrirModal();

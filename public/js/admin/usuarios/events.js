@@ -94,6 +94,8 @@ saveUserBtn.addEventListener('click', () => {
 addUserBtn.addEventListener('click', () => {
     clearInputs();
 
+    enableInputs();
+
     modalTitle.textContent = 'Adicionar usuário';
 
     abrirModal();

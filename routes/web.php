@@ -10,6 +10,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\GeneroController;
 use App\Models\Classificacao;
 use App\Models\Genero;
 
@@ -66,13 +68,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
 
-        Route::get('/avaliacoes', function () {
-            return view('admin.avaliacoes');
-        })->name('dashboard.avaliacoes');
+        Route::get('/avaliacoes', [AvaliacaoController::class, 'index'])->name('dashboard.avaliacoes');
 
         Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
 
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
+
+        Route::get('/generos', [GeneroController::class, 'index'])->name('dashboard.generos');
     });
 });
+
 Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');

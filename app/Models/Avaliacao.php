@@ -11,11 +11,16 @@ class Avaliacao extends Model
 
     protected $table = 'avaliacoes';
 
-    protected $fillable = ['id', 'usuario_id', 'filme_id', 'nota', 'comentario'];
+    protected $fillable = ['id', 'usuario_id', 'filme_id', 'nota', 'comentario', 'status'];
 
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
+
+    public function filme()
+    {
+        return $this->belongsTo(Filme::class, 'filme_id');
     }
 
     public function getTempoDesde()
@@ -38,5 +43,16 @@ class Avaliacao extends Model
         } else {
             return $dataReferencia->format('d/m/Y');
         }
+    }
+
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'bloqueado' => 'Bloqueado',
+            'deletado' => 'Deletado',
+            default => 'Ativo'
+        };
+
+        return $status;
     }
 }

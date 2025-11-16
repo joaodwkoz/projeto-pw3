@@ -11,10 +11,21 @@ class Genero extends Model
     
     protected $table = 'generos';
 
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'cor', 'status'];
 
     public function filmes()
     {
         return $this->belongsToMany(Filme::class);
+    }
+
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'bloqueado' => 'Bloqueado',
+            'deletado' => 'Deletado',
+            default => 'Ativo'
+        };
+
+        return $status;
     }
 }

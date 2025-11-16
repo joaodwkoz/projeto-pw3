@@ -13,7 +13,8 @@ class AvaliacaoController extends Controller
      */
     public function index()
     {
-        return Avaliacao::all();
+        $avaliacoes = Avaliacao::with('usuario', 'filme')->get();
+        return view('admin.avaliacoes')->with('avaliacoes', $avaliacoes);
     }
 
     /**
@@ -48,7 +49,7 @@ class AvaliacaoController extends Controller
      */
     public function showAPI(Avaliacao $avaliacao)
     {
-        return response()->json($avaliacao, 200);
+        return response()->json($avaliacao->load('filme', 'usuario'), 200);
     }
 
     /**

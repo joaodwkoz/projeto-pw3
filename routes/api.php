@@ -5,6 +5,7 @@ use App\Http\Controllers\FilmeController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\GeneroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,15 @@ Route::prefix('filmes')->group(function () {
     Route::delete('/{filme}', [FilmeController::class, 'destroyAPI']);
     Route::post('/{filme}/marcar-como-assistido', [FilmeController::class, 'marcarComoAssistido']);
     Route::post('/{filme}/desmarcar-como-assistido', [FilmeController::class, 'desmarcarComoAssistido']);
+});
+
+Route::prefix('generos')->group(function () {
+    Route::get('/', [GeneroController::class, 'all']);
+    Route::get('/{genero}', [GeneroController::class, 'showAPI']);
+    Route::post('/', [GeneroController::class, 'storeAPI']);
+    Route::put('/{genero}/reativar', [GeneroController::class, 'reactivateAPI']);
+    Route::put('/{genero}', [GeneroController::class, 'updateAPI']);
+    Route::delete('/{genero}', [GeneroController::class, 'destroyAPI']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

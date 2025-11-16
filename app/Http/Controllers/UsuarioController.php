@@ -5,6 +5,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UsuarioController extends Controller
 {
@@ -36,7 +37,10 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
         $usuario->nome = $request->nome;
         $usuario->email = $request->email;
-        $usuario->senha = Hash::make($request->senha);
+
+        $senhaAleatoria = Str::random(16);
+
+        $usuario->senha = Hash::make($senhaAleatoria);
 
         if ($request->hasFile('fotoPerfil')) {
             $caminho = $request->file('fotoPerfil')->store('usuarios/perfis', 'public');
@@ -44,7 +48,7 @@ class UsuarioController extends Controller
         }
 
         $usuario->ehAdmin = $request->ehAdmin;
-        $usuario->status = $request->status;
+
         $usuario->save();
 
         return response()->json([
