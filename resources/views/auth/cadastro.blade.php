@@ -11,6 +11,26 @@
 </head>
 <body>
 
+    <!-- Bloco para exibir mensagens de sucesso (enviadas após redirecionamento do Controller) -->
+    @if(session('mensagem'))
+    {{-- Certifique-se de estilizar essas classes no seu cadastro.css para que a mensagem apareça formatada. --}}
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <span class="block sm:inline">{{ session('mensagem') }}</span>
+    </div>
+    @endif
+
+    <!-- Bloco para exibir erros gerais, caso a validação falhe -->
+    @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <strong class="font-bold">Houve um erro!</strong>
+        <ul class="mt-2 list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="app" id="appImage">
         <h1 class="slogan">O MELHOR LUGAR PARA UM CINEMINHA</h1>
     </div>
@@ -22,29 +42,31 @@
             
             <h1 class="titulo">Bem vindo!!</h1>
             
-
-        
-            <input type="text" placeholder="Nome de usuario" class="inEmail" name="name" required>
+            {{-- Input Nome: Usa old() para persistir o valor e @error para mostrar o erro específico --}}
+            <input type="text" placeholder="Nome de usuario" class="inEmail @error('name') is-invalid @enderror" name="name" required value="{{ old('name') }}">
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
 
-            <input type="email" placeholder="Email" class="inEmail" name="email" required>
+            {{-- Input Email --}}
+            <input type="email" placeholder="Email" class="inEmail @error('email') is-invalid @enderror" name="email" required value="{{ old('email') }}">
              @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
 
-            <input type="password" placeholder="Senha" class="inSenha" name="password" required>
+            {{-- Input Senha --}}
+            <input type="password" placeholder="Senha" class="inSenha @error('password') is-invalid @enderror" name="password" required>
              @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
             
+            {{-- Input Confirmação de Senha --}}
             <input type="password" placeholder="Confirmar senha" class="inSenha" name="password_confirmation" required>
              @error('password_confirmation')
                 <span class="invalid-feedback" role="alert">

@@ -21,11 +21,12 @@ use App\Models\Genero;
 
 Auth::routes(['register' => false]);
 
-Route::get('/cadastro', function () {
-    return view('auth.cadastro');
-})->name('cadastro');
+// 1. Rota GET: Chama o método create() no RegisterController para mostrar o formulário.
+Route::get('/cadastro' , [RegisterController::class , 'create']) -> name('cadastro');
 
-Route::post('/cadastro', [RegisterController::class, 'register'])->name('register');
+// 2. Rota POST: Chama o método store() no RegisterController para processar e salvar.
+Route::post('/cadastro' , [RegisterController::class , 'store']) -> name('register');
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -74,5 +75,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
     });
+
 });
 Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');

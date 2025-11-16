@@ -1,39 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth; // <-- O NAMESPACE DEVE SER ESTE
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuario;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\RegisterRequest; 
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $redirectTo = '/login';
-
-    public function __construct()
+    /**
+     * Exibe o formulário de registro.
+     * Mapeado para a rota GET /cadastro.
+     * NÃO deve ter argumentos para ser chamado pela rota GET.
+     */
+    public function create() // <-- Deve estar VAZIO!
     {
-        $this->middleware('guest');
+        return view('auth.cadastro'); 
     }
 
-    protected function validator(array $data)
+    /**
+     * Processa a submissão e salva o novo usuário.
+     */
+    public function store(RegisterRequest $request) 
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'], // 'unique:usuarios'
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        User::create([ 
+            'nome' => $request->name, 
+            'email' => $request->email,
+            'senha' => Hash::make($request->password), 
         ]);
-    }
 
-    protected function create(array $data)
-    {
-        return Usuario::create([
-            'nome' => $data['name'],
-            'email' => $data['email'],
-            'senha' => Hash::make($data['password']),
-        ]);
+        return redirect()->route('login')->with('mensagem', 'Cadastro realizado com sucesso! Faça login.');
     }
 }
