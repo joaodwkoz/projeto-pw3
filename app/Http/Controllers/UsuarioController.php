@@ -133,5 +133,12 @@ class UsuarioController extends Controller
             'data' => $usuario
         ], 200);
     }
+
+    public function store(UsuarioRequest $request) {
+        usuario::create([
+            'nome' => $request -> name,
+            'email' => $request -> email,
+        ]);
+    }
 }
 ?>

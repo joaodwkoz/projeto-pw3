@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Contato;
+use App\Http\Requests\ContatoRequest;
 
 class ContatoController extends Controller
 {
@@ -33,16 +33,10 @@ class ContatoController extends Controller
         return response()->json(['message' => "Contato enviado com sucesso!"], 201);
     }
 
-    public function store(Request $request)
+    public function store(ContatoRequest $request)
     {
-        $validatedData = $request->validate([
-            'nome' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'assunto' => 'required',
-            'mensagem' => 'required',
-        ]);
-
-        Contato::create($validatedData);
+        // Usa validated() para criar o registro, incluindo nome, email, assunto e mensagem
+        Contato::create($request->validated());
 
         return redirect()->back()->with('success', 'Sua mensagem foi enviada com sucesso!');
     }

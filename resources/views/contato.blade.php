@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('perfil') }}">
                         <div class="icon">
                             <img src="{{ asset('imgs/side-users.png')}}" alt="Ícone de Perfil">
                         </div>

@@ -12,10 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('email')->unique();
-            $table->string('senha');
-            $table->string('fotoPerfil', 2048)->nullable();
+            $table->string('senha'); // senha criptografada
             $table->boolean('ehAdmin')->default(false);
-            $table->enum('status', ['ativo', 'bloqueado', 'deletado'])->default('ativo');
+            $table->string('status')->default('ativo');
+            $table->string('fotoPerfil')->nullable();
             $table->timestamps();
         });
     }
