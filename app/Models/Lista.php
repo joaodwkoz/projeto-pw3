@@ -13,7 +13,7 @@ class Lista extends Model
 
     protected $touches = ['filmes'];
 
-    protected $fillable = ['usuario_id', 'nome', 'descricao'];
+    protected $fillable = ['usuario_id', 'nome', 'descricao', 'status'];
 
     public function usuario()
     {
@@ -52,5 +52,16 @@ class Lista extends Model
         } else {
             return $dataReferencia->format('d/m/Y');
         }
+    }
+
+    public function showStatusHTML()
+    {
+        $status = match($this->status) {
+            'bloqueado' => 'Bloqueado',
+            'deletado' => 'Deletado',
+            default => 'Ativo'
+        };
+
+        return $status;
     }
 }

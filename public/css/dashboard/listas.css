@@ -273,44 +273,27 @@ button {
     align-items: center;
 }
 
-#review-add-btn {
-    height: 100%;
-    padding: 0.75vw 1.5vw;
-    background-color: #fff;
-    border-radius: 0.25vw;
-}
-
-#review-add-btn span {
-    display: block;
-    color: #212121;
-    font-family: 'Poppins';
-    font-size: 1vw;
-    font-weight: 500;
-    line-height: 100%;
-    letter-spacing: -0.02em;
-}
-
-.reviews-list {
+.lists-list {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.67vw;
 }
 
-.reviews-list-header, .reviews-list-row {
+.lists-list-header, .lists-list-row {
     width: 100%;
     display: grid;
     grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
     gap: 1.67vw;
 }
 
-.reviews-list-header {
+.lists-list-header {
     height: 7.5vh;
     background-image: linear-gradient(to right, #111111, #0c0c0c);
     border-radius: 0.5vw;
 }
 
-.reviews-header-col, .reviews-list-col {
+.lists-header-col, .lists-list-col {
     height: 100%;
     display: flex;
     align-items: center;
@@ -318,7 +301,7 @@ button {
     gap: 0.5vw;
 }
 
-.reviews-header-col > span, .reviews-list-col > span {
+.lists-header-col > span, .lists-list-col > span {
     display: block;
     color: #fff;
     font-family: 'Poppins';
@@ -328,11 +311,11 @@ button {
     letter-spacing: -0.02em;   
 }
 
-.reviews-list-col > span {
+.lists-list-col > span {
     font-size: 0.833333vw;
 }
 
-.reviews-list-col.nota {
+.lists-list-col.nota {
     height: 6vh;
     display: flex;
     align-items: center;
@@ -340,12 +323,12 @@ button {
     padding-top: 0.375vw;
 }
 
-.reviews-list-col.nota img {
+.lists-list-col.nota img {
     height: 33%;
     object-fit: contain;
 }
 
-.reviews-list-row {
+.lists-list-row {
     width: 100%;
     height: 6.5vh;
     background-color: #141414;
@@ -393,7 +376,7 @@ button {
     object-fit: contain;
 }
 
-#review-modal-fade {
+#list-modal-fade {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -406,7 +389,7 @@ button {
     left: 0;
 }
 
-#review-modal {
+#list-modal {
     width: 40vw;
     background-image: linear-gradient(to top right, #111, #0c0c0c);
     border-radius: 1.25vw;
@@ -463,7 +446,7 @@ button {
     position: relative;
 }
 
-.form-group .label {
+.form-group label, .form-group span {
     display: block;
     color: #fff;
     font-family: 'Poppins';
@@ -509,27 +492,45 @@ button {
     resize: none;
 }
 
-.form-group .data.stars {
+.movies-list {
     width: 100%;
-    height: 5vh;
     display: flex;
-    gap: 0.75vw;
+    flex-direction: column;
+    gap: 1vw;
+    max-height: 15vh;
+    overflow-y: scroll;
+}
+
+.movie {
+    height: 5vh;
+    width: 100%;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    background: none;
+    gap: 1vw;
 }
 
-.data.stars .star {
+.movie .marker {
+    height: 3.25vh;
+    aspect-ratio: 1 / 5;
+    border-radius: 0.25vw;
+    background-color: #212121;
+}
+
+.movie .movie-poster {
+    height: 3.5vh;
+    aspect-ratio: 2 / 3;
+    border-radius: 0.15vw;
+    background-color: #fff;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.movie-poster img {
+    width: 100%;
     height: 100%;
-    aspect-ratio: 1 / 1;
-    opacity: 0.5;
+    object-fit: cover;
 }
 
-.data.stars .star img {
-    height: 100%;
-    object-fit: contain;
-}
-
-.data.stars .star.active {
-    opacity: 1;
+.movie-title {
+    font-size: 0.85vw !important;
 }

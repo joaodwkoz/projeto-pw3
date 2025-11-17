@@ -346,19 +346,19 @@ button {
     font-weight: 400;
 }
 
-.status.deletado {
-    color: #DE6F54 !important;
-    background-color: #FFE0D9;
-}
-
 .status.ativo {
-    color: #81C74C !important;
-    background-color: #E3FFD9;
+    color: #1e854b !important;
+    background-color: #d1f2e1;
 }
 
 .status.bloqueado {
-    color: #FFE44A !important;
-    background-color: #FFE769;
+    color: #856404 !important;
+    background-color: #fff3cd;
+}
+
+.status.deletado {
+    color: #721c24 !important;
+    background-color: #f8d7da;
 }
 
 .movies-list-row:nth-of-type(even) {

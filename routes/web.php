@@ -12,6 +12,7 @@ use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\ListaController;
 use App\Models\Classificacao;
 use App\Models\Genero;
 
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('is_admin')->prefix('dashboard')->group(function () { 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
 
         Route::get('/avaliacoes', [AvaliacaoController::class, 'index'])->name('dashboard.avaliacoes');
@@ -73,6 +75,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
 
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
+
+        Route::get('/listas', [ListaController::class, 'index'])->name('dashboard.listas');
 
         Route::get('/generos', [GeneroController::class, 'index'])->name('dashboard.generos');
     });

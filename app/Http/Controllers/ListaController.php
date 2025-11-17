@@ -44,7 +44,8 @@ class ListaController extends Controller
      */
     public function index()
     {
-        return Lista::all()->load('filmes');
+        $listas = Lista::with('filmes', 'usuario')->get();
+        return view('admin.listas')->with('listas', $listas);
     }
 
     /**
@@ -78,7 +79,7 @@ class ListaController extends Controller
      */
     public function showAPI(Lista $lista)
     {
-        return response()->json($lista->load('filmes'), 200);
+        return response()->json($lista->load('filmes', 'usuario'), 200);
     }
 
     /**

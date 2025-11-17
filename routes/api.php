@@ -54,6 +54,7 @@ Route::prefix('listas')->group(function () {
     Route::get('/', [ListaController::class, 'index']);
     Route::post('/', [ListaController::class, 'storeAPI']);
     Route::get('/{lista}', [ListaController::class, 'showAPI']);
+    Route::put('/{lista}/reativar', [ListaController::class, 'reactivateAPI']);
     Route::put('/{lista}', [ListaController::class, 'updateAPI']);
     Route::delete('/{lista}', [ListaController::class, 'destroyAPI']);
     Route::post('/{lista}/filme', [ListaController::class, 'adicionarFilme']);
