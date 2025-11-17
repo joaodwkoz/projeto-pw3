@@ -7,10 +7,22 @@ use App\Models\Usuario;
 use App\Models\Filme;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;use Illuminate\Support\Facades\Auth;
 
 class ListaController extends Controller
 {
+    
+    public function downloadPDFUsuarios()
+    {
+        $usuario = Lista::all();
+
+        $dados = compact('lista');
+
+        $pdf = Pdf::loadView('lista_pdf', $dados);
+
+        return $pdf->download('lista.pdf');
+    }
+
     public function obterListasUsuario(Usuario $usuario, Filme $filme)
     {
         $listas = $usuario->listas()->get();

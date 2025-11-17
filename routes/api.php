@@ -68,5 +68,18 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
+
     /* Lembra de arrumar rotas da api pro middleware is admin */
 });
+
+Route::get('/download-Pdf', 'App\Http\Controllers\UsuarioController@downloadPdf');
+
+Route::get('/download-Pdf', 'App\Http\Controllers\ListaController@downloadPdf');
+
+Route::get('/download-Pdf', 'App\Http\Controllers\FilmeController@downloadPdf');
+
+Route::get('/download-Pdf', 'App\Http\Controllers\DashboardController@downloadPdf');
+
+Route::get('/download-Pdf', 'App\Http\Controllers\ContatoController@downloadPdf');
+
+Route::get('/download-Pdf', 'App\Http\Controllers\AvalicaoController@downloadPdf');

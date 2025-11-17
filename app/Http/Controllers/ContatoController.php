@@ -6,8 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Models\Contato;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class ContatoController extends Controller
 {
+
+    public function downloadPDFContato()
+    {
+        $contato = Contato::all();
+
+        $dados = compact('contato');
+
+        $pdf = Pdf::loadView('contato_pdf', $dados);
+
+        return $pdf->download('contado.pdf');
+    }
     public function index()
     {
         $contatos = Contato::all();

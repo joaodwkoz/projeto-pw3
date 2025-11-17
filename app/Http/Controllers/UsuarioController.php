@@ -5,9 +5,22 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UsuarioController extends Controller
 {
+    public function downloadPDFUsuarios()
+    {
+        $usuarios = Usuario::all();
+
+        $dados = compact('usuarios');
+
+        $pdf = PDF::loadView('pdf.usuarios', ['usuarios' => $usuarios])
+                ->setPaper('a4', 'portrait');
+
+        return $pdf->download('usuarios.pdf');
+    }
+
     public function showProfile(Usuario $usuario)
     {
         $usuario->load(['filmesAssistidos', 'listas', 'avaliacoes']);

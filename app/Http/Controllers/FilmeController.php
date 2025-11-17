@@ -8,11 +8,21 @@ use App\Models\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade\Pdf;use Illuminate\Support\Facades\Http;
 use Spatie\FlareClient\View;
 
 class FilmeController extends Controller
 {
+    public function downloadPDFFilme()
+    {
+        $filme = Filme::all();
+
+        $dados = compact('filme');
+
+        $pdf = Pdf::loadView('filme_pdf', $dados);
+
+        return $pdf->download('filme.pdf');
+    }
     public function marcarComoAssistido(Request $request, Filme $filme)
     {
         $jaAssistido = $filme->usuariosQueAssistiram()->where('usuario_id', $request->usuario_id)->exists();

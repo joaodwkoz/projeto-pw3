@@ -8,6 +8,8 @@ use App\Models\Usuario;
 
 use App\Models\Filme;
 
+use Barryvdh\DomPdf\Facade\Pdf;
+
 class DashboardController extends Controller
 {
     public function index()

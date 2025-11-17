@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Avaliacao;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AvaliacaoController extends Controller
 {
+    public function downloadPDFAvaliacao()
+    {
+        $avaliacao = Avaliacao::all();
+
+        $dados = compact('avaliacao');
+
+        $pdf = Pdf::loadView('avaliacao_pdf', $dados);
+
+        return $pdf->download('avaliacao.pdf');
+    }
     /**
      * Display a listing of the resource.
      */

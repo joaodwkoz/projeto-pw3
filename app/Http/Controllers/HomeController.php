@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPdf\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
