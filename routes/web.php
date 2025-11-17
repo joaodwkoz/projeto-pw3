@@ -80,6 +80,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/generos', [GeneroController::class, 'index'])->name('dashboard.generos');
 
+        Route::get('/dados', function () {
+            return view('admin.dados');
+        })->name('dashboard.dados');
+
         Route::prefix('download')->group(function () {
             Route::get('/usuarios', [UsuarioController::class, 'downloadUsuarios'])->name('download.usuarios');
 
