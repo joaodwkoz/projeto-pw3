@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filme</title>
+    <title>Filmes</title>
+    <link rel="stylesheet" href="{{ url('css/components/alert.css') }}">
     <link rel="stylesheet" href="{{ url('css/styles.css') }}">
 </head>
 <body>
@@ -72,7 +73,7 @@
             </ul>
         </aside>
 
-        <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}" data-filme-show-url-base="{{ url('filmes') }}/">
+        <main id="app" data-api-url="{{ url('api/filmes/genero') }}" data-storage-url="{{ asset('storage') }}" data-filme-show-url-base="{{ url('filmes') }}/" data-imgs-url="{{ asset('imgs/') }}">
            <header>
                <div class="search-bar">
                     <div class="icon">
@@ -125,44 +126,6 @@
 
                 <div class="movies-list">
                     <div class="movies-list-header">
-                        <span class="movies-list-title">Filmes populares</span>
-
-                        @if($filmesPopulares->count() > 5)
-                            <div class="movies-list-btns">
-                                <button>
-                                    <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
-                                </button>
-
-                                <button>
-                                    <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
-                                </button>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="movies-scroll-list">
-                        @if($filmesPopulares->count() > 0)
-                            @foreach($filmesPopulares as $popular)
-                                <a class="movie" href="{{ route('filmes.show', ['filme' => $popular->id]) }}">
-                                    <div class="movie-poster">
-                                        <img src="{{ asset('storage/' . $popular->capa) }}" alt="">
-                                    </div>
-
-                                    <div class="movie-rating-badge">
-                                        <span class="movie-rating-num">{{ round($popular->notaMedia) ?? 0 }}</span>
-
-                                        <div class="movie-rating-stars">
-                                            <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-
-                <div class="movies-list">
-                    <div class="movies-list-header">
                         <span class="movies-list-title">Recomendados por gênero</span>
 
                         @if($recomendadosPorGenero->count() > 5)
@@ -188,6 +151,44 @@
 
                                     <div class="movie-rating-badge">
                                         <span class="movie-rating-num">{{ round($recomendado->notaMedia) ?? 0 }}</span>
+
+                                        <div class="movie-rating-stars">
+                                            <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+                <div class="movies-list">
+                    <div class="movies-list-header">
+                        <span class="movies-list-title">Filmes populares</span>
+
+                        @if($filmesPopulares->count() > 5)
+                            <div class="movies-list-btns">
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-esquerda.png') }}" alt="">
+                                </button>
+
+                                <button>
+                                    <img src="{{ asset('imgs/icon-seta-direita.png') }}" alt="">
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="movies-scroll-list">
+                        @if($filmesPopulares->count() > 0)
+                            @foreach($filmesPopulares as $popular)
+                                <a class="movie" href="{{ route('filmes.show', ['filme' => $popular->id]) }}">
+                                    <div class="movie-poster">
+                                        <img src="{{ asset('storage/' . $popular->capa) }}" alt="">
+                                    </div>
+
+                                    <div class="movie-rating-badge">
+                                        <span class="movie-rating-num">{{ round($popular->notaMedia) ?? 0 }}</span>
 
                                         <div class="movie-rating-stars">
                                             <img src="{{ asset('imgs/side-reviews.png') }}" alt="">
@@ -240,9 +241,33 @@
         </main>
     </div>
 
+    <div id="alert-area">
+        <div class="alert-container">
+            <div class="alert">
+                <div class="alert-top">
+                    <div class="alert-icon">
+                        <img src="{{ url('imgs/success.png') }}" alt="">
+                    </div>
+
+                    <span class="alert-title">
+                        Sucesso! Suas mudanças foram salvas.
+                    </span>
+                </div>
+
+                <div class="alert-description">
+                    <span class="alert-text">
+                        Se esforça mais da próxima vez.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/components/alert.js') }}"></script>
     <script src="{{ asset('js/perfil-menu.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const imgsUrl = document.querySelector('main').dataset.imgsUrl;
             const storageUrl = document.querySelector('main').dataset.storageUrl;
             const filmesShowUrlBase = document.querySelector('main').dataset.filmeShowUrlBase;
 

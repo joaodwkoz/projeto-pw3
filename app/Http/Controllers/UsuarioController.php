@@ -6,9 +6,54 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Response;
 
 class UsuarioController extends Controller
 {
+    public function downloadUsuarios()
+    {
+        $filename = 'usuarios.csv';
+
+        $usuarios = Usuario::cursor();
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=ISO-8859-1',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () use ($usuarios) {
+            $file = fopen('php://output', 'w');
+
+            $header = [
+                "ID", "Nome", "Email", "Foto Perfil", "É Admin", "Status",
+                "Data Criação", "Data Atualização"
+            ];
+
+            $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
+            fputcsv($file, $headerISO, ';');
+
+            foreach ($usuarios as $usuario) {
+                $ehAdminTexto = $usuario->ehAdmin ? 'Sim' : 'Não';
+                $row = [
+                    $usuario->id,
+                    mb_convert_encoding($usuario->nome ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($usuario->email ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($usuario->fotoPerfil ?? '', 'ISO-8859-1', 'UTF-8'),
+                    $ehAdminTexto,
+                    mb_convert_encoding($usuario->status ?? '', 'ISO-8859-1', 'UTF-8'),
+                    $usuario->created_at ? $usuario->created_at->format('Y-m-d H:i:s') : '',
+                    $usuario->updated_at ? $usuario->updated_at->format('Y-m-d H:i:s') : '',
+                ];
+
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
     public function showProfile(Usuario $usuario)
     {
         $usuario->load(['filmesAssistidos', 'listas', 'avaliacoes']);

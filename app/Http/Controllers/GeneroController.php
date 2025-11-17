@@ -5,9 +5,52 @@ namespace App\Http\Controllers;
 use App\Models\Genero;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class GeneroController extends Controller
 {
+    public function downloadGeneros()
+    {
+        $filename = 'generos.csv';
+
+        $generos = Genero::withCount('filmes')->cursor();
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=ISO-8859-1',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () use ($generos) {
+            $file = fopen('php://output', 'w');
+
+            $header = [
+                "ID", "Nome", "Cor (Hex)", "Status", "Qtd. Filmes",
+                "Data Criação", "Data Atualização"
+            ];
+
+            $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
+            fputcsv($file, $headerISO, ';');
+
+            foreach ($generos as $genero) {
+                $row = [
+                    $genero->id,
+                    mb_convert_encoding($genero->nome ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($genero->cor ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($genero->status ?? 'Ativo', 'ISO-8859-1', 'UTF-8'),
+                    $genero->filmes_count,
+                    $genero->created_at ? $genero->created_at->format('Y-m-d H:i:s') : '',
+                    $genero->updated_at ? $genero->updated_at->format('Y-m-d H:i:s') : '',
+                ];
+
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -8,9 +8,55 @@ use App\Models\Filme;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class ListaController extends Controller
 {
+    public function downloadListas()
+    {
+        $filename = 'listas.csv';
+
+        $listas = Lista::with('usuario')->withCount('filmes')->cursor();
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=ISO-8859-1',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () use ($listas) {
+            $file = fopen('php://output', 'w');
+
+            $header = [
+                "ID Lista", "Nome da Lista", "Descrição", "Dono (Usuário)", 
+                "Qtd. Filmes", "Status", "Data Criação", "Data Atualização"
+            ];
+
+            $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
+            fputcsv($file, $headerISO, ';');
+
+            foreach ($listas as $lista) {
+                $nomeUsuario = $lista->usuario->nome ?? '[Usuário Deletado]';
+
+                $row = [
+                    $lista->id,
+                    mb_convert_encoding($lista->nome ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($lista->descricao ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($nomeUsuario, 'ISO-8859-1', 'UTF-8'),
+                    $lista->filmes_count,
+                    mb_convert_encoding($lista->status ?? 'Ativo', 'ISO-8859-1', 'UTF-8'),
+                    $lista->created_at ? $lista->created_at->format('Y-m-d H:i:s') : '',
+                    $lista->updated_at ? $lista->updated_at->format('Y-m-d H:i:s') : '',
+                ];
+
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
     public function obterListasUsuario(Usuario $usuario, Filme $filme)
     {
         $listas = $usuario->listas()->get();

@@ -9,11 +9,74 @@ use App\Models\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Http;
-use Spatie\FlareClient\View;
+use Illuminate\Support\Facades\Response;
 
 class FilmeController extends Controller
 {
+    public function downloadFilmes()
+    {
+        $filename = 'filmes.csv';
+
+        $filmes = Filme::with('classificacao', 'generos')
+                        ->withCount('listas', 'usuariosQueAssistiram')
+                        ->withAvg('avaliacoes', 'nota')
+                        ->cursor();
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=ISO-8859-1',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () use ($filmes) {
+            $file = fopen('php://output', 'w');
+
+            $header = [
+                "ID", "Nome", "Diretor", "Ano Lançamento", "Classificação", "Gêneros",
+                "Nota Média", "Sinopse", "Trailer", "Capa", "Status",
+                "Qtd. em Listas", "Qtd. Assistiram", "Data Criação", "Data Atualização"
+            ];
+
+            $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
+            fputcsv($file, $headerISO, ';');
+
+            foreach ($filmes as $filme) {
+                $classificacao = $filme->classificacao->nome ?? '[N/A]';
+                
+                $generos = $filme->generos->pluck('nome')->implode(', ');
+
+                $notaMedia = $filme->avaliacoes_avg_nota ? 
+                            number_format($filme->avaliacoes_avg_nota, 1, ',', '.') : 
+                            'N/A';
+                
+                $status = $filme->showStatusHTML();
+
+                $row = [
+                    $filme->id,
+                    mb_convert_encoding($filme->nome ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($filme->diretor ?? '', 'ISO-8859-1', 'UTF-8'),
+                    $filme->ano_lancamento,
+                    mb_convert_encoding($classificacao, 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($generos, 'ISO-8859-1', 'UTF-8'),
+                    $notaMedia,
+                    mb_convert_encoding($filme->sinopse ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($filme->trailer ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($filme->capa ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($status, 'ISO-8859-1', 'UTF-8'),
+                    $filme->listas_count,
+                    $filme->usuarios_que_assistiram_count,
+                    $filme->created_at ? $filme->created_at->format('Y-m-d H:i:s') : '',
+                    $filme->updated_at ? $filme->updated_at->format('Y-m-d H:i:s') : '',
+                ];
+
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
     public function marcarComoAssistido(Request $request, Filme $filme)
     {
         $jaAssistido = $filme->usuariosQueAssistiram()->where('usuario_id', $request->usuario_id)->exists();

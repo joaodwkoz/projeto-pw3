@@ -6,8 +6,56 @@ use Illuminate\Http\Request;
 
 use App\Models\Contato;
 
+use Illuminate\Support\Facades\Response;
+
 class ContatoController extends Controller
 {
+    public function downloadContatos()
+    {
+        $filename = 'contatos.csv';
+
+        $contatos = Contato::cursor();
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=ISO-8859-1',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function () use ($contatos) {
+            $file = fopen('php://output', 'w');
+
+            $header = [
+                "ID", "Nome", "Email", "Assunto", "Mensagem", "Status",
+                "Data Envio", "Data Atualização"
+            ];
+
+            $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
+            fputcsv($file, $headerISO, ';');
+
+            foreach ($contatos as $contato) {
+                $assuntoTexto = $contato->showAssuntoHTML();
+                $statusTexto = $contato->showStatusHTML();
+
+                $row = [
+                    $contato->id,
+                    mb_convert_encoding($contato->nome ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($contato->email ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($assuntoTexto, 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($contato->mensagem ?? '', 'ISO-8859-1', 'UTF-8'),
+                    mb_convert_encoding($statusTexto, 'ISO-8859-1', 'UTF-8'),
+                    $contato->created_at ? $contato->created_at->format('Y-m-d H:i:s') : '',
+                    $contato->updated_at ? $contato->updated_at->format('Y-m-d H:i:s') : '',
+                ];
+
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
     public function index()
     {
         $contatos = Contato::all();

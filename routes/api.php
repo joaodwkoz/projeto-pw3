@@ -86,6 +86,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    /* Lembra de arrumar rotas da api pro middleware is admin */
+    /* Lembrar de arrumar rotas da api pro middleware is admin */
 });
-

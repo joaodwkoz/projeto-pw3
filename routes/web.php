@@ -79,7 +79,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/listas', [ListaController::class, 'index'])->name('dashboard.listas');
 
         Route::get('/generos', [GeneroController::class, 'index'])->name('dashboard.generos');
+
+        Route::prefix('download')->group(function () {
+            Route::get('/usuarios', [UsuarioController::class, 'downloadUsuarios'])->name('download.usuarios');
+
+            Route::get('/filmes', [FilmeController::class, 'downloadFilmes'])->name('download.filmes');
+
+            Route::get('/generos', [GeneroController::class, 'downloadGeneros'])->name('download.generos');
+
+            Route::get('/avaliacoes', [AvaliacaoController::class, 'downloadAvaliacoes'])->name('download.avaliacoes');
+
+            Route::get('/listas', [ListaController::class, 'downloadListas'])->name('download.listas');
+
+            Route::get('/contatos', [ContatoController::class, 'downloadContatos'])->name('download.contatos');
+        });
     });
 });
-
-Route::get('/download-csv', [AdminController::class, 'download'])->name('download.csv');
