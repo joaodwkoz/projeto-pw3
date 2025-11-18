@@ -35,9 +35,12 @@ class ContatoController extends Controller
 
     public function store(ContatoRequest $request)
     {
-        // Usa validated() para criar o registro, incluindo nome, email, assunto e mensagem
-        Contato::create($request->validated());
-
-        return redirect()->back()->with('success', 'Sua mensagem foi enviada com sucesso!');
+        Contato::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'assunto'  => $request->assunto,
+            'mensagem' => $request->mensagem,
+        ]);
     }
+
 }

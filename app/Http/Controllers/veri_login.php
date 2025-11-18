@@ -28,6 +28,22 @@ class veri_login extends Controller
             'email' => 'E-mail ou senha inválidos.',
         ]);
     }
+
+    public function store(LoginRequest $request)
+    {
+
+        $usuario = Usuario::where('email', $request->email)->first();
+
+        if ($usuario && Hash::check($request->senha, $usuario->senha)) {
+            Auth::login($usuario);
+            return redirect()->route('filmes');
+        }
+
+        return back()->withErrors([
+            'email' => 'E-mail ou senha inválidos.',
+        ]);
+    }
+
 }
 
 

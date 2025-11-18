@@ -104,4 +104,15 @@ class AvaliacaoController extends Controller
             'data' => $avaliacao
         ], 200);
     }
+
+        public function store(AvaliacaoRequest $request)
+        {
+            Avaliacao::create([
+                'usuario_id' => $request->usuario_id,
+                'filme_id'   => $request->filme_id,
+                'nota'       => $request->nota,
+                'comentario' => $request->comentario,
+            ]);
+        }
+
 }

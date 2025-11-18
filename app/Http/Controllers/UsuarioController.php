@@ -134,11 +134,15 @@ class UsuarioController extends Controller
         ], 200);
     }
 
-    public function store(UsuarioRequest $request) {
-        usuario::create([
-            'nome' => $request -> name,
-            'email' => $request -> email,
+    public function store(RegisterRequest $request)
+    {
+        Usuario::create([
+            'nome' => $request->name,
+            'email' => $request->email,
+            'senha' => Hash::make($request->password),
+            'ehAdmin' => 0,        
         ]);
     }
+
 }
 ?>

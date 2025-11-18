@@ -194,4 +194,20 @@ class FilmeController extends Controller
             'data' => $filme
         ], 200);
     }
+
+    public function store(FilmeRequest $request)
+    {
+        $filme = Filme::create([
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'ano' => $request->ano,
+            'classificacao_id' => $request->classificacao_id,
+            'capa' => $request->hasFile('capa') ? $request->file('capa')->store('capas', 'public') : null,
+        ]);
+
+        if ($request->generos) {
+            $filme->generos()->sync($request->generos);
+        }
+    }
+
 }

@@ -134,4 +134,14 @@ class ListaController extends Controller
             'data' => $lista
         ], 200);
     }
+
+    public function store(ListaRequest $request)
+    {
+        Lista::create([
+            'usuario_id' => $request->usuario_id,
+            'nome'       => $request->nome,
+            'descricao'  => $request->descricao,
+        ]);
+    }
+
 }

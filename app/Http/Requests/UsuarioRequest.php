@@ -6,34 +6,31 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UsuarioRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        $isUpdate = $this->method() !== 'POST';
+
         return [
-            'nome' => ['required' , 'string', 'max:100' , 'min:3'],
-            'email' => ['required' , 'string', 'email', 'max:255']
+            'nome' => ['required', 'string', 'max:255', 'min:3'],
+            'email' => [$isUpdate ? 'sometimes' : 'required', 'email', 'max:255'],
+            'senha' => [$isUpdate ? 'nullable' : 'required', 'min:6'],
+            'fotoPerfil' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp'],
+            'ehAdmin' => ['nullable', 'boolean'],
+            'status' => ['nullable', 'string'],
         ];
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
-            'nome.required' => 'O campo nome é obrigatório.' ,
-            'nome.min' => 'O Nome deve ter no mínimo :min caracteres.' ,
-
-            'email.required' => 'O campo email é obrigatório.' ,
-            'email.email' => 'O e-mail fornecido não é válido.'
+            'nome.required' => 'O nome é obrigatório.',
+            'email.required' => 'O email é obrigatório.',
+            'senha.required' => 'A senha é obrigatória.',
         ];
     }
 }
