@@ -25,17 +25,7 @@
                 </li>
 
                 <li>
-                    <a href="">
-                        <div class="icon">
-                            <img src="{{ url('imgs/side-users.png')}}" alt="">
-                        </div>
-
-                        <span class="text">Usuários</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('dashboard.avaliacoes') }}">
+                    <a href="{{ route('dashboard.filmes') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
@@ -45,7 +35,17 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('dashboard.avaliacoes') }}">
+                    <a href="{{ route('dashboard.usuarios') }}">
+                        <div class="icon">
+                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                        </div>
+
+                        <span class="text">Usuários</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('dashboard.generos') }}" >
                         <div class="icon">
                             <img src="{{ url('imgs/side-genres.png')}}" alt="">
                         </div>
@@ -55,7 +55,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.avaliacoes') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
@@ -65,7 +65,7 @@
                 </li>
 
                 <li>
-                    <a href="" class="active">
+                    <a href="{{ route('dashboard.listas') }}"  class="active">
                         <div class="icon">
                             <img src="{{ url('imgs/side-lists.png')}}" alt="">
                         </div>

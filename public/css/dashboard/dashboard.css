@@ -27,7 +27,10 @@ button {
 #sidebar {
     width: 21.35%;
     height: 100%;
-    background-color: #212121;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #111;
     padding: 2.5vw;
 }
 
@@ -49,50 +52,10 @@ button {
     display: flex;
     align-items: center;
     gap: 0.833333vw;
+    text-decoration: none;
 }
 
-#sidebar .profile-content {
-    width: 100%;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-}
-
-#sidebar .profile-content .profile {
-    width: 100%;
-    height: 50%;
-    border-radius: 0.83333vw;
-    padding: 0.83333vw;
-    display: flex;
-    align-items: center;
-    gap: 0.83333vw;
-}
-
-#sidebar .profile-content .profile .profile-icon {
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
-#sidebar .profile-content .profile .profile-name {
-    font-family: 'Poppins';
-    font-size: 1.25vw;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #fff;
-}
-
-#sidebar .profile-content .log-out {
-    width: 100%;
-    height: 50%;
-    padding: 0.83333vw;
-    display: flex;
-    align-items: center;
-    gap: 0.416667vw;
-}
-
-#sidebar .profile-content .log-out .icon, #sidebar ul li a .icon {
+#sidebar ul li a .icon {
     height: 50%;
     aspect-ratio: 1 / 1;
     display: flex;
@@ -100,26 +63,37 @@ button {
     justify-content: center;
 }
 
-#sidebar .profile-content .log-out .icon img, #sidebar ul li a img {
+#sidebar ul li a img {
     opacity: 0.5;
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: opacity 0.2s ease-in-out;
 }
 
-#sidebar .profile-content .log-out .text, #sidebar ul li a .text {
+#sidebar ul li a .text {
     font-family: 'Poppins';
     font-size: 1.25vw;
     font-weight: 500;
     letter-spacing: -0.02em;
     color: #fff;
     opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#sidebar ul li a.active img,
+#sidebar ul li a.active .text {
+    opacity: 1;
 }
 
 #app {
     width: calc(100% - 21.35%);
     height: 100%;
-    padding: 3.33vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    padding: 2vw;
+    margin-left: 21.35%;
 }
 
 #app .title {
@@ -211,7 +185,7 @@ button {
 #app #stats .charts .chart {
     background-image: linear-gradient(to right, #1f1f1f, #1b1b1b);
     border-radius: 0.83333vw;
-    padding: 1%;
+    padding: 16px;
     height: 100%;
     width: 33%;
 }
@@ -242,7 +216,7 @@ button {
     font-size: 0.83333vw;
     font-weight: 500;
     letter-spacing: -0.02em;
-    color: #454545;
+    color: #777777;
 }
 
 
@@ -301,84 +275,162 @@ button {
     color: #ffff
 }
 
+.labelVer{
+    font-family: 'Poppins';
+    font-size: 0.83333vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #777777;
+    margin-left: 20%;
+}
+
 .grafico{
-    width: 90%;
-    height: 95%;
+    width: 95%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 2px;
 }
 
 .genero{
-    width: 300px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    color: #4A7DB8;
+    width: 100%;
     font-family: 'Poppins';
     font-size: 12px;
 }
 
+
+#legendaGenero {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+}
+
+.legenda-cor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legenda-nome {
+  flex: 1;
+  margin-left: 6px;
+}
+
+.legenda-valor {
+  font-weight: 500;
+}
+
 #myChart{
     width: 90px;
-    height: 30px;
 }
 
-#app #log {
-    margin-top: 2.5vw;
+#log {
     width: 100%;
-    height: 34%;
-    background-image: linear-gradient(to right, #1f1f1f, #1b1b1b);
-    border-radius: 0.83333vw;
-    padding: 1.67vw;
     display: flex;
     flex-direction: column;
-    gap: 0.83333vw;
+    gap: 1vw;
 }
 
-#app #log .title {
+#log .title {
     font-family: 'Poppins';
-    font-size: 1.25vw;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-size: 1.2vw;
     color: #fff;
 }
 
-#app #log .table {
+/* TABLE */
+#log .table {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.83333vw;
+    border-radius: 0.3vw;
+    overflow: hidden;
 }
 
-#app #log .table .header {
+/* HEADER */
+#log .table .header {
     width: 100%;
-    height: 1.67vw;
+    height: 3vw;
+    background: #111;
     display: flex;
-    gap: 1.67vw;
 }
 
-#app #log .table .header .col {
-    height: 100%;
-    background-color: #fff;
-    border-radius: 0.208333vw;
+#log .table .header .col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#log .table .header span {
+    font-family: "Poppins";
+    font-size: 0.75vw;
+    color: #999;
+}
+
+/* ROWS */
+#log .table .row {
+    width: 100%;
+    height: 3vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    transition: 0.2s;
 }
 
-#app #log .table .header .col span {
-    font-family: 'Poppins';
-    font-size: 0.729167vw;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #6B6B6B;
-    line-height: 100%;
+#log .table .row:nth-child(odd) {
+    background: #1c1c1c;
 }
+
+#log .table .row:nth-child(even) {
+    background: #161616;
+}
+
+#log .table .row:hover {
+    background: #222;
+}
+
+/* COLs */
+#log .table .row .col {
+    display: flex;
+    justify-content: center;  /* <-- Centralizando horizontalmente */
+    align-items: center;       /* <-- Centraliza vertical */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#log .table .row .col span {
+    font-family: "Poppins";
+    font-size: 0.75vw;
+    color: #fff;
+}
+
+/* COL WIDTHS */
+.col-id { width: 128px; }
+.col-user { width: 188px; }
+.col-desc { width: 176px; }
+.col-idfilme { width: 128px; }
+.col-filme { width: 200px; }
+.col-data { width: 176px; }
+
+
+
+#txtInfo{
+  width: 16%;
+  align-items: center;
+}
+
 
 #app #list {
     width: 100%;
@@ -576,4 +628,119 @@ button {
 
 .issue .box span {
     color: #F55D5D !important;
+}
+
+/* ===== Layout geral do modal ===== */
+.modal-lista {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Caixa central */
+.lista-content {
+    width: 380px;
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.lista-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.lista-header h2 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: "Poppins";
+}
+
+.close-lista {
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.close-lista:hover {
+    color: #ff3b3b;
+}
+
+/* Lista scrollável */
+.lista-generos {
+    max-height: 350px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Cada item */
+.item-genero {
+    background: #2b2b2b;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform .40s ease;
+}
+.item-genero:hover {
+    background-color: #4b4b4b;
+}
+
+/* Parte esquerda */
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Barrinha colorida da esquerda */
+.item-barra {
+    width: 4px;
+    height: 22px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.genero-nome {
+    color: #fff;
+    font-size: 17px;
+    font-family: "Poppins";
+}
+
+.genero-valor {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: "Poppins";
+}
+
+.lista-generos::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+
+.lista-generos::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 50px;
+    height: 10px;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
 }

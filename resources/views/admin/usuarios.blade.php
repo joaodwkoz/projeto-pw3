@@ -10,12 +10,12 @@
 </head>
 <body>
     <div id="usuarios" data-imgs-url="{{ url('imgs/') }}">
-        <aside id="sidebar">
+         <aside id="sidebar">
             <div class="logo"></div>
 
             <ul>
                 <li>
-                    <a href="{{ route('dashboard.index')}} ">
+                    <a href="{{ route('dashboard.index')}} " >
                         <div class="icon">
                             <img src="{{ url('imgs/side-home.png')}}" alt="">
                         </div>
@@ -25,12 +25,12 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.filmes') }}">
                         <div class="icon">
-                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                            <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
 
-                        <span class="text">Usuários</span>
+                        <span class="text">Filmes</span>
                     </a>
                 </li>
 
@@ -40,12 +40,22 @@
                             <img src="{{ url('imgs/side-users.png')}}" alt="">
                         </div>
 
-                        <span class="text">Filmes</span>
+                        <span class="text">Usuários</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.generos') }}" >
+                        <div class="icon">
+                            <img src="{{ url('imgs/side-genres.png')}}" alt="">
+                        </div>
+
+                        <span class="text">Gêneros</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('dashboard.avaliacoes') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
@@ -55,7 +65,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.listas') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-lists.png')}}" alt="">
                         </div>
