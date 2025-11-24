@@ -89,6 +89,11 @@
             <main id="app">
                 <span class="title">Dashboard</span>
 
+                <div class="btnHeader">
+                    <a href="{{ url('/dashboard/download/csv/dashboard') }}" class="btn">Download CSV Dashboard</a>
+                    <a href="{{ url('/download-pdf/dashboard') }}" class="btn">Download pdf Dashboard</a>
+                </div>
+
                 <div id="stats">
                     <div class="cards">
                         <div class="card movies">
@@ -171,10 +176,12 @@
                                 </div>
 
                                 <span class="chart-title">Filmes em alta</span>
+                                        <a id="btnVerMaisFilmes" class="labelVerFilmes">Ver mais</a>
+
                             </div>
                                 <div id="campos" >
                                 @foreach($topMovies as $movie)
-                                <div class="campo filme">
+                                    <div class="campo filme" onclick="abrirModalFilme('{{ $movie->nome }}', {{ $movie->avaliacoes_count }})">
                                     <div class="barra"></div>
                                     <div class="circleImg">
                                         <img src="imgs/icon-usuario.png" alt="" class="img filme">
@@ -196,7 +203,7 @@
                                 </div>
 
                                 <span class="chart-title">Genêros mais populares</span>
-                                <a class="labelVer">Ver mais</a>
+                                <a class="labelVer"  id="btnVerMaisGeneros">Ver mais</a>
                             </div>
                             <div class="grafico">
                                     <div class="Chart">
@@ -388,6 +395,97 @@ const colors = allGenres.map(g => g.cor || '#A8A8A8');
             </div>
         </div>
     </div>
+
+
+
+
+<!-- MODAL - FILMES EM ALTA -->
+<div id="modalFilmes" class="modal-filme">
+    <div class="filme-content">
+        <div class="filme-header">
+            <h2 class="txtFilmeModal">Filmes em Alta</h2>
+            <span class="close-filme">&times;</span>
+        </div>
+
+        <div class="grafico-filme">
+            <canvas id="chartFilmes"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // === Modal Gêneros ===
+  const btnGeneros = document.getElementById('btnVerMaisGeneros');
+  const modalGeneros = document.getElementById('modalGeneros');
+  const closeGeneros = modalGeneros.querySelector('.close-lista');
+
+  btnGeneros?.addEventListener('click', () => {
+    modalGeneros.style.display = 'flex';
+  });
+
+  closeGeneros?.addEventListener('click', () => {
+    modalGeneros.style.display = 'none';
+  });
+
+  modalGeneros?.addEventListener('click', (e) => {
+    if (e.target === modalGeneros) modalGeneros.style.display = 'none';
+  });
+
+  // === Modal Filmes ===
+  const btnFilmes = document.getElementById('btnVerMaisFilmes');
+  const modalFilmes = document.getElementById('modalFilmes');
+  const closeFilmes = modalFilmes.querySelector('.close-filme');
+
+  const topMovies = @json($topMovies);
+  let chartFilmesInstance = null;
+
+  btnFilmes?.addEventListener('click', () => {
+    modalFilmes.style.display = 'flex';
+
+    const labels = topMovies.map(f => f.nome);
+    const data = topMovies.map(f => f.usuarios_que_assistiram_count || f.avaliacoes_count || 0);
+    const colors = topMovies.map((_, i) => `hsl(${i * 50}, 70%, 50%)`);
+
+    const ctx = document.getElementById('chartFilmes').getContext('2d');
+
+    if (chartFilmesInstance) chartFilmesInstance.destroy();
+
+    chartFilmesInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Usuários que assistiram',
+          data,
+          backgroundColor: colors,
+          borderRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
+  });
+
+  closeFilmes?.addEventListener('click', () => {
+    modalFilmes.style.display = 'none';
+  });
+
+  modalFilmes?.addEventListener('click', (e) => {
+    if (e.target === modalFilmes) modalFilmes.style.display = 'none';
+  });
+
+});
+
+</script>
+
+
 
 
 

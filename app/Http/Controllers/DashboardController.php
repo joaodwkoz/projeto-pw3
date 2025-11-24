@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Filme;
-<<<<<<< HEAD
 use Barryvdh\DomPDF\Facade\Pdf;
-=======
 use Illuminate\Support\Facades\DB; 
 use App\Models\Genero;
->>>>>>> e7f3efee1145c2ec691d4389acacc17adedd60f6
 
 class DashboardController extends Controller
 {
@@ -54,7 +51,6 @@ class DashboardController extends Controller
     private function moviesWithMostReviews() {
         return Filme::withCount('avaliacoes')->orderBy('avaliacoes_count', 'desc')->take(5)->get();
     }
-<<<<<<< HEAD
     
         public function downloadPDFDashboard()
     {
@@ -67,7 +63,6 @@ class DashboardController extends Controller
         $pdf = Pdf::loadView('dashboard_pdf', $dados);
         return $pdf->download('dashboard.pdf');
     }
-=======
 
  private function generosMaisAssistidos()
 {
@@ -88,7 +83,6 @@ class DashboardController extends Controller
             ];
         })
         ->toArray();
->>>>>>> e7f3efee1145c2ec691d4389acacc17adedd60f6
 }
 
 

@@ -283,6 +283,14 @@ button {
     color: #777777;
     margin-left: 20%;
 }
+.labelVerFilmes{
+    font-family: 'Poppins';
+    font-size: 0.83333vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #777777;
+    margin-left: 38%;
+}
 
 .grafico{
     width: 95%;
@@ -743,4 +751,51 @@ button {
 .row{
     display: flex;
     flex-direction: row;
+}
+
+.modal-filme {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(4, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.grafico-filme{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}
+
+.filme-content {
+    background: #1f1f1f;
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+    height: 500px;
+}
+
+.close-filme {
+        color: #fff;
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.txtFilmeModal{
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: "Poppins";
 }
