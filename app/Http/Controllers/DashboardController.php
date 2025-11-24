@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 
 use App\Models\Filme;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -39,6 +40,18 @@ class DashboardController extends Controller
 
     private function moviesWithMostReviews() {
         return Filme::withCount('avaliacoes')->orderBy('avaliacoes_count', 'desc')->take(5)->get();
+    }
+    
+        public function downloadPDFDashboard()
+    {
+        $totalUsers = $this->usersCount();
+        $totalMovies = $this->moviesCount();
+        $topUsers = $this->usersWithMostMovies();
+        $topMovies = $this->moviesWithMostReviews();
+    
+        $dados = compact('totalUsers', 'totalMovies', 'topUsers', 'topMovies');
+        $pdf = Pdf::loadView('dashboard_pdf', $dados);
+        return $pdf->download('dashboard.pdf');
     }
 }
 ?>

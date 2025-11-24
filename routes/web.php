@@ -97,5 +97,13 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/contatos', [ContatoController::class, 'downloadContatos'])->name('download.contatos');
         });
+
+        Route::get('/download-pdf/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
+        
+    Route::get('/download-pdf/listas', [ListaController::class, 'downloadPDFUsuarios']);
+    Route::get('/download-pdf/filmes', [FilmeController::class, 'downloadPDFFilme']);
+    Route::get('/download-pdf/dashboard', [DashboardController::class, 'downloadPDFDashboard']);
+    Route::get('/download-pdf/contatos', [ContatoController::class, 'downloadPDFContato']);
+
     });
 });

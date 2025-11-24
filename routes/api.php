@@ -81,10 +81,19 @@ Route::prefix('generos')->group(function () {
     Route::delete('/{genero}', [GeneroController::class, 'destroyAPI']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/download-pdf/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
+    Route::get('/download-pdf/listas', [ListaController::class, 'downloadPDFUsuarios']);
+    Route::get('/download-pdf/filmes', [FilmeController::class, 'downloadPDFFilme']);
+    Route::get('/download-pdf/dashboard', [DashboardController::class, 'downloadPDFDashboard']);
+    Route::get('/download-pdf/contatos', [ContatoController::class, 'downloadPDFContato']);
+});
+
 
     /* Lembrar de arrumar rotas da api pro middleware is admin */
 });

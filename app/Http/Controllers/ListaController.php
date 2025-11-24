@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ListaController extends Controller
 {
@@ -180,5 +181,13 @@ class ListaController extends Controller
             'message' => 'Lista reativada com sucesso!',
             'data' => $lista
         ], 200);
+    }
+    
+    public function downloadPDFUsuarios()
+    {
+        $usuario = Lista::all();
+        $dados = compact('lista');
+        $pdf = Pdf::loadView('lista_pdf', $dados);
+        return $pdf->download('lista.pdf');
     }
 }

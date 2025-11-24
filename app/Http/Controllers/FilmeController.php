@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FilmeController extends Controller
 {
@@ -256,5 +257,14 @@ class FilmeController extends Controller
             'message' => 'Filme reativado com sucesso!',
             'data' => $filme
         ], 200);
+    }
+
+    
+    public function downloadPDFFilme()
+    {
+        $filme = Filme::all();
+        $dados = compact('filme');
+        $pdf = Pdf::loadView('filme_pdf', $dados);
+        return $pdf->download('filme.pdf');
     }
 }

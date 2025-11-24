@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UsuarioController extends Controller
 {
@@ -182,5 +183,18 @@ class UsuarioController extends Controller
             'data' => $usuario
         ], 200);
     }
+
+
+    public function downloadPDFUsuarios()
+    {
+        $usuarios = Usuario::all();
+        $dados = compact('usuarios');
+        $pdf = PDF::loadView('pdf.usuarios', ['usuarios' => $usuarios])
+                  ->setPaper('a4', 'portrait');
+        return $pdf->download('usuarios.pdf');
+    }
+
+
+
 }
 ?>
