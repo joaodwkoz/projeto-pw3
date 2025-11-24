@@ -105,6 +105,21 @@ button {
     line-height: 100%;
 }
 
+.cabecalho{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btnTop{
+    padding: 16px;
+    background-color: #343434;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Poppins';
+}
+
 #app #stats {
     margin-top: 1.67vw;
     width: 100%;

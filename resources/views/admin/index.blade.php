@@ -87,11 +87,15 @@
         </aside>
             
             <main id="app">
+
+            <div class="cabecalho">
                 <span class="title">Dashboard</span>
 
-                <div class="btnHeader">
-                    <a href="{{ url('/dashboard/download/csv/dashboard') }}" class="btn">Download CSV Dashboard</a>
-                    <a href="{{ url('/download-pdf/dashboard') }}" class="btn">Download pdf Dashboard</a>
+                <div class="btnHeadler">
+                    <a href="{{ url('/dashboard/download/csv/dashboard') }}" class="btnTop">PDF</a>
+                    <a href="{{ url('/download-pdf/dashboard') }}" class="btnTop">CSV</a>
+                </div>
+
                 </div>
 
                 <div id="stats">
