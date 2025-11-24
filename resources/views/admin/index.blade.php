@@ -25,9 +25,9 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.filmes') }}">
                         <div class="icon">
-                            <img src="{{ url('imgs/side-users.png')}}" alt="">
+                            <img src="{{ url('imgs/side-movies.png')}}" alt="">
                         </div>
 
                         <span class="text">Filmes</span>
@@ -55,7 +55,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.avaliacoes') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-reviews.png')}}" alt="">
                         </div>
@@ -65,7 +65,7 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.listas') }}">
                         <div class="icon">
                             <img src="{{ url('imgs/side-lists.png')}}" alt="">
                         </div>
