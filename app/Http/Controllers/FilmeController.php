@@ -6,6 +6,7 @@ use App\Models\Filme;
 use App\Http\Controllers\Controller;
 use App\Models\Classificacao;
 use App\Models\Genero;
+use App\Services\AtividadeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -87,6 +88,16 @@ class FilmeController extends Controller
 
         $filme->usuariosQueAssistiram()->attach($request->usuario_id);
 
+            AtividadeService::registrar(
+                usuarioId: $request->usuario_id,
+                nome: "Assistiu um filme",
+                descricao: "Marcou como assistido",
+                entidade: $filme,
+                propriedades: [
+                    'filme_nome' => $filme->nome
+                ]
+            );
+
         return response()->json(['sucesso' => true], 200);
     }
 
@@ -99,6 +110,16 @@ class FilmeController extends Controller
         }
 
         $filme->usuariosQueAssistiram()->detach($request->usuario_id);
+
+         AtividadeService::registrar(
+                usuarioId: $request->usuario_id,
+                nome: "Desmarcou filme",
+                descricao: "Desmarcou filme",
+                entidade: $filme,
+                propriedades: [
+                    'filme_nome' => $filme->nome
+                ]
+            );
 
         return response()->json(['sucesso' => true], 200);
     }
@@ -150,6 +171,20 @@ class FilmeController extends Controller
 
         return response()->json($filmes);
     }
+
+     public function generosMaisAssistidos()
+{
+    $generosMaisAssistidos = \DB::table('filme_genero')
+        ->join('filmes', 'filme_genero.filme_id', '=', 'filmes.id')
+        ->join('generos', 'filme_genero.genero_id', '=', 'generos.id')
+        ->join('filme_usuario_assistido', 'filme_usuario_assistido.filme_id', '=', 'filmes.id') // tabela pivô dos assistidos
+        ->select('generos.nome', \DB::raw('COUNT(filme_usuario_assistido.usuario_id) as total_assistido'))
+        ->groupBy('generos.id', 'generos.nome')
+        ->orderByDesc('total_assistido')
+        ->get();
+
+    return response()->json($generosMaisAssistidos);
+}
 
     /**
      * Show the form for creating a new resource.
