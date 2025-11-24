@@ -78,6 +78,22 @@ class FilmeController extends Controller
         return response()->json($filmes);
     }
 
+  public function generosMaisAssistidos()
+{
+    $generosMaisAssistidos = \DB::table('filme_genero')
+        ->join('filmes', 'filme_genero.filme_id', '=', 'filmes.id')
+        ->join('generos', 'filme_genero.genero_id', '=', 'generos.id')
+        ->join('filme_usuario_assistido', 'filme_usuario_assistido.filme_id', '=', 'filmes.id') // tabela pivô dos assistidos
+        ->select('generos.nome', \DB::raw('COUNT(filme_usuario_assistido.usuario_id) as total_assistido'))
+        ->groupBy('generos.id', 'generos.nome')
+        ->orderByDesc('total_assistido')
+        ->get();
+
+    return response()->json($generosMaisAssistidos);
+}
+
+
+
     /**
      * Show the form for creating a new resource.
      */

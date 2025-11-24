@@ -23,6 +23,7 @@ Route::prefix('contatos')->group(function () {
     Route::post('/', [ContatoController::class, 'storeAPI']);
 });
 
+Route::get('/filmes/generos/mais-assistidos', [FilmeController::class, 'generosMaisAssistidos']);
 Route::get('filmes/genero/{genero}', [FilmeController::class, 'fetchPorGenero']);
 Route::get('filmes/{filme}', [FilmeController::class, 'showAPI']);
 
