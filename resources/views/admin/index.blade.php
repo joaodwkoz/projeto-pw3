@@ -92,8 +92,8 @@
                 <span class="title">Dashboard</span>
 
                 <div class="btnHeadler">
-                    <a href="{{ url('/dashboard/download/csv/dashboard') }}" class="btnTop">PDF</a>
-                    <a href="{{ url('/download-pdf/dashboard') }}" class="btnTop">CSV</a>
+                    <a href="{{ route('dashboard.download.csv') }}" class="btnTop">CSV</a>
+                    <a href="{{ route('dashboard.pdf') }}" class="btnTop">PDF</a>
                 </div>
 
                 </div>
@@ -408,6 +408,10 @@ const colors = allGenres.map(g => g.cor || '#A8A8A8');
     <div class="filme-content">
         <div class="filme-header">
             <h2 class="txtFilmeModal">Filmes em Alta</h2>
+                <div class="btnHeadler">
+                    <a href="{{ route('download.filmes') }}" class="btnTop">CSV</a>
+                    <a href="{{ route('download.pdf.filmes') }}" class="btnTop">PDF</a>
+                </div>
             <span class="close-filme">&times;</span>
         </div>
 

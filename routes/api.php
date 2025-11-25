@@ -9,17 +9,6 @@ use App\Http\Controllers\GeneroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
 Route::prefix('contatos')->group(function () {
     Route::get('/', [ContatoController::class, 'all']);
     Route::post('/', [ContatoController::class, 'storeAPI']);
@@ -81,19 +70,6 @@ Route::prefix('generos')->group(function () {
     Route::delete('/{genero}', [GeneroController::class, 'destroyAPI']);
 });
 
-    Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/download-pdf/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
-    Route::get('/download-pdf/listas', [ListaController::class, 'downloadPDFUsuarios']);
-    Route::get('/download-pdf/filmes', [FilmeController::class, 'downloadPDFFilme']);
-    Route::get('/download-pdf/dashboard', [DashboardController::class, 'downloadPDFDashboard']);
-    Route::get('/download-pdf/contatos', [ContatoController::class, 'downloadPDFContato']);
-});
-
-
-    /* Lembrar de arrumar rotas da api pro middleware is admin */
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });

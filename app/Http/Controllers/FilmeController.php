@@ -79,6 +79,31 @@ class FilmeController extends Controller
         return Response::stream($callback, 200, $headers);
     }
 
+    public function downloadPDFFilme()
+    {
+        // Método Original - Usa a view 'filme_pdf'
+        $filme = Filme::all();
+        $dados = compact('filme');
+        $pdf = Pdf::loadView('filme_pdf', $dados);
+        return $pdf->download('filme.pdf');
+    }
+    
+    /**
+     * NOVO MÉTODO: Gera PDF usando a view 'resources/views/pdf/filmes.blade.php'.
+     */
+    public function downloadPdfFilmesView()
+    {
+        $filmes = Filme::all(); 
+        $dados = compact('filmes'); // Use 'filmes' no Blade para iterar
+        
+        // Carrega a view CORRETA: 'pdf.filmes'
+        $pdf = Pdf::loadView('pdf.filmes', $dados); 
+        
+        return $pdf->download('relatorio-listagem-filmes.pdf');
+    }
+
+    // ... (restante dos seus métodos) ...
+
     public function marcarComoAssistido(Request $request, Filme $filme)
     {
         $jaAssistido = $filme->usuariosQueAssistiram()->where('usuario_id', $request->usuario_id)->exists();
@@ -112,7 +137,7 @@ class FilmeController extends Controller
 
         $filme->usuariosQueAssistiram()->detach($request->usuario_id);
 
-         AtividadeService::registrar(
+          AtividadeService::registrar(
                 usuarioId: $request->usuario_id,
                 nome: "Desmarcou filme",
                 descricao: "Desmarcou filme",
@@ -173,19 +198,19 @@ class FilmeController extends Controller
         return response()->json($filmes);
     }
 
-     public function generosMaisAssistidos()
-{
-    $generosMaisAssistidos = \DB::table('filme_genero')
-        ->join('filmes', 'filme_genero.filme_id', '=', 'filmes.id')
-        ->join('generos', 'filme_genero.genero_id', '=', 'generos.id')
-        ->join('filme_usuario_assistido', 'filme_usuario_assistido.filme_id', '=', 'filmes.id') // tabela pivô dos assistidos
-        ->select('generos.nome', \DB::raw('COUNT(filme_usuario_assistido.usuario_id) as total_assistido'))
-        ->groupBy('generos.id', 'generos.nome')
-        ->orderByDesc('total_assistido')
-        ->get();
+      public function generosMaisAssistidos()
+    {
+        $generosMaisAssistidos = \DB::table('filme_genero')
+            ->join('filmes', 'filme_genero.filme_id', '=', 'filmes.id')
+            ->join('generos', 'filme_genero.genero_id', '=', 'generos.id')
+            ->join('filme_usuario_assistido', 'filme_usuario_assistido.filme_id', '=', 'filmes.id') // tabela pivô dos assistidos
+            ->select('generos.nome', \DB::raw('COUNT(filme_usuario_assistido.usuario_id) as total_assistido'))
+            ->groupBy('generos.id', 'generos.nome')
+            ->orderByDesc('total_assistido')
+            ->get();
 
-    return response()->json($generosMaisAssistidos);
-}
+        return response()->json($generosMaisAssistidos);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -295,11 +320,4 @@ class FilmeController extends Controller
     }
 
     
-    public function downloadPDFFilme()
-    {
-        $filme = Filme::all();
-        $dados = compact('filme');
-        $pdf = Pdf::loadView('filme_pdf', $dados);
-        return $pdf->download('filme.pdf');
-    }
 }

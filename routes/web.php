@@ -13,12 +13,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\ListaController;
-use App\Models\Classificacao;
-use App\Models\Genero;
 
 /*
 |--------------------------------------------------------------------------
-| Rotas Web (Públicas e de Autenticação)
+| Rotas Web
 |--------------------------------------------------------------------------
 */
 
@@ -45,6 +43,7 @@ Route::get('/listas', function () {
 })->name('listas');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/perfil', function () {
         return view('usuario')->with('usuario', Auth::user());
     })->name('perfil');
@@ -65,45 +64,58 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/filmes/{filme}', [FilmeController::class, 'showFilmePage'])->name('filmes.show');
 
-    Route::middleware('is_admin')->prefix('dashboard')->group(function () { 
+    /*
+    |--------------------------------------------------------------------------
+    | ROTAS DO ADMIN / DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware('is_admin')->prefix('dashboard')->group(function () {
+
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('dashboard.usuarios');
-
         Route::get('/avaliacoes', [AvaliacaoController::class, 'index'])->name('dashboard.avaliacoes');
-
         Route::get('/contatos', [ContatoController::class, 'index'])->name('dashboard.contatos');
-
         Route::get('/filmes', [FilmeController::class, 'dashboardData'])->name('dashboard.filmes');
-
         Route::get('/listas', [ListaController::class, 'index'])->name('dashboard.listas');
-
         Route::get('/generos', [GeneroController::class, 'index'])->name('dashboard.generos');
 
-        Route::get('/dados', function () {
-            return view('admin.dados');
-        })->name('dashboard.dados');
-
+        /*
+        |--------------------------------------------------------------------------
+        | DOWNLOADS CSV
+        |--------------------------------------------------------------------------
+        */
         Route::prefix('download')->group(function () {
             Route::get('/usuarios', [UsuarioController::class, 'downloadUsuarios'])->name('download.usuarios');
-
             Route::get('/filmes', [FilmeController::class, 'downloadFilmes'])->name('download.filmes');
-
             Route::get('/generos', [GeneroController::class, 'downloadGeneros'])->name('download.generos');
-
             Route::get('/avaliacoes', [AvaliacaoController::class, 'downloadAvaliacoes'])->name('download.avaliacoes');
-
             Route::get('/listas', [ListaController::class, 'downloadListas'])->name('download.listas');
-
             Route::get('/contatos', [ContatoController::class, 'downloadContatos'])->name('download.contatos');
+
+            // CSV do dashboard
+            Route::get('/dashboard', [DashboardController::class, 'downloadCSVDashboard'])
+                ->name('dashboard.download.csv');
         });
 
-        Route::get('/download-pdf/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
-        
-    Route::get('/download-pdf/listas', [ListaController::class, 'downloadPDFUsuarios']);
-    Route::get('/download-pdf/filmes', [FilmeController::class, 'downloadPDFFilme']);
-    Route::get('/download-pdf/dashboard', [DashboardController::class, 'downloadPDFDashboard']);
-    Route::get('/download-pdf/contatos', [ContatoController::class, 'downloadPDFContato']);
+        /*
+        |--------------------------------------------------------------------------
+        | DOWNLOADS PDF
+        |--------------------------------------------------------------------------
+        */
+        Route::prefix('download-pdf')->group(function () {
+            Route::get('/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
+            Route::get('/listas', [ListaController::class, 'downloadPDFUsuarios']);
+            
+            // Rota ORIGINAL: Route::get('/filmes', [FilmeController::class, 'downloadPDFFilme']); // Nomeada como 'download.pdf.filmes' abaixo
+            
+            // ROTA NOVA para a view 'pdf/filmes.blade.php'
+            Route::get('/filmes-listagem', [FilmeController::class, 'downloadPdfFilmesView'])
+                ->name('download.pdf.filmes.listagem');
+                
+            Route::get('/dashboard', [DashboardController::class, 'downloadPDFDashboard'])->name('dashboard.pdf');
+            Route::get('/contatos', [ContatoController::class, 'downloadPDFContato']);
+        });
 
+        // A linha duplicada que causava conflito foi removida daqui
     });
 });

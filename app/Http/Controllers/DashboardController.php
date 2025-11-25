@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $topMovies = $this->moviesWithMostReviews();
     
         $dados = compact('totalUsers', 'totalMovies', 'topUsers', 'topMovies');
-        $pdf = Pdf::loadView('dashboard_pdf', $dados);
+        $pdf = Pdf::loadView('pdf.usuarios', $dados);
         return $pdf->download('dashboard.pdf');
     }
 
@@ -98,7 +98,92 @@ private function todosGeneros()
         ->get();
 }
 
+public function downloadCSVDashboard()
+{
+    $totalUsers = $this->usersCount();
+    $totalMovies = $this->moviesCount();
+    $topUsers = $this->usersWithMostMovies();
+    $topMovies = $this->moviesWithMostReviews();
+    $topGenres = $this->generosMaisAssistidos();
 
+    $filename = "dashboard.csv";
+
+    $handle = fopen('php://temp', 'w');
+
+    // Excel BR usa ';'
+    fwrite($handle, "sep=;\n");
+
+    // ------ CABEÇALHO DAS COLUNAS ------
+    fputcsv($handle, [
+        "Total de usuarios",
+        "Total de filmes",
+        "Top 5 usuarios",
+        "Filmes em alta",
+        "Generos mais populares"
+    ], ';');
+
+
+    // ------ LINHA 2: VALORES PRINCIPAIS ------
+    fputcsv($handle, [
+        $totalUsers,
+        $totalMovies,
+        "", // coluna dos usuários (será preenchida abaixo)
+        "",
+        ""
+    ], ';');
+
+
+    // ------ PREPARAR LISTAS PARA AS COLUNAS ------
+
+    // Top usuários
+    $colUsers = [];
+    foreach ($topUsers as $u) {
+        $colUsers[] = $u->nome . " (" . $u->filmes_assistidos_count . ")";
+    }
+
+    // Filmes em alta
+    $colMovies = [];
+    foreach ($topMovies as $m) {
+        $colMovies[] = $m->nome . " (" . $m->avaliacoes_count . ")";
+    }
+
+    // Gêneros mais populares
+    $colGenres = [];
+    foreach ($topGenres as $g) {
+        $colGenres[] = $g['nome'] . " (" . $g['total_assistido'] . ")";
+    }
+
+
+    // ------ NORMALIZAR TAMANHOS ------
+    $maxRows = max(count($colUsers), count($colMovies), count($colGenres));
+
+    for ($i = 0; $i < $maxRows; $i++) {
+        fputcsv($handle, [
+            "", // coluna A vazia (já foi preenchida)
+            "", // coluna B vazia
+            $colUsers[$i] ?? "",
+            $colMovies[$i] ?? "",
+            $colGenres[$i] ?? ""
+        ], ';');
+    }
+
+    rewind($handle);
+
+    return response(stream_get_contents($handle), 200, [
+        "Content-Type" => "text/csv; charset=UTF-8",
+        "Content-Disposition" => "attachment; filename=$filename"
+    ]);
+}
+
+    public function downloadPDFFilme()
+    {
+        $filmes = Filme::with('generos')->get();
+
+        $pdf = Pdf::loadView('pdf.filmes', compact('filmes'));
+
+        return $pdf->download('filmes.pdf');
+    }
+    
 
 
 }
