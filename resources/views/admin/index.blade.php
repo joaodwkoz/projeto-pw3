@@ -410,7 +410,7 @@ const colors = allGenres.map(g => g.cor || '#A8A8A8');
             <h2 class="txtFilmeModal">Filmes em Alta</h2>
                 <div class="btnHeadler">
                     <a href="{{ route('download.filmes') }}" class="btnTop">CSV</a>
-                    <a href="{{ route('download.pdf.filmes') }}" class="btnTop">PDF</a>
+                    
                 </div>
             <span class="close-filme">&times;</span>
         </div>

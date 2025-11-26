@@ -365,12 +365,14 @@ button {
     display: flex;
     flex-direction: column;
     gap: 1vw;
+    margin-top: 100;
 }
 
 #log .title {
     font-family: 'Poppins';
     font-size: 1.2vw;
     color: #fff;
+    margin-top: 3vw;
 }
 
 /* TABLE */
@@ -813,4 +815,67 @@ button {
     font-size: 17px;
     font-weight: 600;
     font-family: "Poppins";
+
+}
+
+.filme-header {
+    /* 1. Ativa o Flexbox */
+    display: flex;
+    /* 2. Distribui o espaço entre os itens */
+    justify-content: space-between;
+    /* 3. Alinha os itens verticalmente (se tiverem alturas diferentes) */
+    align-items: center; 
+    /* Adicione padding ou margem se necessário */
+    padding: 10px; /* Exemplo de espaçamento */
+};
+
+
+#modalFilmes .btnTop {
+
+    background-color: #4CAF50; /* Verde escuro (cor principal para CSV) */
+    color: white; /* Texto branco */
+
+    padding: 8px 15px; /* Espaçamento interno (vertical e horizontal) */
+    text-align: center; /* Centraliza o texto */
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    
+    /* Borda e Formato */
+    border-radius: 5px; /* Cantos levemente arredondados */
+    border: none; /* Remove a borda padrão */
+    
+    /* Tipografia */
+    font-family: "Poppins", sans-serif; /* Fonte para consistência */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: 500; /* Peso da fonte */
+    
+    /* Efeito de Transição (para o hover) */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+    
+    /* Sombreamento */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave para profundidade */
+    
+    /* Certifica que o botão se comporta como um bloco para padding e width */
+    display: inline-block; 
+}
+
+/* Efeito ao passar o mouse (hover) */
+#modalFilmes .btnTop:hover {
+    background-color: #fb111d; /* Um verde um pouco mais escuro ao passar o mouse */
+    transform: translateY(-1px); /* Um leve movimento para cima para feedback */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra um pouco maior no hover */
+}
+
+/* Efeito ao clicar (active) */
+#modalFilmes .btnTop:active {
+    background-color: #3e8e41; /* Verde ainda mais escuro ao clicar */
+    transform: translateY(0); /* Volta à posição original */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra menor ao clicar */
+}
+
+/* Se você tem um container para o botão, pode precisar ajustar seu display */
+/* Ex: Se btnHeadler precisar de largura específica ou flex */
+#modalFilmes .btnHeadler {
+    /* Pode ser necessário se você quiser um alinhamento específico dentro do header */
+    /* display: flex; */
+    /* align-items: center; */
 }
