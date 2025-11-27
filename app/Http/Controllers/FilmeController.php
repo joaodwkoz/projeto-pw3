@@ -38,6 +38,7 @@ class FilmeController extends Controller
                 "Qtd. em Listas", "Qtd. Assistiram", "Data Criação", "Data Atualização"
             ];
 
+            // Conversão de cabeçalho para ISO-8859-1 para compatibilidade CSV
             $headerISO = array_map(fn($col) => mb_convert_encoding($col, 'ISO-8859-1', 'UTF-8'), $header);
             fputcsv($file, $headerISO, ';');
 
@@ -47,10 +48,12 @@ class FilmeController extends Controller
                 $generos = $filme->generos->pluck('nome')->implode(', ');
 
                 $notaMedia = $filme->avaliacoes_avg_nota ? 
-                            number_format($filme->avaliacoes_avg_nota, 1, ',', '.') : 
-                            'N/A';
+                                number_format($filme->avaliacoes_avg_nota, 1, ',', '.') : 
+                                'N/A';
                 
-                $status = $filme->showStatusHTML();
+                // Assumindo que showStatusHTML() está no modelo Filme e retorna uma string
+                // Para CSV, o ideal é retornar o valor 'ativo' ou 'deletado' sem HTML
+                $status = $filme->status; 
 
                 $row = [
                     $filme->id,
@@ -81,7 +84,7 @@ class FilmeController extends Controller
 
     public function downloadPDFFilme()
     {
-        // Método Original - Usa a view 'filme_pdf'
+        // Método Original - Mantido por referência, usa a view 'filme_pdf'
         $filme = Filme::all();
         $dados = compact('filme');
         $pdf = Pdf::loadView('filme_pdf', $dados);
@@ -89,15 +92,20 @@ class FilmeController extends Controller
     }
     
     /**
-     * NOVO MÉTODO: Gera PDF usando a view 'resources/views/pdf/filmes.blade.php'.
+     * MÉTODO CORRIGIDO: Gera PDF usando a view 'resources/views/admin/pdf/filmes.blade.php'.
      */
     public function downloadPdfFilmesView()
     {
-        $filmes = Filme::all(); 
-        $dados = compact('filmes'); // Use 'filmes' no Blade para iterar
+        // 1. Busca os filmes com as relações e agregações necessárias para a view
+        $filmes = Filme::with('generos') 
+                        ->withAvg('avaliacoes', 'nota') 
+                        ->orderByDesc('avaliacoes_avg_nota')
+                        ->get(); 
         
-        // Carrega a view CORRETA: 'pdf.filmes'
-        $pdf = Pdf::loadView('pdf.filmes', $dados); 
+        $dados = compact('filmes');
+
+        // 2. CORRIGIDO: Carrega a view CORRETA: 'pdf.filmes'
+        $pdf = Pdf::loadView('pdf.filmes', $dados); // <-- AQUI ESTÁ A CORREÇÃO
         
         return $pdf->download('relatorio-listagem-filmes.pdf');
     }
@@ -318,6 +326,4 @@ class FilmeController extends Controller
             'data' => $filme
         ], 200);
     }
-
-    
 }

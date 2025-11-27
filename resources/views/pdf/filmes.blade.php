@@ -30,8 +30,16 @@
         <tr>
             <td>{{ $filme->id }}</td>
             <td>{{ $filme->nome }}</td>
-            <td>{{ $filme->ano }}</td>
-            <td>{{ number_format($filme->nota_media, 2) }}</td>
+            <td>{{ $filme->ano ?? $filme->ano_lancamento }}</td> 
+            
+            <td>
+                @if ($filme->avaliacoes_avg_nota)
+                    {{ number_format($filme->avaliacoes_avg_nota, 2) }}
+                @else
+                    N/A
+                @endif
+            </td>
+            
             <td>{{ $filme->generos->pluck('nome')->implode(', ') }}</td>
         </tr>
         @endforeach

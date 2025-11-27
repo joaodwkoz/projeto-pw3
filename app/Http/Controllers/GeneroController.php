@@ -6,6 +6,7 @@ use App\Models\Genero;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf; // ⬅️ Adicionado para geração de PDF
 
 class GeneroController extends Controller
 {
@@ -49,6 +50,26 @@ class GeneroController extends Controller
         };
 
         return Response::stream($callback, 200, $headers);
+    }
+    
+    /**
+     * NOVO MÉTODO: Gera PDF com a listagem de gêneros.
+     * Usa a view Blade: resources/views/pdf/generos.blade.php (referenciada como 'pdf.generos')
+     */
+    public function downloadPdfGenerosView()
+    {
+        // 1. Busca os gêneros e a contagem de filmes (filmes_count)
+        $generos = Genero::withCount('filmes')
+                         ->orderBy('nome')
+                         ->get();
+        
+        $dados = compact('generos'); 
+
+        // 2. Carrega a view Blade 'pdf.generos'
+        $pdf = Pdf::loadView('pdf.generos', $dados); 
+        
+        // 3. Retorna o download do arquivo
+        return $pdf->download('relatorio-listagem-generos.pdf');
     }
 
     /**

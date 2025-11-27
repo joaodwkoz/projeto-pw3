@@ -92,8 +92,13 @@
                 <span class="title">Dashboard</span>
 
                 <div class="btnHeadler">
-                    <a href="{{ route('dashboard.download.csv') }}" class="btnTop">CSV</a>
-                    <a href="{{ route('dashboard.pdf') }}" class="btnTop">PDF</a>
+                    <a href="{{ route('dashboard.download.csv') }}" class="btnTop"> 
+                        <img src="{{ asset('img/icons/csv-file.png') }}" alt="Baixar CSV" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
+
+                    <a href="{{ route('dashboard.pdf') }}" class="btnTop">
+                        <img src="{{ asset('img/icons/pdf.png') }}" alt="Baixar PDF" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
                 </div>
 
                 </div>
@@ -382,6 +387,16 @@ const colors = allGenres.map(g => g.cor || '#A8A8A8');
             
             <div class="lista-header">
                 <h2>Gêneros</h2>
+
+                <div class="btnHeadler">
+                    <a href="{{ route('download.generos') }}"> 
+                        <img src="{{ asset('img/icons/csv-file.png') }}" alt="Baixar CSV" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
+
+                    <a href="{{ route('download.pdf.generos.listagem') }}">
+                        <img src="{{ asset('img/icons/pdf.png') }}" alt="Baixar PDF" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
+                </div>
                 <span class="close-lista">&times;</span>
             </div>
 
@@ -409,8 +424,13 @@ const colors = allGenres.map(g => g.cor || '#A8A8A8');
         <div class="filme-header">
             <h2 class="txtFilmeModal">Filmes em Alta</h2>
                 <div class="btnHeadler">
-                    <a href="{{ route('download.filmes') }}" class="btnTop">CSV</a>
-                    
+                    <a href="{{ route('download.filmes') }}"> 
+                        <img src="{{ asset('img/icons/csv-file.png') }}" alt="Baixar CSV" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
+
+                    <a href="{{ route('download.pdf.filmes.listagem') }}">
+                        <img src="{{ asset('img/icons/pdf.png') }}" alt="Baixar PDF" style="width: 30px; height: 30px; vertical-align: middle;">
+                    </a>
                 </div>
             <span class="close-filme">&times;</span>
         </div>

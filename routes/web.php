@@ -106,16 +106,16 @@ Route::middleware('auth')->group(function () {
             Route::get('/usuarios', [UsuarioController::class, 'downloadPDFUsuarios']);
             Route::get('/listas', [ListaController::class, 'downloadPDFUsuarios']);
             
-            // Rota ORIGINAL: Route::get('/filmes', [FilmeController::class, 'downloadPDFFilme']); // Nomeada como 'download.pdf.filmes' abaixo
-            
-            // ROTA NOVA para a view 'pdf/filmes.blade.php'
+            // ROTA para a view 'pdf/filmes.blade.php'
             Route::get('/filmes-listagem', [FilmeController::class, 'downloadPdfFilmesView'])
                 ->name('download.pdf.filmes.listagem');
+            
+            // NOVO: ROTA para a view 'pdf/generos.blade.php'
+            Route::get('/generos-listagem', [GeneroController::class, 'downloadPdfGenerosView']) // ⬅️ Adicionado
+                ->name('download.pdf.generos.listagem'); // ⬅️ Adicionado
                 
             Route::get('/dashboard', [DashboardController::class, 'downloadPDFDashboard'])->name('dashboard.pdf');
             Route::get('/contatos', [ContatoController::class, 'downloadPDFContato']);
         });
-
-        // A linha duplicada que causava conflito foi removida daqui
     });
 });

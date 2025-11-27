@@ -879,3 +879,25 @@ button {
     /* display: flex; */
     /* align-items: center; */
 }
+
+.btnHeadler {
+    /* 1. Ativa o Flexbox para gerenciar o layout dos filhos */
+    display: flex; 
+    
+    /* 2. Define o espaçamento (gap) entre os itens, eliminando o nó de texto */
+    gap: 20px; /* Use 20px para corresponder ao espaçamento anterior */
+    
+    /* 3. Garante que os ícones fiquem centralizados verticalmente */
+    align-items: center; 
+}
+
+/* Opcional: Garante que os ícones dentro do link não sejam sublinhados (se for o caso) */
+.btnHeadler a {
+    text-decoration: none;
+    /* Ajusta o padding ou margem se a classe .btnTop for usada */
+}
+
+/* Garante que as imagens não tenham espaço extra embaixo, caso a vertical-align falhe */
+.btnHeadler img {
+    display: block;
+}
